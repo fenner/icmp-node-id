@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: INTAREA
-workgroup: Internet Area Working Group
+area: "Internet Engineering Steering Group"
+workgroup: "Internet Area"
 keyword:
  - ICMP
  - IPv6 nexthops
  - Host identification
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Internet Area"
+  type: "Area"
+  mail: ""
+  arch: ""
+  github: "fenner/icmp-node-id"
+  latest: "https://fenner.github.io/icmp-node-id/draft-fenner-int-extended-icmp-hostid.html"
 
 author:
 - name: Bill Fenner
