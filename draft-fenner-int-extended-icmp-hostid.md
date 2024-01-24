@@ -132,7 +132,7 @@ or as otherwise configured - as depicted in {{addrFig}}.
 protocol 'AFI:16,Reserved:16,Address...:32'
 {:/comment}
 ~~~~
- 0                   1                   2                   3  
+ 0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |              AFI              |            Reserved           |
