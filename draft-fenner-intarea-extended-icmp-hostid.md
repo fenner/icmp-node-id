@@ -9,17 +9,17 @@ number:
 date:
 consensus: true
 v: 3
-area: "Internet Area"
-workgroup: "intarea"
+area: "Internet"
+workgroup: "Internet Area Working Group"
 keyword:
  - ICMP
  - IPv6 nexthops
  - Host identification
 venue:
-  group: "Internet Area"
-  type: "Area"
+  group: "Internet Area Working Group"
+  type: "Working Group"
   mail: "int-area@ietf.org"
-  arch: ""
+  arch: "https://mailarchive.ietf.org/arch/browse/int-area/"
   github: "fenner/icmp-node-id"
   latest: "https://fenner.github.io/icmp-node-id/draft-fenner-intarea-extended-icmp-hostid.html"
 
@@ -44,8 +44,15 @@ informative:
 
 --- abstract
 
-RFC5837 describes ...
-I-D.chroboczek-int-v4-via-v6 talks about ...
+RFC5837 describes a mechanism for Extending ICMP for Interface and Next-Hop Identification,
+which allows providing additional information in an ICMP error that helps identify
+interfaces participating in the path.  This is especially useful in environments
+where each interface may not have a unique IP address to respond to, e.g., a traceroute.
+
+This document introduces a similar ICMP extension for Node identification.
+It allows providing a unique IP address or a textual name for the node, in
+the case where each node may not have a unique IP address (e.g., the
+IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6).
 
 --- middle
 
@@ -84,7 +91,7 @@ those listed above.
 
 The extension defined herein MAY be appended to any of the above
 listed messages and SHOULD be appended whenever required to identify
-an unnumbered interface and when local policy or security
+the node and when local policy or security
 considerations do not supersede this requirement.
 
 ## C-Type Meaning in a Node Identification Object
@@ -169,5 +176,5 @@ document is just for discussion.
 {:numbered="false"}
 
 This document derives text heavily from {{RFC5837}}, since the
-underlyning mechanism is the same, and only the content of the
+underlying mechanism is identical, and only the content of the
 messages differ.
