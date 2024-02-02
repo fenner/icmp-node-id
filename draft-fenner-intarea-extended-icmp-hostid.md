@@ -3,14 +3,14 @@ title: "Extending ICMP for System Indentification"
 abbrev: "ICMP System ID"
 category: std
 
-docname: draft-fenner-int-extended-icmp-hostid-latest
+docname: draft-fenner-intarea-extended-icmp-hostid-latest
 submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
-area: "Internet Engineering Steering Group"
-workgroup: "Internet Area"
+area: "Internet Area"
+workgroup: "intarea"
 keyword:
  - ICMP
  - IPv6 nexthops
@@ -18,10 +18,10 @@ keyword:
 venue:
   group: "Internet Area"
   type: "Area"
-  mail: ""
+  mail: "int-area@ietf.org"
   arch: ""
   github: "fenner/icmp-node-id"
-  latest: "https://fenner.github.io/icmp-node-id/draft-fenner-int-extended-icmp-hostid.html"
+  latest: "https://fenner.github.io/icmp-node-id/draft-fenner-intarea-extended-icmp-hostid.html"
 
 author:
 - name: Bill Fenner
@@ -36,7 +36,7 @@ author:
 normative:
   RFC4884:
   RFC5837:
-  I-D.chroboczek-int-v4-via-v6:
+  I-D.chroboczek-intarea-v4-via-v6:
   IANA.address-family-numbers:
 
 informative:
@@ -44,8 +44,8 @@ informative:
 
 --- abstract
 
-{{RFC5837}} describes ...
-{{I-D.chroboczek-int-v4-via-v6}} talks about ...
+RFC5837 describes ...
+I-D.chroboczek-int-v4-via-v6 talks about ...
 
 --- middle
 
@@ -54,7 +54,7 @@ informative:
 In addition to adding incoming interface information to a traceroute
 using the mechanisms described in {{RFC5837}}, a network operator
 may be interested in adding information to identify nodes themselves.
-{{I-D.chroboczek-int-v4-via-v6}} describes a scenario in which individual
+{{I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
 
