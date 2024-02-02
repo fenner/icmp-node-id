@@ -1,5 +1,5 @@
 ---
-title: "Extending ICMP for System Indentification"
+title: "Extending ICMP for System Identification"
 abbrev: "ICMP System ID"
 category: std
 
@@ -110,7 +110,7 @@ characters.
 
 - 2: Identifies Node by Address
 
-If the Node Identificaton Object identifies the node by
+If the Node Identification Object identifies the node by
 address, the Object Payload contains an address sufficient
 to identify the node within the appropriate scope - global
 or as otherwise configured - as depicted in {{addrFig}}.

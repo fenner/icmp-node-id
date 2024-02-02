@@ -1,6 +1,6 @@
-# Extending ICMP for System Indentification
+# Extending ICMP for System Identification
 
-This is the working area for the individual Internet-Draft, "Extending ICMP for System Indentification".
+This is the working area for the individual Internet-Draft, "Extending ICMP for System Identification".
 
 * [Editor's Copy](https://fenner.github.io/icmp-node-id/#go.draft-fenner-int-extended-icmp-hostid.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-fenner-int-extended-icmp-hostid)
