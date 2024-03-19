@@ -36,10 +36,10 @@ author:
 normative:
   RFC4884:
   RFC5837:
-  I-D.chroboczek-intarea-v4-via-v6:
   IANA.address-family-numbers:
 
 informative:
+  I-D.chroboczek-intarea-v4-via-v6:
 
 
 --- abstract
