@@ -105,7 +105,7 @@ by name, the Object Payload contains the configured node name.
 It is presumed that the operator configures a unique node name
 for each system that is identified in this manner.
 If the Object Payload would not otherwise
-terminate on a 32-bit boundary, it MUST be padded with ASCII NULL
+terminate on a 32-bit boundary, it MUST be padded with ASCII NUL
 characters.
 
 - 2: Identifies Node by Address
