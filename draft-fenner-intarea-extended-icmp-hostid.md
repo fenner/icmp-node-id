@@ -1,6 +1,6 @@
 ---
-title: "Extending ICMP for System Identification"
-abbrev: "ICMP System ID"
+title: "Extending ICMP for Node Identification"
+abbrev: "ICMP Node ID"
 category: std
 
 docname: draft-fenner-intarea-extended-icmp-hostid-latest
@@ -14,7 +14,7 @@ workgroup: "Internet Area Working Group"
 keyword:
  - ICMP
  - IPv6 nexthops
- - Host identification
+ - Node identification
 venue:
   group: "Internet Area Working Group"
   type: "Working Group"
@@ -34,8 +34,11 @@ author:
   email: fenner@fenron.com
 
 normative:
+  RFC3629:
+  RFC2277:
   RFC4884:
   RFC5837:
+  RFC7317:
   IANA.address-family-numbers:
 
 informative:
@@ -49,7 +52,7 @@ which allows providing additional information in an ICMP error that helps identi
 interfaces participating in the path.  This is especially useful in environments
 where each interface may not have a unique IP address to respond to, e.g., a traceroute.
 
-This document introduces a similar ICMP extension for Node identification.
+This document introduces a similar ICMP extension for Node Identification.
 It allows providing a unique IP address or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., the
 IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6).
@@ -94,21 +97,48 @@ listed messages and SHOULD be appended whenever required to identify
 the node and when local policy or security
 considerations do not supersede this requirement.
 
+Similarly to the Interface Identification Object defined in {{RFC5837}},
+there are two different pieces of information that can appear in a
+Node Information Object.
+
+1. An IP Address Sub-Object MAY be included, containing an address
+   of sufficient scope to identify the node within the domain.
+   The IP Address Sub-Object is defined in {{IPAddr}} of this memo.
+
+2. A Node Name Sub-Object MAY be included, as specified in {{Name}},
+   containing up to 63 octets of the yang sys:hostname or another
+   appropriate name uniquely identifying the node.
+
 ## C-Type Meaning in a Node Identification Object
 
-C-Type values in a Node Identification Object include:
+The C-Type contains a bitmask describing what information is included
+in this Node Identification Object.
 
-- 1: Identifies Node by Name
+~~~~
+Bit     0       1       2       3       4       5       6       7
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |               Reserved                | IPAddr|  name | Rsvd2 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+~~~~
+{: #ctypeFig title='C-Type for the Node Identification Object'}
 
-If the Node Identification Object identifies the node
-by name, the Object Payload contains the configured node name.
-It is presumed that the operator configures a unique node name
-for each system that is identified in this manner.
-If the Object Payload would not otherwise
-terminate on a 32-bit boundary, it MUST be padded with ASCII NUL
-characters.
+The following are bit-field definitions for C-Type:
 
-- 2: Identifies Node by Address
+Reserved (bits 0-4): These bits are reserved for future use
+and MUST be set to 0 on transmit and ignored on receipt.
+
+IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+When clear, an IP Address Sub-Object is not present.  The IP Address
+Sub-Object is described in {{IPAddr}} of this memo.
+
+Node Name (bit 6): When set, an Node Name Sub-Object is
+included.  When clear, it is not included.  The Name Sub-Object is
+described in {{Name}} of this memo.
+
+Rsvd2 (bit 7): This bit is reserved for future use
+and MUST be set to 0 on transmit and ignored on receipt.
+
+## Node IP Address Sub-Object {#IPAddr}
 
 If the Node Identification Object identifies the node by
 address, the Object Payload contains an address sufficient
@@ -144,6 +174,41 @@ Payload fields are defined as follows:
   of appropriate scope (global, if none other defined) that
   can be used to identify the node.
 
+## Node Name Sub-Object {#Name}
+
+{nodeFig} depicts the Node Name Sub-Object:
+
+{::comment}
+protocol 'Length:8,Node Name...:24'
+{:/comment}
+~~~~
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Length    |                  Node Name...
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #nodeFix title='Node Identification Object Node Name Sub-Object' }
+
+The Node Name Sub-Object MUST have a length that is a multiple
+of 4 octets and MUST NOT exceed 64 octets.
+
+The Length field represents the length of the Node Name Sub-
+Object, including the length and the interface name in octets.  The
+maximum valid length is 64 octets.  The length is constrained to
+ensure there is space for the start of the original packet and
+additional information.
+
+The second field contains the human-readable node name.  The node
+name SHOULD be the sys:hostname {{RFC7317}}, if less than 64 octets,
+or the first 63 octets of the sys:hostname, if the sys:hostname is
+longer.  The node name MAY be some other human-meaningful name of
+the interface.  The node name MUST be padded with ASCII NUL characters
+if the object would not otherwise terminate on a 4-octet boundary.
+
+The interface name MUST be represented in the UTF-8 charset {{RFC3629}}
+using the Default Language {{RFC2277}}.
+
 # Security Considerations
 
 It may not be desirable to allow this information to be sent to
@@ -168,7 +233,6 @@ that ICMP messages and their contents are easily spoofed.
 This document will ask IANA to allocate an ICMP Extension
 Object Class referred to as TBD above.  But for now this
 document is just for discussion.
-
 
 --- back
 
