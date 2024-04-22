@@ -53,7 +53,7 @@ interfaces participating in the path.  This is especially useful in environments
 where each interface may not have a unique IP address to respond to, e.g., a traceroute.
 
 This document introduces a similar ICMP extension for Node Identification.
-It allows providing a unique IP address or a textual name for the node, in
+It allows providing a unique IP address and/or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., the
 IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6).
 
@@ -230,11 +230,29 @@ that ICMP messages and their contents are easily spoofed.
 
 # IANA Considerations
 
-This document will ask IANA to allocate an ICMP Extension
-Object Class referred to as TBD above.  But for now this
-document is just for discussion.
+This document requests IANA to allocate an ICMP Extension
+Object Class referred to as TBD above.  The corresponding
+Class Sub-types Registry is as follows:
+
+| C-Type (Value) | Description | Reference
+| 0-4 | Unallocated - allocatable with Standards Action | \[This document]
+| 5 | IP Address Sub-object included | \[This document]
+| 6 | Name Sub-object included | \[This document]
+| 7 | Unallocated - allocatable with Standards Action | \[This document]
 
 --- back
+
+# Change history
+
+This section is to be removed before publishing as an RFC.
+
+## Changes since draft-fenner-intarea-extended-icmp-hostid-00
+
+- Instead of having two different messages with the same Class Value
+  and different CType values, we copy the bitmap implementation
+  from [RFC5837].  The re-use of bit positions means that packet
+  parsing and generation code can be largely reused from existing
+  [RFC5837] code.
 
 # Acknowledgments
 {:numbered="false"}
