@@ -176,7 +176,7 @@ Payload fields are defined as follows:
 
 ## Node Name Sub-Object {#Name}
 
-{nodeFig} depicts the Node Name Sub-Object:
+{{nodeFig}} depicts the Node Name Sub-Object:
 
 {::comment}
 protocol 'Length:8,Node Name...:24'
@@ -188,7 +188,7 @@ protocol 'Length:8,Node Name...:24'
 |     Length    |                  Node Name...
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{: #nodeFix title='Node Identification Object Node Name Sub-Object' }
+{: #nodeFig title='Node Identification Object Node Name Sub-Object' }
 
 The Node Name Sub-Object MUST have a length that is a multiple
 of 4 octets and MUST NOT exceed 64 octets.
