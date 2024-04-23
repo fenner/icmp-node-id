@@ -32,6 +32,14 @@ author:
   region: California
   country: USA
   email: fenner@fenron.com
+- name: Reji Thomas
+  org: Arista Networks
+  street: Global Tech Park
+  city: Bangalore
+  region: Karnataka
+  code: '560103'
+  country: India
+  email: reji.thomas@arista.com
 
 normative:
   RFC3629:
@@ -75,7 +83,7 @@ traceroute, so additional information is needed.
 # Node Identification Object
 
 This section defines the Node Identification Object, an ICMP Extension
-Object with a Class-Num (Object Class Value) of TBD that can be appended
+Object with a Class-Num (Object Class Value) of 5 that can be appended
 to the following messages:
 
 - ICMPv4 Time Exceeded
@@ -137,6 +145,21 @@ described in {{Name}} of this memo.
 
 Rsvd2 (bit 7): This bit is reserved for future use
 and MUST be set to 0 on transmit and ignored on receipt.
+
+The information included does not self-identify, so this
+specification defines a specific ordering for sending the information
+that must be followed.
+
+If bit 5 (IP Address) is set, a Node IP Address Sub-Object MUST
+be sent first.  If bit 6 (Name) is set, a Node Name Sub-Object
+MUST be sent next.  The information order is thus: IP Address Sub-Object,
+Node Name Sub-Object.  Any or all pieces of information may be
+present or absent, as indicated by the C-Type.  Any data that follows
+these optional pieces of information MUST be ignored.
+
+It is valid (though pointless until additional bits are assigned by
+IANA) to receive an Interface Information Object where bits 5 and 6
+are both 0; this MUST NOT generate a warning or error.
 
 ## Node IP Address Sub-Object {#IPAddr}
 
@@ -230,8 +253,8 @@ that ICMP messages and their contents are easily spoofed.
 
 # IANA Considerations
 
-This document requests IANA to allocate an ICMP Extension
-Object Class referred to as TBD above.  The corresponding
+This IANA has allocated the ICMP Extension
+Object Class value 5 to the extension described above.  The corresponding
 Class Sub-types Registry is as follows:
 
 | C-Type (Value) | Description | Reference
@@ -258,5 +281,7 @@ This section is to be removed before publishing as an RFC.
 {:numbered="false"}
 
 This document derives text heavily from {{RFC5837}}, since the
-underlying mechanism is identical, and only the content of the
-messages differ.
+underlying mechanism is identical, and only the semantics of the
+message differs.  Thanks are therefore due to that document's
+authors: Alia K. Atlas, Ronald P. Bonica, Carlos Pignataro,
+Naiming Shen and JR. Rivers.
