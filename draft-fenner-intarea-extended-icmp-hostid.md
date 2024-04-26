@@ -158,7 +158,7 @@ present or absent, as indicated by the C-Type.  Any data that follows
 these optional pieces of information MUST be ignored.
 
 It is valid (though pointless until additional bits are assigned by
-IANA) to receive an Interface Information Object where bits 5 and 6
+IANA) to receive a Node Information Object where bits 5 and 6
 are both 0; this MUST NOT generate a warning or error.
 
 ## Node IP Address Sub-Object {#IPAddr}
@@ -217,7 +217,7 @@ The Node Name Sub-Object MUST have a length that is a multiple
 of 4 octets and MUST NOT exceed 64 octets.
 
 The Length field represents the length of the Node Name Sub-
-Object, including the length and the interface name in octets.  The
+Object, including the length and the node name in octets.  The
 maximum valid length is 64 octets.  The length is constrained to
 ensure there is space for the start of the original packet and
 additional information.
@@ -226,10 +226,10 @@ The second field contains the human-readable node name.  The node
 name SHOULD be the sys:hostname {{RFC7317}}, if less than 64 octets,
 or the first 63 octets of the sys:hostname, if the sys:hostname is
 longer.  The node name MAY be some other human-meaningful name of
-the interface.  The node name MUST be padded with ASCII NUL characters
+the node.  The node name MUST be padded with ASCII NUL characters
 if the object would not otherwise terminate on a 4-octet boundary.
 
-The interface name MUST be represented in the UTF-8 charset {{RFC3629}}
+The node name MUST be represented in the UTF-8 charset {{RFC3629}}
 using the Default Language {{RFC2277}}.
 
 # Security Considerations
