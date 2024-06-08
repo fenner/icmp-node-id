@@ -135,12 +135,12 @@ The following are bit-field definitions for C-Type:
 Reserved (bits 0-4): These bits are reserved for future use
 and MUST be set to 0 on transmit and ignored on receipt.
 
-IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
-When clear, an IP Address Sub-Object is not present.  The IP Address
+IP Addr (bit 5) : When set, a Node IP Address Sub-Object is present.
+When clear, an IP Address Sub-Object is not present.  The Node IP Address
 Sub-Object is described in {{IPAddr}} of this memo.
 
-Node Name (bit 6): When set, an Node Name Sub-Object is
-included.  When clear, it is not included.  The Name Sub-Object is
+Node Name (bit 6): When set, a Node Name Sub-Object is
+included.  When clear, it is not included.  The Node Name Sub-Object is
 described in {{Name}} of this memo.
 
 Rsvd2 (bit 7): This bit is reserved for future use
