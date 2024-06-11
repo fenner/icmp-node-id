@@ -1,0 +1,79 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-06-11T00:52:16.937369+00:00",
+  "repo": "fenner/icmp-node-id",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOLJPxrM6C75aM",
+      "title": "Investigate ICMP node information",
+      "url": "https://github.com/fenner/icmp-node-id/issues/1",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "At IETF119 Bob Hinden suggested looking at ICMP node id for inspiration.",
+      "createdAt": "2024-03-20T06:15:57Z",
+      "updatedAt": "2024-03-20T06:39:52Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "https://datatracker.ietf.org/doc/html/rfc4620",
+          "createdAt": "2024-03-20T06:39:50Z",
+          "updatedAt": "2024-03-20T06:39:50Z"
+        }
+      ]
+    }
+  ],
+  "pulls": []
+}
