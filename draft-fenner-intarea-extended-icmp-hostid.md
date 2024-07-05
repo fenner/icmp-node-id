@@ -277,6 +277,8 @@ This section is to be removed before publishing as an RFC.
   parsing and generation code can be largely reused from existing
   [RFC5837] code.
 
+## Changes since draft-fenner-intarea-extended-icmp-hostid-01
+
 - Fixed several copy-pasta errors that still referred to
   interface names instead of node name.
 
