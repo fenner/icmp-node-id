@@ -277,6 +277,9 @@ This section is to be removed before publishing as an RFC.
   parsing and generation code can be largely reused from existing
   [RFC5837] code.
 
+- Fixed several copy-pasta errors that still referred to
+  interface names instead of node name.
+
 # Acknowledgments
 {:numbered="false"}
 
