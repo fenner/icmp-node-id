@@ -17,25 +17,24 @@ It allows providing a unique IP address and/or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., the
 IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6). 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="ICMP" name="keyword">
 <meta content="IPv6 nexthops" name="keyword">
 <meta content="Node identification" name="keyword">
 <meta content="draft-fenner-intarea-extended-icmp-hostid-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
-    Python 3.11.9
+  xml2rfc 3.22.0
+    Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.2
-    lxml 4.9.3
-    platformdirs 4.2.1
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
-    setuptools 68.2.2
-    six 1.16.0
+    requests 2.32.3
+    setuptools 69.5.1
     wcwidth 0.2.13
 -->
 <link href="draft-fenner-intarea-extended-icmp-hostid.xml" rel="alternate" type="application/rfc+xml">
@@ -1035,11 +1034,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ICMP Node ID</td>
-<td class="right">June 2024</td>
+<td class="right">July 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fenner &amp; Thomas</td>
-<td class="center">Expires 10 December 2024</td>
+<td class="center">Expires 6 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-fenner-intarea-extended-icmp-hostid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-06-08" class="published">8 June 2024</time>
+<time datetime="2024-07-05" class="published">5 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-12-10">10 December 2024</time></dd>
+<dd class="expires"><time datetime="2025-01-06">6 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1118,7 +1117,7 @@ IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6).<a
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1546,6 +1545,10 @@ and different CType values, we copy the bitmap implementation
 from <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>.  The re-use of bit positions means that packet
 parsing and generation code can be largely reused from existing
 <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span> code.<a href="#appendix-A.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.1-1.2">
+            <p id="appendix-A.1-1.2.1">Fixed several copy-pasta errors that still referred to
+interface names instead of node name.<a href="#appendix-A.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

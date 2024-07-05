@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 10 December 2024                                    8 June 2024
+Expires: 6 January 2025                                      5 July 2024
 
 
                  Extending ICMP for Node Identification
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 December 2024.
+   This Internet-Draft will expire on 6 January 2025.
 
 Copyright Notice
 
@@ -355,6 +355,9 @@ A.1.  Changes since draft-fenner-intarea-extended-icmp-hostid-00
       [RFC5837].  The re-use of bit positions means that packet parsing
       and generation code can be largely reused from existing [RFC5837]
       code.
+
+   *  Fixed several copy-pasta errors that still referred to interface
+      names instead of node name.
 
 Acknowledgments
 
