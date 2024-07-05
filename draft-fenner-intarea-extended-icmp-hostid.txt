@@ -90,6 +90,7 @@ Table of Contents
      6.2.  Informative References
    Appendix A.  Change history
      A.1.  Changes since draft-fenner-intarea-extended-icmp-hostid-00
+     A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
    Acknowledgments
    Authors' Addresses
 
@@ -355,6 +356,8 @@ A.1.  Changes since draft-fenner-intarea-extended-icmp-hostid-00
       [RFC5837].  The re-use of bit positions means that packet parsing
       and generation code can be largely reused from existing [RFC5837]
       code.
+
+A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
 
    *  Fixed several copy-pasta errors that still referred to interface
       names instead of node name.
