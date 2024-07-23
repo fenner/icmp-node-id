@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-21T00:57:53.358578+00:00",
+  "timestamp": "2024-07-23T00:54:18.045132+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOLJPxrM6C75aM",
       "title": "Investigate ICMP node information",
       "url": "https://github.com/fenner/icmp-node-id/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "At IETF119 Bob Hinden suggested looking at ICMP node id for inspiration.",
       "createdAt": "2024-03-20T06:15:57Z",
-      "updatedAt": "2024-03-20T06:39:52Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-21T19:19:55Z",
+      "closedAt": "2024-07-21T19:19:55Z",
       "comments": [
         {
           "author": "fenner",
@@ -71,6 +71,13 @@
           "body": "https://datatracker.ietf.org/doc/html/rfc4620",
           "createdAt": "2024-03-20T06:39:50Z",
           "updatedAt": "2024-03-20T06:39:50Z"
+        },
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "ICMP node information allows an ICMP request message (similar to ping) to request information such as node name, IP addresses, IPv4 addresses, from a remote node.  The request allows asking for one piece of information at a time (e.g., \"what is your name\" or \"what IP addresses do you have?\").  The reply for the node name is in DNS format (e.g., \\x03www\\x07example\\x03com), and has an MBZ 4-byte field at the start.  The reply for the IP addresses is just the bytes of the address, with a TTL; the type of address (IPv6 or IPv4) is determined by the query.\r\n\r\nThe RFC5837 packet format is much more suited to data that the responder is choosing what data to reply with.  Bob's suggestion was based around the idea of reusing existing code/structures, and the update to reuse the RFC5837 format addresses this in a better (IMO) way.",
+          "createdAt": "2024-07-21T19:19:55Z",
+          "updatedAt": "2024-07-21T19:19:55Z"
         }
       ]
     }
