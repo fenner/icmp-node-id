@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-23T00:54:18.045132+00:00",
+  "timestamp": "2024-07-25T00:54:18.639686+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -80,6 +80,38 @@
           "updatedAt": "2024-07-21T19:19:55Z"
         }
       ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOLJPxrM6Qu6eY",
+      "title": "Change the document title",
+      "url": "https://github.com/fenner/icmp-node-id/issues/2",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "It's a little too concise - e.g., I think the comparison against RFC4620 in https://mailarchive.ietf.org/arch/msg/int-area/VwwyKXqHZAx4P2PcPWL-ppd8ybc/ is because this document's title is just `Extending ICMP for Node Identification` so it's not that clear that it's an RFC4884-based ICMP extension.",
+      "createdAt": "2024-07-24T18:25:28Z",
+      "updatedAt": "2024-07-24T18:25:28Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOLJPxrM6QwuZS",
+      "title": "Adjustments to allow for use in nat64 translation",
+      "url": "https://github.com/fenner/icmp-node-id/issues/3",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add a mini section to this draft something like\r\n\r\n---\r\n\r\n# Use in address translators\r\n\r\nAn address translator MAY use this extension to include the pre-translation source address of a packet.  When doing so, it MUST include the IP address sub-type, and MUST NOT include the node name sub-type. Further details of this mode of operation are outside the scope of this memo.\r\n\r\n---\r\n\r\nObviously this can be wordsmithed but I think it gets the idea out.  Then the -equi- draft continues to talk about the details of when to apply it, and simply refers to this draft for the packet format.\r\n",
+      "createdAt": "2024-07-25T00:21:06Z",
+      "updatedAt": "2024-07-25T00:21:06Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": []
