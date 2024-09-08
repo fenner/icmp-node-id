@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-05T00:57:47.825640+00:00",
+  "timestamp": "2024-09-08T01:02:34.309413+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -127,7 +127,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-07-29T13:30:08Z",
-      "updatedAt": "2024-07-29T13:30:08Z",
+      "updatedAt": "2024-09-05T23:47:04Z",
       "baseRepository": "fenner/icmp-node-id",
       "baseRefName": "main",
       "baseRefOid": "b46dc350122444fe6f9cb1800e5f7bd206a1d859",
@@ -139,7 +139,94 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLJPxrM6ESMRT",
+          "commit": {
+            "abbreviatedOid": "374d8f4"
+          },
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-05T15:54:14Z",
+          "updatedAt": "2024-09-05T23:47:04Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "The reason for the awkward bit positioning is to enable reuse of the RFC5837 implementations for filling in and printing these extensions.",
+              "createdAt": "2024-08-05T15:54:14Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "Why change this?",
+              "createdAt": "2024-09-05T23:37:55Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "Why the `{{?` change?",
+              "createdAt": "2024-09-05T23:39:11Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 37,
+              "body": "> a network operator may be interested in identifying the nodes themselves to unambiguously  identify them.\r\n\r\nThat doesn't read smoothly to me at all. Identifying them in order to identify them?",
+              "createdAt": "2024-09-05T23:40:03Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 67,
+              "body": "Why this change?",
+              "createdAt": "2024-09-05T23:40:31Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 112,
+              "body": "I don't think there's any need for the repetition.  MUST be (set to 0 ... and ignored ...)\r\n",
+              "createdAt": "2024-09-05T23:42:28Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "Why?",
+              "createdAt": "2024-09-05T23:43:27Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 9,
+              "body": "Why?",
+              "createdAt": "2024-09-05T23:43:34Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "I don't like your edit, but how about \"...where a given interface may not...\"?\r\n",
+              "createdAt": "2024-09-05T23:44:20Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "If the goal is to remove the draft reference, perhaps we can keep \" (e.g., a deployment in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops, even for IPv4 routes)\"",
+              "createdAt": "2024-09-05T23:45:25Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "The traceroute client lists the info in the response.  The node adds the information to the error message.",
+              "createdAt": "2024-09-05T23:45:59Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "This needs some editing but I understand your intent.",
+              "createdAt": "2024-09-05T23:46:48Z",
+              "updatedAt": "2024-09-05T23:47:04Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
