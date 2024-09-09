@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 6 January 2025                                      5 July 2024
+Expires: 13 March 2025                                  9 September 2024
 
 
                  Extending ICMP for Node Identification
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 January 2025.
+   This Internet-Draft will expire on 13 March 2025.
 
 Copyright Notice
 
@@ -303,7 +303,7 @@ Table of Contents
 
    [IANA.address-family-numbers]
               IANA, "Address Family Numbers",
-              <http://www.iana.org/assignments/address-family-numbers>.
+              <https://www.iana.org/assignments/address-family-numbers>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -341,9 +341,9 @@ Table of Contents
    [I-D.chroboczek-intarea-v4-via-v6]
               Chroboczek, J., Kumari, W. A., and T. Høiland-Jørgensen,
               "IPv4 routes with an IPv6 next hop", Work in Progress,
-              Internet-Draft, draft-chroboczek-intarea-v4-via-v6-00, 21
-              January 2024, <https://datatracker.ietf.org/doc/html/
-              draft-chroboczek-intarea-v4-via-v6-00>.
+              Internet-Draft, draft-chroboczek-intarea-v4-via-v6-01, 8
+              July 2024, <https://datatracker.ietf.org/doc/html/draft-
+              chroboczek-intarea-v4-via-v6-01>.
 
 Appendix A.  Change history
 
