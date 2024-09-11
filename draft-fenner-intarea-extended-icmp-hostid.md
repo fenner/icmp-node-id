@@ -67,7 +67,7 @@ the case where nodes may not have a unique IP address.
 
 In addition to listing incoming interface information in a traceroute
 using the mechanisms described in {{!RFC5837}}, a network operator
-may be interested in identifying the nodes themselves to unambiguously  identify them.
+may be interested in unambiguously identifying nodes themselves.
 For example, {{?I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
