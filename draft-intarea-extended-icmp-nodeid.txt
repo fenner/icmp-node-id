@@ -9,7 +9,7 @@ Expires: 30 March 2025                                 26 September 2024
 
 
                  Extending ICMP for Node Identification
-            draft-fenner-intarea-extended-icmp-hostid-latest
+               draft-intarea-extended-icmp-nodeid-latest
 
 Abstract
 
@@ -31,10 +31,9 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://fenner.github.io/icmp-node-id/draft-fenner-intarea-extended-
-   icmp-hostid.html.  Status information for this document may be found
-   at https://datatracker.ietf.org/doc/draft-fenner-intarea-extended-
-   icmp-hostid/.
+   https://fenner.github.io/icmp-node-id/draft-intarea-extended-icmp-
+   nodeid.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-intarea-extended-icmp-nodeid/.
 
    Discussion of this document takes place on the Internet Area Working
    Group Working Group mailing list (mailto:int-area@ietf.org), which is
@@ -91,6 +90,7 @@ Table of Contents
    Appendix A.  Change history
      A.1.  Changes since draft-fenner-intarea-extended-icmp-hostid-00
      A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
+     A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
    Acknowledgments
    Authors' Addresses
 
@@ -361,6 +361,10 @@ A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
 
    *  Fixed several copy-pasta errors that still referred to interface
       names instead of node name.
+
+A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
+
+   *  Made intarea document
 
 Acknowledgments
 
