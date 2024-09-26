@@ -3,7 +3,7 @@ title: "Extending ICMP for Node Identification"
 abbrev: "ICMP Node ID"
 category: std
 
-docname: draft-fenner-intarea-extended-icmp-hostid-latest
+docname: draft-ietf-intarea-extended-icmp-nodeid-latest
 submissiontype: IETF
 number:
 date:
@@ -21,7 +21,7 @@ venue:
   mail: "int-area@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/int-area/"
   github: "fenner/icmp-node-id"
-  latest: "https://fenner.github.io/icmp-node-id/draft-fenner-intarea-extended-icmp-hostid.html"
+  latest: "https://fenner.github.io/icmp-node-id/draft-ietf-intarea-extended-icmp-nodeid.html"
 
 author:
 - name: Bill Fenner
