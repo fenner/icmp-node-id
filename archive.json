@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-26T01:00:23.183022+00:00",
+  "timestamp": "2024-09-29T01:05:53.452633+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -127,10 +127,10 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-07-29T13:30:08Z",
-      "updatedAt": "2024-09-11T08:56:53Z",
+      "updatedAt": "2024-09-26T21:40:30Z",
       "baseRepository": "fenner/icmp-node-id",
       "baseRefName": "main",
-      "baseRefOid": "b46dc350122444fe6f9cb1800e5f7bd206a1d859",
+      "baseRefOid": "00a7529d52488c583865e6c90a9a0da5cdc0d795",
       "headRepository": "boucadair/icmp-node-id",
       "headRefName": "patch-1",
       "headRefOid": "6909f4aa9ea17c75a7b63542e65771fba5201ad0",
