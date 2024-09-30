@@ -42,8 +42,10 @@ author:
   email: reji.thomas@arista.com
 
 normative:
+  RFC0792:
   RFC3629:
   RFC2277:
+  RFC4443:
   RFC4884:
   RFC5837:
   RFC7317:
@@ -58,12 +60,13 @@ informative:
 RFC5837 describes a mechanism for Extending ICMP for Interface and Next-Hop Identification,
 which allows providing additional information in an ICMP error that helps identify
 interfaces participating in the path.  This is especially useful in environments
-where each interface may not have a unique IP address to respond to, e.g., a traceroute.
+where a given interface may not have a unique IP address to respond to, e.g., a traceroute.
 
 This document introduces a similar ICMP extension for Node Identification.
 It allows providing a unique IP address and/or a textual name for the node, in
-the case where each node may not have a unique IP address (e.g., the
-IPv6 nexthop deployment case described in draft-chroboczek-intarea-v4-via-v6).
+the case where each node may not have a unique IP address (e.g., a deployment
+in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+even for IPv4 routes).
 
 --- middle
 
@@ -80,10 +83,20 @@ traceroute, so additional information is needed.
 
 {::boilerplate bcp14-tagged}
 
-# Node Identification Object
+ICMPv4 is used to refer to Internet Control Message Protocol (ICMP) specified in {{RFC0792}}.
+
+ICMPv6 is used to refer to Internet Control Message Protocol (ICMPv6)
+for the Internet Protocol Version 6 (IPv6) specified in {{RFC4443}}.
+
+ICMP is used to refer to both ICMPv4 and ICMPv6.
+
+
+# Node Identification Object {#nodeid}
 
 This section defines the Node Identification Object, an ICMP Extension
-Object with a Class-Num (Object Class Value) of 5 that can be appended
+Object with a Class-Num (Object Class Value) of 5 (see {{sec-iana}}).
+
+Similar to {{Section 4 of RFC5837}}, this object can be appended
 to the following messages:
 
 - ICMPv4 Time Exceeded
@@ -103,24 +116,28 @@ those listed above.
 The extension defined herein MAY be appended to any of the above
 listed messages and SHOULD be appended whenever required to identify
 the node and when local policy or security
-considerations do not supersede this requirement.
+considerations do not supersede this requirement.  See {{security}} for
+suggested configuration regarding including these messages.
 
 Similarly to the Interface Identification Object defined in {{RFC5837}},
 there are two different pieces of information that can appear in a
-Node Information Object.
+Node Information Object:
 
 1. An IP Address Sub-Object MAY be included, containing an address
    of sufficient scope to identify the node within the domain.
    The IP Address Sub-Object is defined in {{IPAddr}} of this memo.
 
 2. A Node Name Sub-Object MAY be included, as specified in {{Name}},
-   containing up to 63 octets of the yang sys:hostname or another
-   appropriate name uniquely identifying the node.
+   containing up to 63 octets of the YANG sys:hostname ({{RFC7317}})
+   or another appropriate name uniquely identifying the node.
 
 ## C-Type Meaning in a Node Identification Object
 
 The C-Type contains a bitmask describing what information is included
-in this Node Identification Object.
+in this Node Identification Object ({{ctypeFig}}).  The fields in this
+bitmask are chosen so that the IPAddr and name bits overlap
+with the same bits as defined in {{RFC5837}}, so that an implementation
+that supports exactly these bits can reuse packet generation and parsing code.
 
 ~~~~
 Bit     0       1       2       3       4       5       6       7
@@ -161,6 +178,20 @@ It is valid (though pointless until additional bits are assigned by
 IANA) to receive a Node Information Object where bits 5 and 6
 are both 0; this MUST NOT generate a warning or error.
 
+### Behavior when additional bits are reserved
+
+Bit values SHOULD be assigned from left to right in the diagram
+above, i.e., starting at zero.  The sub-objects associated with each
+new bit MUST be placed in the packet after the sub-objects defined
+in this memo.  For example, if bit 0 is assigned to the Fooblewomp,
+a packet with bits 0 and 5 set MUST contain the Node IP Address
+Sub-Object, followed by the Fooblewomp sub-object.
+
+If a bit is set that a receiver does not support, followed by
+a bit that the receiver does support, the receiver MUST ignore
+all of the additional data, since the length of the unsupported
+data is unknown.
+
 ## Node IP Address Sub-Object {#IPAddr}
 
 If the Node Identification Object identifies the node by
@@ -179,7 +210,7 @@ protocol 'AFI:16,Reserved:16,Address...:32'
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                           Address...
 ~~~~
-{: #addrFig title='Node Identification Object - C-Type 2 Payload'}
+{: #addrFig title='IP Address Sub-Object'}
 
 Payload fields are defined as follows:
 
@@ -187,15 +218,19 @@ Payload fields are defined as follows:
   the type of address represented by the Address field.
   Values for this field represent a subset of values
   found in the IANA registry of Address Family Numbers (available
-  from  {{IANA.address-family-numbers}}).  Valid values are 1 (representing a
-  32-bit IPv4 address) and 2 (representing a 128-bit IPv6 address).
+  from  {{IANA.address-family-numbers}}).  Valid values are as
+  follows:
+
+  + 1: 32-bit IPv4 address
+  + 2: 128-bit IPv6 address.
 
 * Reserved: This field MUST be set to 0 and ignored upon
   receipt.
 
 * Address: This variable-length field represents an address
   of appropriate scope (global, if none other defined) that
-  can be used to identify the node.
+  can be used to identify the node.  The length of this field
+  can be derived from the AFI.
 
 ## Node Name Sub-Object {#Name}
 
@@ -211,7 +246,7 @@ protocol 'Length:8,Node Name...:24'
 |     Length    |                  Node Name...
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{: #nodeFig title='Node Identification Object Node Name Sub-Object' }
+{: #nodeFig title='Node Name Sub-Object' }
 
 The Node Name Sub-Object MUST have a length that is a multiple
 of 4 octets and MUST NOT exceed 64 octets.
@@ -223,7 +258,7 @@ ensure there is space for the start of the original packet and
 additional information.
 
 The second field contains the human-readable node name.  The node
-name SHOULD be the sys:hostname {{RFC7317}}, if less than 64 octets,
+name SHOULD be the YANG sys:hostname {{RFC7317}}, if less than 64 octets,
 or the first 63 octets of the sys:hostname, if the sys:hostname is
 longer.  The node name MAY be some other human-meaningful name of
 the node.  The node name MUST be padded with ASCII NUL characters
@@ -232,26 +267,23 @@ if the object would not otherwise terminate on a 4-octet boundary.
 The node name MUST be represented in the UTF-8 charset {{RFC3629}}
 using the Default Language {{RFC2277}}.
 
-# Security Considerations
+# Security Considerations {#security}
 
+A node name may reveal sensitive information
 It may not be desirable to allow this information to be sent to
-an arbitrary receiver.  The addition of this information SHOULD
-be configurable, and MUST default to off.  An implementation
-SHOULD determine what objects may be appended to a given message
+an arbitrary receiver.  The addition of this information to
+the ICMP responses listed in {{nodeid}} is configurable, and
+defaults to off.  An implementation
+may determine what objects may be appended to a given message
 based on the destination IP address of the ICMP message that will
-contain the objects.
-
-The intended field of use for the extensions defined in this document
-is administrative debugging and troubleshooting.  The extensions
-herein defined supply additional information in ICMP responses.
-These mechanisms are not intended to be used in non-debugging
-applications.
+contain the objects.  Access control lists (ACLs) may be used to
+filter the destinations to which this information may be communicated.
 
 This document does not specify an authentication mechanism for the
 extension that it defines.  Application developers should be aware
 that ICMP messages and their contents are easily spoofed.
 
-# IANA Considerations
+# IANA Considerations {#sec-iana}
 
 This IANA has allocated the ICMP Extension
 Object Class value 5 to the extension described above.  The corresponding
@@ -282,6 +314,15 @@ This section is to be removed before publishing as an RFC.
 - Fixed several copy-pasta errors that still referred to
   interface names instead of node name.
 
+## Changes since draft-fenner-intarea-extended-icmp-hostid-02
+
+- Renamed to draft-ietf-intarea-extended-icmp-nodeid-00 to reflect
+  adoption by WG
+
+## Changes since draf-ietf-intarea-extended-icmp-nodeid-00
+
+- Several edits suggested by Med Boucadair
+
 # Acknowledgments
 {:numbered="false"}
 
@@ -289,4 +330,8 @@ This document derives text heavily from {{RFC5837}}, since the
 underlying mechanism is identical, and only the semantics of the
 message differs.  Thanks are therefore due to that document's
 authors: Alia K. Atlas, Ronald P. Bonica, Carlos Pignataro,
-Naiming Shen and JR. Rivers.
+Naiming Shen, and JR. Rivers.
+
+Further thanks are due to the following who have provided
+valuable contributions to this document: Med Boucadair,
+Jen Linkova, and David Lamparter.
