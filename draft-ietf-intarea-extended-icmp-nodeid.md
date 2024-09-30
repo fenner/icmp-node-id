@@ -267,6 +267,20 @@ if the object would not otherwise terminate on a 4-octet boundary.
 The node name MUST be represented in the UTF-8 charset {{RFC3629}}
 using the Default Language {{RFC2277}}.
 
+# Use by address translators {#nat}
+
+An address translator MAY use this extension when translating
+an ICMP message listed above to include the
+pre-translation source address of a packet. When doing so, it MUST
+include the IP Address Sub-Object, and MUST NOT include the Node Name
+Sub-Object.  If an ICMP Extension Structure is already present in
+the packet being translated, this Extension Object is appended to
+the existing ICMP Extension Structure and the checksum is updated.
+If an ICMP Extension Structure is not present in the packet being
+translated, one is added using the rules of {{RFC4884}}.
+Further details of this mode of operation are outside the
+scope of this memo.
+
 # Security Considerations {#security}
 
 A node name may reveal sensitive information
@@ -322,6 +336,8 @@ This section is to be removed before publishing as an RFC.
 ## Changes since draf-ietf-intarea-extended-icmp-nodeid-00
 
 - Several edits suggested by Med Boucadair
+
+- Added {{nat}} to address the needs of XLAT
 
 # Acknowledgments
 {:numbered="false"}
