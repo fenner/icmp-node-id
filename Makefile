@@ -1,5 +1,3 @@
-export UPLOAD_EMAIL ?= fenner@fenron.com
-
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
