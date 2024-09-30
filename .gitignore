@@ -19,6 +19,7 @@ Gemfile.lock
 archive.json
 draft-fenner-int-extended-icmp-hostid.xml
 draft-fenner-intarea-extended-icmp-hostid.xml
+draft-ietf-intarea-extended-icmp-nodeid.xml
 package-lock.json
 report.xml
 !requirements.txt
