@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-29T01:05:53.452633+00:00",
+  "timestamp": "2024-10-01T01:06:50.621538+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -86,15 +86,15 @@
       "id": "I_kwDOLJPxrM6Qu6eY",
       "title": "Change the document title",
       "url": "https://github.com/fenner/icmp-node-id/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "It's a little too concise - e.g., I think the comparison against RFC4620 in https://mailarchive.ietf.org/arch/msg/int-area/VwwyKXqHZAx4P2PcPWL-ppd8ybc/ is because this document's title is just `Extending ICMP for Node Identification` so it's not that clear that it's an RFC4884-based ICMP extension.",
       "createdAt": "2024-07-24T18:25:28Z",
-      "updatedAt": "2024-07-24T18:25:28Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-01T00:18:56Z",
+      "closedAt": "2024-10-01T00:18:55Z",
       "comments": []
     },
     {
@@ -102,15 +102,15 @@
       "id": "I_kwDOLJPxrM6QwuZS",
       "title": "Adjustments to allow for use in nat64 translation",
       "url": "https://github.com/fenner/icmp-node-id/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Add a mini section to this draft something like\r\n\r\n---\r\n\r\n# Use in address translators\r\n\r\nAn address translator MAY use this extension to include the pre-translation source address of a packet.  When doing so, it MUST include the IP address sub-type, and MUST NOT include the node name sub-type. Further details of this mode of operation are outside the scope of this memo.\r\n\r\n---\r\n\r\nObviously this can be wordsmithed but I think it gets the idea out.  Then the -equi- draft continues to talk about the details of when to apply it, and simply refers to this draft for the packet format.\r\n",
       "createdAt": "2024-07-25T00:21:06Z",
-      "updatedAt": "2024-07-25T00:21:06Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-30T23:30:39Z",
+      "closedAt": "2024-09-30T23:30:39Z",
       "comments": []
     }
   ],
@@ -127,7 +127,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-07-29T13:30:08Z",
-      "updatedAt": "2024-09-26T21:40:30Z",
+      "updatedAt": "2024-09-30T22:53:09Z",
       "baseRepository": "fenner/icmp-node-id",
       "baseRefName": "main",
       "baseRefOid": "00a7529d52488c583865e6c90a9a0da5cdc0d795",
@@ -403,6 +403,86 @@
               "body": "Your call.",
               "createdAt": "2024-09-11T08:56:53Z",
               "updatedAt": "2024-09-11T08:56:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLJPxrM6LZmvn",
+          "commit": {
+            "abbreviatedOid": "374d8f4"
+          },
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-30T22:48:16Z",
+          "updatedAt": "2024-09-30T22:48:16Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "What I mean is: why delete RFC5837 from the list of normative references in the front matter, and then use the special `!` syntax to add RFC5837 to the list of normative references on the first reference?",
+              "createdAt": "2024-09-30T22:48:16Z",
+              "updatedAt": "2024-09-30T22:48:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLJPxrM6LZm_G",
+          "commit": {
+            "abbreviatedOid": "374d8f4"
+          },
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-30T22:49:32Z",
+          "updatedAt": "2024-09-30T22:49:32Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "So this is a stylistic choice on the part of the document author, and doesn't result in a different output?",
+              "createdAt": "2024-09-30T22:49:32Z",
+              "updatedAt": "2024-09-30T22:49:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLJPxrM6LZnB7",
+          "commit": {
+            "abbreviatedOid": "374d8f4"
+          },
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-30T22:49:47Z",
+          "updatedAt": "2024-09-30T22:49:47Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "It's already a normative ref.",
+              "createdAt": "2024-09-30T22:49:47Z",
+              "updatedAt": "2024-09-30T22:49:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLJPxrM6LZnu8",
+          "commit": {
+            "abbreviatedOid": "374d8f4"
+          },
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-30T22:53:09Z",
+          "updatedAt": "2024-09-30T22:53:09Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "Ok, it also needs some further words about how everything works when a future bit is allocated.",
+              "createdAt": "2024-09-30T22:53:09Z",
+              "updatedAt": "2024-09-30T22:53:09Z"
             }
           ]
         }
