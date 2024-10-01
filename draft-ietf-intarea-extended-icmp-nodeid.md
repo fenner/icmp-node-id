@@ -1,5 +1,5 @@
 ---
-title: "Extending ICMP for Node Identification"
+title: "Adding Extensions to ICMP Errors for Originating Node Identification"
 abbrev: "ICMP Node ID"
 category: std
 
@@ -338,6 +338,9 @@ This section is to be removed before publishing as an RFC.
 - Several edits suggested by Med Boucadair
 
 - Added {{nat}} to address the needs of XLAT
+
+- Changed title to "Adding Extensions to ICMP Errors for
+  Originating Node Identification"
 
 # Acknowledgments
 {:numbered="false"}
