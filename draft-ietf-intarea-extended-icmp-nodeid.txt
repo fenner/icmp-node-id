@@ -5,10 +5,10 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 3 April 2025                                  30 September 2024
+Expires: 4 April 2025                                     1 October 2024
 
 
-                 Extending ICMP for Node Identification
+  Adding Extensions to ICMP Errors for Originating Node Identification
              draft-ietf-intarea-extended-icmp-nodeid-latest
 
 Abstract
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2025.
+   This Internet-Draft will expire on 4 April 2025.
 
 Copyright Notice
 
@@ -430,6 +430,9 @@ A.4.  Changes since draf-ietf-intarea-extended-icmp-nodeid-00
    *  Several edits suggested by Med Boucadair
 
    *  Added Section 4 to address the needs of XLAT
+
+   *  Changed title to "Adding Extensions to ICMP Errors for Originating
+      Node Identification"
 
 Acknowledgments
 
