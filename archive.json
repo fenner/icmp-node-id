@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-03T01:06:03.094383+00:00",
+  "timestamp": "2024-11-05T01:00:16.154216+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -487,6 +487,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLJPxrM6AvE25",
+      "title": "Post-adoption comments",
+      "url": "https://github.com/fenner/icmp-node-id/pull/5",
+      "state": "OPEN",
+      "author": "furry13",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "1. Add draft-equinox-v6ops-icmpext-xlat-v6only-source use case to the Introduction.\r\n2. Limiting the allowed length field to 32 or 128 bits \r\n3. Names > 64 octets MUST be ignored\r\n4. Allowing translators to add those extensions by default\r\n5. Removing most of the translators text, as it will be in  draft-equinox-v6ops-icmpext-xlat-v6only-source",
+      "createdAt": "2024-11-03T22:26:09Z",
+      "updatedAt": "2024-11-03T22:26:10Z",
+      "baseRepository": "fenner/icmp-node-id",
+      "baseRefName": "main",
+      "baseRefOid": "0ace15dfd62d44338f56a9e4321e9afb59b44025",
+      "headRepository": "furry13/icmp-node-id",
+      "headRefName": "ietf121",
+      "headRefOid": "da2354b2147b753ae756e467409927925bc8ff81",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
