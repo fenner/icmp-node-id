@@ -95,7 +95,7 @@ Table of Contents
      A.1.  Changes since draft-fenner-intarea-extended-icmp-hostid-00
      A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
      A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
-     A.4.  Changes since draf-ietf-intarea-extended-icmp-nodeid-00
+     A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
    Acknowledgments
    Authors' Addresses
 
@@ -103,15 +103,17 @@ Table of Contents
 
    In addition to adding incoming interface information to a traceroute
    using the mechanisms described in [RFC5837], a network operator may
-   be interested in adding information to identify nodes themselves.
-   [I-D.chroboczek-intarea-v4-via-v6] describes a scenario in which
-   individual nodes do not have unique IPv4 addresses to use to reply to
-   an IPv4 traceroute, so additional information is needed.  Another
-   scenario is described in
+   be interested in adding information to unambiguously identify nodes
+   themselves.  For example, [I-D.chroboczek-intarea-v4-via-v6]
+   describes a scenario in which individual nodes do not have unique
+   IPv4 addresses to use to reply to an IPv4 traceroute, so additional
+   information is needed.  Another scenario is described in
    [I-D.equinox-v6ops-icmpext-xlat-v6only-source]: when an IPv6-only
    node runs the customer-side translator (CLAT, [RFC6877]), traceroute
    to an IPv4 destination can not represent intermediate IPv6-only
    routers.
+
+   This document defines an ICMP extension that fills that void.
 
 2.  Conventions and Definitions
 
@@ -302,23 +304,24 @@ Table of Contents
 
 4.  Adding Node Identification Object by Intermediate Nodes
 
-   An IP/ICMP translators MAY use this extension when translating an
-   ICMP message listed above to include the pre-translation source
-   address of a packet.  When doing so, it MUST include the IP Address
-   Sub-Object.  If an ICMP Extension Structure is already present in the
-   packet being translated, this Extension Object is appended to the
-   existing ICMP Extension Structure and the checksum is updated.  If an
-   ICMP Extension Structure is not present in the packet being
-   translated, one is added using the rules of [RFC4884].  Further
-   details of this mode of operation are outside the scope of this memo.
+   An IP/ICMP translator MAY use this extension when translating an ICMP
+   message listed above to include the pre-translation source address of
+   a packet.  When doing so, it MUST include the IP Address Sub-Object.
+   If an ICMP Extension Structure is already present in the packet being
+   translated, this Extension Object is appended to the existing ICMP
+   Extension Structure and the checksum is updated.  If an ICMP
+   Extension Structure is not present in the packet being translated,
+   one is added using the rules of [RFC4884].  Further details of this
+   mode of operation are outside the scope of this memo.
 
 5.  Security Considerations
 
-   A node name may reveal sensitive information It may not be desirable
-   to allow this information to be sent to an arbitrary receiver.  The
-   addition of this information to the ICMP responses listed in
-   Section 3 is configurable, and defaults to off, with exception of IP/
-   ICMP translators [RFC7915].  Those translators SHOULD add the Node
+   A node name may reveal sensitive information, especially when it
+   encodes semantic information.  It may not be desirable to allow this
+   information to be sent to an arbitrary receiver.  The addition of
+   this information to the ICMP responses listed in Section 3 is
+   configurable, and defaults to off, with exception of IP/ICMP
+   translators [RFC7915].  Those translators SHOULD add the Node
    Identification Extension Object with the IP Address Sub-Object, as
    described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
    implementation may determine what objects may be appended to a given
@@ -453,7 +456,7 @@ A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
    *  Renamed to draft-ietf-intarea-extended-icmp-nodeid-00 to reflect
       adoption by WG
 
-A.4.  Changes since draf-ietf-intarea-extended-icmp-nodeid-00
+A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
 
    *  Several edits suggested by Med Boucadair
 
