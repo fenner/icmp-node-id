@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 4 April 2025                                     1 October 2024
+Expires: 2 September 2025                                   1 March 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 April 2025.
+   This Internet-Draft will expire on 2 September 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -85,7 +85,7 @@ Table of Contents
        3.1.1.  Behavior when additional bits are reserved
      3.2.  Node IP Address Sub-Object
      3.3.  Node Name Sub-Object
-   4.  Use by address translators
+   4.  Adding Node Identification Object by Intermediate Nodes
    5.  Security Considerations
    6.  IANA Considerations
    7.  References
@@ -106,7 +106,12 @@ Table of Contents
    be interested in adding information to identify nodes themselves.
    [I-D.chroboczek-intarea-v4-via-v6] describes a scenario in which
    individual nodes do not have unique IPv4 addresses to use to reply to
-   an IPv4 traceroute, so additional information is needed.
+   an IPv4 traceroute, so additional information is needed.  Another
+   scenario is described in
+   [I-D.equinox-v6ops-icmpext-xlat-v6only-source]: when an IPv6-only
+   node runs the customer-side translator (CLAT, [RFC6877]), traceroute
+   to an IPv4 destination can not represent intermediate IPv6-only
+   routers.
 
 2.  Conventions and Definitions
 
@@ -258,8 +263,9 @@ Table of Contents
 
    *  Address: This variable-length field represents an address of
       appropriate scope (global, if none other defined) that can be used
-      to identify the node.  The length of this field can be derived
-      from the AFI.
+      to identify the node.  The length of this field is derived from
+      the AFI (i.e., 32 bits if the AFI field is set to 1, and 128 bits
+      if the AFI is set to 2).
 
 3.3.  Node Name Sub-Object
 
@@ -274,7 +280,8 @@ Table of Contents
                        Figure 3: Node Name Sub-Object
 
    The Node Name Sub-Object MUST have a length that is a multiple of 4
-   octets and MUST NOT exceed 64 octets.
+   octets and MUST NOT exceed 64 octets.  If the length field exceeds 64
+   octets, the receiver MUST ignore the sub-object.
 
    The Length field represents the length of the Node Name Sub- Object,
    including the length and the node name in octets.  The maximum valid
@@ -293,29 +300,32 @@ Table of Contents
    The node name MUST be represented in the UTF-8 charset [RFC3629]
    using the Default Language [RFC2277].
 
-4.  Use by address translators
+4.  Adding Node Identification Object by Intermediate Nodes
 
-   An address translator MAY use this extension when translating an ICMP
-   message listed above to include the pre-translation source address of
-   a packet.  When doing so, it MUST include the IP Address Sub-Object,
-   and MUST NOT include the Node Name Sub-Object.  If an ICMP Extension
-   Structure is already present in the packet being translated, this
-   Extension Object is appended to the existing ICMP Extension Structure
-   and the checksum is updated.  If an ICMP Extension Structure is not
-   present in the packet being translated, one is added using the rules
-   of [RFC4884].  Further details of this mode of operation are outside
-   the scope of this memo.
+   An IP/ICMP translators MAY use this extension when translating an
+   ICMP message listed above to include the pre-translation source
+   address of a packet.  When doing so, it MUST include the IP Address
+   Sub-Object.  If an ICMP Extension Structure is already present in the
+   packet being translated, this Extension Object is appended to the
+   existing ICMP Extension Structure and the checksum is updated.  If an
+   ICMP Extension Structure is not present in the packet being
+   translated, one is added using the rules of [RFC4884].  Further
+   details of this mode of operation are outside the scope of this memo.
 
 5.  Security Considerations
 
    A node name may reveal sensitive information It may not be desirable
    to allow this information to be sent to an arbitrary receiver.  The
    addition of this information to the ICMP responses listed in
-   Section 3 is configurable, and defaults to off.  An implementation
-   may determine what objects may be appended to a given message based
-   on the destination IP address of the ICMP message that will contain
-   the objects.  Access control lists (ACLs) may be used to filter the
-   destinations to which this information may be communicated.
+   Section 3 is configurable, and defaults to off, with exception of IP/
+   ICMP translators [RFC7915].  Those translators SHOULD add the Node
+   Identification Extension Object with the IP Address Sub-Object, as
+   described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
+   implementation may determine what objects may be appended to a given
+   message based on the destination IP address of the ICMP message that
+   will contain the objects.  Access control lists (ACLs) may be used to
+   filter the destinations to which this information may be
+   communicated.
 
    This document does not specify an authentication mechanism for the
    extension that it defines.  Application developers should be aware
@@ -390,6 +400,11 @@ Table of Contents
               System Management", RFC 7317, DOI 10.17487/RFC7317, August
               2014, <https://www.rfc-editor.org/rfc/rfc7317>.
 
+   [RFC7915]  Bao, C., Li, X., Baker, F., Anderson, T., and F. Gont,
+              "IP/ICMP Translation Algorithm", RFC 7915,
+              DOI 10.17487/RFC7915, June 2016,
+              <https://www.rfc-editor.org/rfc/rfc7915>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -399,9 +414,22 @@ Table of Contents
    [I-D.chroboczek-intarea-v4-via-v6]
               Chroboczek, J., Kumari, W. A., and T. Høiland-Jørgensen,
               "IPv4 routes with an IPv6 next hop", Work in Progress,
-              Internet-Draft, draft-chroboczek-intarea-v4-via-v6-01, 8
-              July 2024, <https://datatracker.ietf.org/doc/html/draft-
-              chroboczek-intarea-v4-via-v6-01>.
+              Internet-Draft, draft-chroboczek-intarea-v4-via-v6-03, 20
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-chroboczek-intarea-v4-via-v6-03>.
+
+   [I-D.equinox-v6ops-icmpext-xlat-v6only-source]
+              Lamparter, D. and J. Linkova, "Using Dummy IPv4 Address
+              and Node Identification Extensions for IP/ICMP translators
+              (XLATs)", Work in Progress, Internet-Draft, draft-equinox-
+              v6ops-icmpext-xlat-v6only-source-01, 23 February 2025,
+              <https://datatracker.ietf.org/doc/html/draft-equinox-
+              v6ops-icmpext-xlat-v6only-source-01>.
+
+   [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
+              Combination of Stateful and Stateless Translation",
+              RFC 6877, DOI 10.17487/RFC6877, April 2013,
+              <https://www.rfc-editor.org/rfc/rfc6877>.
 
 Appendix A.  Change history
 
