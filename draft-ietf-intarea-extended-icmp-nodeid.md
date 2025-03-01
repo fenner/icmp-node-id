@@ -77,13 +77,15 @@ even for IPv4 routes).
 
 In addition to adding incoming interface information to a traceroute
 using the mechanisms described in {{RFC5837}}, a network operator
-may be interested in adding information to identify nodes themselves.
-{{I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
+may be interested in adding information to unambiguously identify nodes themselves.
+For example, {{I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
 Another scenario is described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}:
 when an IPv6-only node runs the customer-side translator (CLAT, {{RFC6877}}),
 traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.
+
+This document defines an ICMP extension that fills that void.
 
 # Conventions and Definitions
 
@@ -277,7 +279,7 @@ using the Default Language {{RFC2277}}.
 
 # Adding Node Identification Object by Intermediate Nodes {#nat}
 
-An IP/ICMP translators MAY use this extension when translating
+An IP/ICMP translator MAY use this extension when translating
 an ICMP message listed above to include the
 pre-translation source address of a packet. When doing so, it MUST
 include the IP Address Sub-Object.
@@ -291,7 +293,8 @@ scope of this memo.
 
 # Security Considerations {#security}
 
-A node name may reveal sensitive information
+A node name may reveal sensitive information, especially when it
+encodes semantic information.
 It may not be desirable to allow this information to be sent to
 an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in {{nodeid}} is configurable, and
@@ -344,7 +347,7 @@ This section is to be removed before publishing as an RFC.
 - Renamed to draft-ietf-intarea-extended-icmp-nodeid-00 to reflect
   adoption by WG
 
-## Changes since draf-ietf-intarea-extended-icmp-nodeid-00
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-00
 
 - Several edits suggested by Med Boucadair
 
