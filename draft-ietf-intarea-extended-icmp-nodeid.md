@@ -49,10 +49,13 @@ normative:
   RFC4884:
   RFC5837:
   RFC7317:
+  RFC7915:
   IANA.address-family-numbers:
 
 informative:
+  RFC6877:
   I-D.chroboczek-intarea-v4-via-v6:
+  I-D.equinox-v6ops-icmpext-xlat-v6only-source:
 
 
 --- abstract
@@ -78,6 +81,9 @@ may be interested in adding information to identify nodes themselves.
 {{I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
+Another scenario is described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}:
+when an IPv6-only node runs the customer-side translator (CLAT, {{RFC6877}}),
+traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.
 
 # Conventions and Definitions
 
@@ -230,7 +236,8 @@ Payload fields are defined as follows:
 * Address: This variable-length field represents an address
   of appropriate scope (global, if none other defined) that
   can be used to identify the node.  The length of this field
-  can be derived from the AFI.
+  is derived from the AFI (i.e., 32 bits if the AFI field is set to 1,
+  and 128 bits if the AFI is set to 2).
 
 ## Node Name Sub-Object {#Name}
 
@@ -249,7 +256,8 @@ protocol 'Length:8,Node Name...:24'
 {: #nodeFig title='Node Name Sub-Object' }
 
 The Node Name Sub-Object MUST have a length that is a multiple
-of 4 octets and MUST NOT exceed 64 octets.
+of 4 octets and MUST NOT exceed 64 octets. If the length field
+exceeds 64 octets, the receiver MUST ignore the sub-object.
 
 The Length field represents the length of the Node Name Sub-
 Object, including the length and the node name in octets.  The
@@ -267,14 +275,14 @@ if the object would not otherwise terminate on a 4-octet boundary.
 The node name MUST be represented in the UTF-8 charset {{RFC3629}}
 using the Default Language {{RFC2277}}.
 
-# Use by address translators {#nat}
+# Adding Node Identification Object by Intermediate Nodes {#nat}
 
-An address translator MAY use this extension when translating
+An IP/ICMP translators MAY use this extension when translating
 an ICMP message listed above to include the
 pre-translation source address of a packet. When doing so, it MUST
-include the IP Address Sub-Object, and MUST NOT include the Node Name
-Sub-Object.  If an ICMP Extension Structure is already present in
-the packet being translated, this Extension Object is appended to
+include the IP Address Sub-Object.
+If an ICMP Extension Structure is already present
+in the packet being translated, this Extension Object is appended to
 the existing ICMP Extension Structure and the checksum is updated.
 If an ICMP Extension Structure is not present in the packet being
 translated, one is added using the rules of {{RFC4884}}.
@@ -287,7 +295,10 @@ A node name may reveal sensitive information
 It may not be desirable to allow this information to be sent to
 an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in {{nodeid}} is configurable, and
-defaults to off.  An implementation
+defaults to off, with exception of IP/ICMP translators {{RFC7915}}.
+Those translators SHOULD add the Node Identification Extension Object
+with the IP Address Sub-Object, as described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}.
+An implementation
 may determine what objects may be appended to a given message
 based on the destination IP address of the ICMP message that will
 contain the objects.  Access control lists (ACLs) may be used to
