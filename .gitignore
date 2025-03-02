@@ -7,9 +7,9 @@
 *~
 .tags
 /*-[0-9][0-9].xml
+/.*.mk
 /.gems/
 /.refcache
-/.targets.mk
 /.venv/
 /.vscode/
 /lib
@@ -17,8 +17,6 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-fenner-int-extended-icmp-hostid.xml
-draft-fenner-intarea-extended-icmp-hostid.xml
 draft-ietf-intarea-extended-icmp-nodeid.xml
 package-lock.json
 report.xml
