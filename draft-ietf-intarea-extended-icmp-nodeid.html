@@ -18,18 +18,18 @@ the case where each node may not have a unique IP address (e.g., a deployment
 in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
 even for IPv4 routes). 
     " name="description">
-<meta content="xml2rfc 3.27.0" name="generator">
+<meta content="xml2rfc 3.28.0" name="generator">
 <meta content="ICMP" name="keyword">
 <meta content="IPv6 nexthops" name="keyword">
 <meta content="Node identification" name="keyword">
 <meta content="draft-ietf-intarea-extended-icmp-nodeid-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.27.0
+  xml2rfc 3.28.0
     Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
+    Jinja2 3.1.6
     lxml 5.3.0
     platformdirs 4.3.6
     pycountry 24.6.1
@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fenner &amp; Thomas</td>
-<td class="center">Expires 3 September 2025</td>
+<td class="center">Expires 26 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-extended-icmp-nodeid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-02" class="published">2 March 2025</time>
+<time datetime="2025-03-25" class="published">25 March 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-03">3 September 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-26">26 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1139,7 +1139,7 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1186,15 +1186,15 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-node-ip-address-sub-object" class="internal xref">Node IP Address Sub-Object</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-ip-address-sub-object" class="internal xref">IP Address Sub-Object</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-node-name-sub-object" class="internal xref">Node Name Sub-Object</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-name-sub-object" class="internal xref">Name Sub-Object</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-adding-node-identification-" class="internal xref">Adding Node Identification Object by Intermediate Nodes</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-addition-of-node-identifica" class="internal xref">Addition of Node Identification Object by Intermediate Nodes</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
@@ -1227,6 +1227,9 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
                 <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-changes-since-draft-ietf-in" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-00</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#appendix-A.5" class="auto internal xref">A.5</a>.  <a href="#name-changes-since-draft-ietf-int" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-01</a></p>
 </li>
             </ul>
 </li>
@@ -1316,7 +1319,7 @@ of sufficient scope to identify the node within the domain.
 The IP Address Sub-Object is defined in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-7.2">
-          <p id="section-3-7.2.1">A Node Name Sub-Object <span class="bcp14">MAY</span> be included, as specified in <a href="#Name" class="auto internal xref">Section 3.3</a>,
+          <p id="section-3-7.2.1">A Name Sub-Object <span class="bcp14">MAY</span> be included, as specified in <a href="#Name" class="auto internal xref">Section 3.3</a>,
 containing up to 63 octets of the YANG sys:hostname (<span>[<a href="#RFC7317" class="cite xref">RFC7317</a>]</span>)
 or another appropriate name uniquely identifying the node.<a href="#section-3-7.2.1" class="pilcrow">¶</a></p>
 </li>
@@ -1337,7 +1340,7 @@ that supports exactly these bits can reuse packet generation and parsing code.<a
 <pre>
 Bit     0       1       2       3       4       5       6       7
     +-------+-------+-------+-------+-------+-------+-------+-------+
-    |               Reserved                | IPAddr|  name | Rsvd2 |
+    |               Unassigned              | IPAddr|  name |  Un2  |
     +-------+-------+-------+-------+-------+-------+-------+-------+
 </pre>
 </div>
@@ -1346,29 +1349,29 @@ Bit     0       1       2       3       4       5       6       7
           </figcaption></figure>
 </div>
 <p id="section-3.1-3">The following are bit-field definitions for C-Type:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">Reserved (bits 0-4): These bits are reserved for future use
+<p id="section-3.1-4">Unassigned (bits 0-4): These bits are reserved for future use
 and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">IP Addr (bit 5) : When set, a Node IP Address Sub-Object is present.
-When clear, an IP Address Sub-Object is not present.  The Node IP Address
+<p id="section-3.1-5">IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+When clear, an IP Address Sub-Object is not present.  The IP Address
 Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">Node Name (bit 6): When set, a Node Name Sub-Object is
-included.  When clear, it is not included.  The Node Name Sub-Object is
+<p id="section-3.1-6">Node Name (bit 6): When set, a Name Sub-Object is
+included.  When clear, it is not included.  The Name Sub-Object is
 described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this memo.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">Rsvd2 (bit 7): This bit is reserved for future use
+<p id="section-3.1-7">Un2 (bit 7): This bit is reserved for future use
 and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
 <p id="section-3.1-8">The information included does not self-identify, so this
 specification defines a specific ordering for sending the information
 that must be followed.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<p id="section-3.1-9">If bit 5 (IP Address) is set, a Node IP Address Sub-Object <span class="bcp14">MUST</span>
-be sent first.  If bit 6 (Name) is set, a Node Name Sub-Object
+<p id="section-3.1-9">If bit 5 (IP Address) is set, an IP Address Sub-Object <span class="bcp14">MUST</span>
+be sent first.  If bit 6 (Name) is set, a Name Sub-Object
 <span class="bcp14">MUST</span> be sent next.  The information order is thus: IP Address Sub-Object,
-Node Name Sub-Object.  Any or all pieces of information may be
+Name Sub-Object.  Any or all pieces of information may be
 present or absent, as indicated by the C-Type.  Any data that follows
 these optional pieces of information <span class="bcp14">MUST</span> be ignored.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
 <p id="section-3.1-10">It is valid (though pointless until additional bits are assigned by
 IANA) to receive a Node Information Object where bits 5 and 6
 are both 0; this <span class="bcp14">MUST NOT</span> generate a warning or error.<a href="#section-3.1-10" class="pilcrow">¶</a></p>
-<div id="behavior-when-additional-bits-are-reserved">
+<div id="fooblewomp">
 <section id="section-3.1.1">
           <h4 id="name-behavior-when-additional-bi">
 <a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-behavior-when-additional-bi" class="section-name selfRef">Behavior when additional bits are reserved</a>
@@ -1377,7 +1380,7 @@ are both 0; this <span class="bcp14">MUST NOT</span> generate a warning or error
 above, i.e., starting at zero.  The sub-objects associated with each
 new bit <span class="bcp14">MUST</span> be placed in the packet after the sub-objects defined
 in this memo.  For example, if bit 0 is assigned to the Fooblewomp,
-a packet with bits 0 and 5 set <span class="bcp14">MUST</span> contain the Node IP Address
+a packet with bits 0 and 5 set <span class="bcp14">MUST</span> contain the IP Address
 Sub-Object, followed by the Fooblewomp sub-object.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.1-2">If a bit is set that a receiver does not support, followed by
 a bit that the receiver does support, the receiver <span class="bcp14">MUST</span> ignore
@@ -1389,14 +1392,14 @@ data is unknown.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
 </div>
 <div id="IPAddr">
 <section id="section-3.2">
-        <h3 id="name-node-ip-address-sub-object">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-node-ip-address-sub-object" class="section-name selfRef">Node IP Address Sub-Object</a>
+        <h3 id="name-ip-address-sub-object">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-ip-address-sub-object" class="section-name selfRef">IP Address Sub-Object</a>
         </h3>
 <p id="section-3.2-1">If the Node Identification Object identifies the node by
 address, the Object Payload contains an address sufficient
 to identify the node within the appropriate scope - global
 or as otherwise configured - as depicted in <a href="#addrFig" class="auto internal xref">Figure 2</a>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<span id="name-ip-address-sub-object"></span><div id="addrFig">
+<span id="name-ip-address-sub-object-2"></span><div id="addrFig">
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-3.2-2.1">
 <pre>
@@ -1409,7 +1412,7 @@ or as otherwise configured - as depicted in <a href="#addrFig" class="auto inter
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-ip-address-sub-object" class="selfRef">IP Address Sub-Object</a>
+<a href="#name-ip-address-sub-object-2" class="selfRef">IP Address Sub-Object</a>
           </figcaption></figure>
 </div>
 <p id="section-3.2-3">Payload fields are defined as follows:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
@@ -1446,11 +1449,11 @@ and 128 bits if the AFI is set to 2).<a href="#section-3.2-4.3.1" class="pilcrow
 </div>
 <div id="Name">
 <section id="section-3.3">
-        <h3 id="name-node-name-sub-object">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-node-name-sub-object" class="section-name selfRef">Node Name Sub-Object</a>
+        <h3 id="name-name-sub-object">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-name-sub-object" class="section-name selfRef">Name Sub-Object</a>
         </h3>
-<p id="section-3.3-1"><a href="#nodeFig" class="auto internal xref">Figure 3</a> depicts the Node Name Sub-Object:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<span id="name-node-name-sub-object-2"></span><div id="nodeFig">
+<p id="section-3.3-1"><a href="#nodeFig" class="auto internal xref">Figure 3</a> depicts the Name Sub-Object:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<span id="name-name-sub-object-2"></span><div id="nodeFig">
 <figure id="figure-3">
           <div class="alignLeft art-text artwork" id="section-3.3-2.1">
 <pre>
@@ -1462,14 +1465,14 @@ and 128 bits if the AFI is set to 2).<a href="#section-3.2-4.3.1" class="pilcrow
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-node-name-sub-object-2" class="selfRef">Node Name Sub-Object</a>
+<a href="#name-name-sub-object-2" class="selfRef">Name Sub-Object</a>
           </figcaption></figure>
 </div>
-<p id="section-3.3-3">The Node Name Sub-Object <span class="bcp14">MUST</span> have a length that is a multiple
+<p id="section-3.3-3">The Name Sub-Object <span class="bcp14">MUST</span> have a length that is a multiple
 of 4 octets and <span class="bcp14">MUST NOT</span> exceed 64 octets. If the length field
 exceeds 64 octets, the receiver <span class="bcp14">MUST</span> ignore the sub-object.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">The Length field represents the length of the Node Name Sub-
-Object, including the length and the node name in octets.  The
+<p id="section-3.3-4">The Length field represents the length of the Name Sub-Object,
+including the length and the node name, in octets.  The
 maximum valid length is 64 octets.  The length is constrained to
 ensure there is space for the start of the original packet and
 additional information.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
@@ -1487,8 +1490,8 @@ using the Default Language <span>[<a href="#RFC2277" class="cite xref">RFC2277</
 </div>
 <div id="nat">
 <section id="section-4">
-      <h2 id="name-adding-node-identification-">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-adding-node-identification-" class="section-name selfRef">Adding Node Identification Object by Intermediate Nodes</a>
+      <h2 id="name-addition-of-node-identifica">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-addition-of-node-identifica" class="section-name selfRef">Addition of Node Identification Object by Intermediate Nodes</a>
       </h2>
 <p id="section-4-1">An IP/ICMP translator <span class="bcp14">MAY</span> use this extension when translating
 an ICMP message listed above to include the
@@ -1513,7 +1516,7 @@ encodes semantic information.
 It may not be desirable to allow this information to be sent to
 an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in <a href="#nodeid" class="auto internal xref">Section 3</a> is configurable, and
-defaults to off, with exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
+defaults to off, with the exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
 Those translators <span class="bcp14">SHOULD</span> add the Node Identification Extension Object
 with the IP Address Sub-Object, as described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>.
 An implementation
@@ -1546,7 +1549,7 @@ Class Sub-types Registry is as follows:<a href="#section-6-1" class="pilcrow">¶
         <tbody>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">0-4</td>
-            <td class="text-left" rowspan="1" colspan="1">Unallocated - allocatable with Standards Action</td>
+            <td class="text-left" rowspan="1" colspan="1">Unassigned - allocatable with Standards Action</td>
             <td class="text-left" rowspan="1" colspan="1">[This document]</td>
           </tr>
           <tr>
@@ -1561,11 +1564,13 @@ Class Sub-types Registry is as follows:<a href="#section-6-1" class="pilcrow">¶
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">7</td>
-            <td class="text-left" rowspan="1" colspan="1">Unallocated - allocatable with Standards Action</td>
+            <td class="text-left" rowspan="1" colspan="1">Unassigned - allocatable with Standards Action</td>
             <td class="text-left" rowspan="1" colspan="1">[This document]</td>
           </tr>
         </tbody>
       </table>
+<p id="section-6-3">As mentioned in <a href="#fooblewomp" class="auto internal xref">Section 3.1.1</a>, IANA is requested to assign additional
+bits starting at zero.<a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1638,7 +1643,7 @@ Class Sub-types Registry is as follows:<a href="#section-6-1" class="pilcrow">¶
 <dd class="break"></dd>
 <dt id="I-D.equinox-v6ops-icmpext-xlat-v6only-source">[I-D.equinox-v6ops-icmpext-xlat-v6only-source]</dt>
         <dd>
-<span class="refAuthor">Lamparter, D.</span> and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"Using Dummy IPv4 Address and Node Identification Extensions for IP/ICMP translators (XLATs)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-equinox-v6ops-icmpext-xlat-v6only-source-01</span>, <time datetime="2025-02-23" class="refDate">23 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-01">https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Lamparter, D.</span> and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"Using Dummy IPv4 Address and Node Identification Extensions for IP/ICMP translators (XLATs)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-equinox-v6ops-icmpext-xlat-v6only-source-02</span>, <time datetime="2025-03-21" class="refDate">21 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02">https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6877">[RFC6877]</dt>
       <dd>
@@ -1712,6 +1717,26 @@ adoption by WG<a href="#appendix-A.3-1.1.1" class="pilcrow">¶</a></p>
           <li class="normal" id="appendix-A.4-1.3">
             <p id="appendix-A.4-1.3.1">Changed title to "Adding Extensions to ICMP Errors for
 Originating Node Identification"<a href="#appendix-A.4-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-ietf-intarea-extended-icmp-nodeid-01">
+<section id="appendix-A.5">
+        <h3 id="name-changes-since-draft-ietf-int">
+<a href="#appendix-A.5" class="section-number selfRef">A.5. </a><a href="#name-changes-since-draft-ietf-int" class="section-name selfRef">Changes since draft-ietf-intarea-extended-icmp-nodeid-01</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.5-1.1">
+            <p id="appendix-A.5-1.1.1">Added the request to assign bits starting at 0 to the IANA
+Considerations<a href="#appendix-A.5-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.5-1.2">
+            <p id="appendix-A.5-1.2.1">Updated IANA Considerations wording based on RFC8126<a href="#appendix-A.5-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.5-1.3">
+            <p id="appendix-A.5-1.3.1">Shortened sub-object names to "IP Address" and "Name", eliminating
+"Node".<a href="#appendix-A.5-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

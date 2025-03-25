@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 3 September 2025                                   2 March 2025
+Expires: 26 September 2025                                 25 March 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2025.
+   This Internet-Draft will expire on 26 September 2025.
 
 Copyright Notice
 
@@ -83,9 +83,9 @@ Table of Contents
    3.  Node Identification Object
      3.1.  C-Type Meaning in a Node Identification Object
        3.1.1.  Behavior when additional bits are reserved
-     3.2.  Node IP Address Sub-Object
-     3.3.  Node Name Sub-Object
-   4.  Adding Node Identification Object by Intermediate Nodes
+     3.2.  IP Address Sub-Object
+     3.3.  Name Sub-Object
+   4.  Addition of Node Identification Object by Intermediate Nodes
    5.  Security Considerations
    6.  IANA Considerations
    7.  References
@@ -96,6 +96,7 @@ Table of Contents
      A.2.  Changes since draft-fenner-intarea-extended-icmp-hostid-01
      A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
      A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
+     A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
    Acknowledgments
    Authors' Addresses
 
@@ -168,10 +169,9 @@ Table of Contents
        of sufficient scope to identify the node within the domain.  The
        IP Address Sub-Object is defined in Section 3.2 of this memo.
 
-   2.  A Node Name Sub-Object MAY be included, as specified in
-       Section 3.3, containing up to 63 octets of the YANG sys:hostname
-       ([RFC7317]) or another appropriate name uniquely identifying the
-       node.
+   2.  A Name Sub-Object MAY be included, as specified in Section 3.3,
+       containing up to 63 octets of the YANG sys:hostname ([RFC7317])
+       or another appropriate name uniquely identifying the node.
 
 3.1.  C-Type Meaning in a Node Identification Object
 
@@ -184,37 +184,37 @@ Table of Contents
 
    Bit     0       1       2       3       4       5       6       7
        +-------+-------+-------+-------+-------+-------+-------+-------+
-       |               Reserved                | IPAddr|  name | Rsvd2 |
+       |               Unassigned              | IPAddr|  name |  Un2  |
        +-------+-------+-------+-------+-------+-------+-------+-------+
 
             Figure 1: C-Type for the Node Identification Object
 
    The following are bit-field definitions for C-Type:
 
-   Reserved (bits 0-4): These bits are reserved for future use and MUST
-   be set to 0 on transmit and ignored on receipt.
+   Unassigned (bits 0-4): These bits are reserved for future use and
+   MUST be set to 0 on transmit and ignored on receipt.
 
-   IP Addr (bit 5) : When set, a Node IP Address Sub-Object is present.
-   When clear, an IP Address Sub-Object is not present.  The Node IP
-   Address Sub-Object is described in Section 3.2 of this memo.
+   IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+   When clear, an IP Address Sub-Object is not present.  The IP Address
+   Sub-Object is described in Section 3.2 of this memo.
 
-   Node Name (bit 6): When set, a Node Name Sub-Object is included.
-   When clear, it is not included.  The Node Name Sub-Object is
-   described in Section 3.3 of this memo.
+   Node Name (bit 6): When set, a Name Sub-Object is included.  When
+   clear, it is not included.  The Name Sub-Object is described in
+   Section 3.3 of this memo.
 
-   Rsvd2 (bit 7): This bit is reserved for future use and MUST be set to
-   0 on transmit and ignored on receipt.
+   Un2 (bit 7): This bit is reserved for future use and MUST be set to 0
+   on transmit and ignored on receipt.
 
    The information included does not self-identify, so this
    specification defines a specific ordering for sending the information
    that must be followed.
 
-   If bit 5 (IP Address) is set, a Node IP Address Sub-Object MUST be
-   sent first.  If bit 6 (Name) is set, a Node Name Sub-Object MUST be
-   sent next.  The information order is thus: IP Address Sub-Object,
-   Node Name Sub-Object.  Any or all pieces of information may be
-   present or absent, as indicated by the C-Type.  Any data that follows
-   these optional pieces of information MUST be ignored.
+   If bit 5 (IP Address) is set, an IP Address Sub-Object MUST be sent
+   first.  If bit 6 (Name) is set, a Name Sub-Object MUST be sent next.
+   The information order is thus: IP Address Sub-Object, Name Sub-
+   Object.  Any or all pieces of information may be present or absent,
+   as indicated by the C-Type.  Any data that follows these optional
+   pieces of information MUST be ignored.
 
    It is valid (though pointless until additional bits are assigned by
    IANA) to receive a Node Information Object where bits 5 and 6 are
@@ -226,14 +226,14 @@ Table of Contents
    above, i.e., starting at zero.  The sub-objects associated with each
    new bit MUST be placed in the packet after the sub-objects defined in
    this memo.  For example, if bit 0 is assigned to the Fooblewomp, a
-   packet with bits 0 and 5 set MUST contain the Node IP Address Sub-
-   Object, followed by the Fooblewomp sub-object.
+   packet with bits 0 and 5 set MUST contain the IP Address Sub-Object,
+   followed by the Fooblewomp sub-object.
 
    If a bit is set that a receiver does not support, followed by a bit
    that the receiver does support, the receiver MUST ignore all of the
    additional data, since the length of the unsupported data is unknown.
 
-3.2.  Node IP Address Sub-Object
+3.2.  IP Address Sub-Object
 
    If the Node Identification Object identifies the node by address, the
    Object Payload contains an address sufficient to identify the node
@@ -269,9 +269,9 @@ Table of Contents
       the AFI (i.e., 32 bits if the AFI field is set to 1, and 128 bits
       if the AFI is set to 2).
 
-3.3.  Node Name Sub-Object
+3.3.  Name Sub-Object
 
-   Figure 3 depicts the Node Name Sub-Object:
+   Figure 3 depicts the Name Sub-Object:
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -279,14 +279,14 @@ Table of Contents
    |     Length    |                  Node Name...
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                       Figure 3: Node Name Sub-Object
+                         Figure 3: Name Sub-Object
 
-   The Node Name Sub-Object MUST have a length that is a multiple of 4
-   octets and MUST NOT exceed 64 octets.  If the length field exceeds 64
+   The Name Sub-Object MUST have a length that is a multiple of 4 octets
+   and MUST NOT exceed 64 octets.  If the length field exceeds 64
    octets, the receiver MUST ignore the sub-object.
 
-   The Length field represents the length of the Node Name Sub- Object,
-   including the length and the node name in octets.  The maximum valid
+   The Length field represents the length of the Name Sub-Object,
+   including the length and the node name, in octets.  The maximum valid
    length is 64 octets.  The length is constrained to ensure there is
    space for the start of the original packet and additional
    information.
@@ -302,7 +302,7 @@ Table of Contents
    The node name MUST be represented in the UTF-8 charset [RFC3629]
    using the Default Language [RFC2277].
 
-4.  Adding Node Identification Object by Intermediate Nodes
+4.  Addition of Node Identification Object by Intermediate Nodes
 
    An IP/ICMP translator MAY use this extension when translating an ICMP
    message listed above to include the pre-translation source address of
@@ -320,7 +320,7 @@ Table of Contents
    encodes semantic information.  It may not be desirable to allow this
    information to be sent to an arbitrary receiver.  The addition of
    this information to the ICMP responses listed in Section 3 is
-   configurable, and defaults to off, with exception of IP/ICMP
+   configurable, and defaults to off, with the exception of IP/ICMP
    translators [RFC7915].  Those translators SHOULD add the Node
    Identification Extension Object with the IP Address Sub-Object, as
    described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
@@ -340,23 +340,26 @@ Table of Contents
    the extension described above.  The corresponding Class Sub-types
    Registry is as follows:
 
-        +================+===========================+===========+
-        | C-Type (Value) | Description               | Reference |
-        +================+===========================+===========+
-        | 0-4            | Unallocated - allocatable | [This     |
-        |                | with Standards Action     | document] |
-        +----------------+---------------------------+-----------+
-        | 5              | IP Address Sub-object     | [This     |
-        |                | included                  | document] |
-        +----------------+---------------------------+-----------+
-        | 6              | Name Sub-object included  | [This     |
-        |                |                           | document] |
-        +----------------+---------------------------+-----------+
-        | 7              | Unallocated - allocatable | [This     |
-        |                | with Standards Action     | document] |
-        +----------------+---------------------------+-----------+
+         +================+==========================+===========+
+         | C-Type (Value) | Description              | Reference |
+         +================+==========================+===========+
+         | 0-4            | Unassigned - allocatable | [This     |
+         |                | with Standards Action    | document] |
+         +----------------+--------------------------+-----------+
+         | 5              | IP Address Sub-object    | [This     |
+         |                | included                 | document] |
+         +----------------+--------------------------+-----------+
+         | 6              | Name Sub-object included | [This     |
+         |                |                          | document] |
+         +----------------+--------------------------+-----------+
+         | 7              | Unassigned - allocatable | [This     |
+         |                | with Standards Action    | document] |
+         +----------------+--------------------------+-----------+
 
-                                 Table 1
+                                  Table 1
+
+   As mentioned in Section 3.1.1, IANA is requested to assign additional
+   bits starting at zero.
 
 7.  References
 
@@ -425,9 +428,9 @@ Table of Contents
               Lamparter, D. and J. Linkova, "Using Dummy IPv4 Address
               and Node Identification Extensions for IP/ICMP translators
               (XLATs)", Work in Progress, Internet-Draft, draft-equinox-
-              v6ops-icmpext-xlat-v6only-source-01, 23 February 2025,
+              v6ops-icmpext-xlat-v6only-source-02, 21 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-equinox-
-              v6ops-icmpext-xlat-v6only-source-01>.
+              v6ops-icmpext-xlat-v6only-source-02>.
 
    [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
               Combination of Stateful and Stateless Translation",
@@ -464,6 +467,16 @@ A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
 
    *  Changed title to "Adding Extensions to ICMP Errors for Originating
       Node Identification"
+
+A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
+
+   *  Added the request to assign bits starting at 0 to the IANA
+      Considerations
+
+   *  Updated IANA Considerations wording based on RFC8126
+
+   *  Shortened sub-object names to "IP Address" and "Name", eliminating
+      "Node".
 
 Acknowledgments
 
