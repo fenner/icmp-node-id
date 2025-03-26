@@ -129,7 +129,7 @@ suggested configuration regarding including these messages.
 
 Similarly to the Interface Identification Object defined in {{RFC5837}},
 there are two different pieces of information that can appear in a
-Node Information Object:
+Node Identification Object:
 
 1. An IP Address Sub-Object MAY be included, containing an address
    of sufficient scope to identify the node within the domain.
@@ -150,26 +150,26 @@ that supports exactly these bits can reuse packet generation and parsing code.
 ~~~~
 Bit     0       1       2       3       4       5       6       7
     +-------+-------+-------+-------+-------+-------+-------+-------+
-    |               Unassigned              | IPAddr|  name |  Un2  |
+    |               Unassigned              | IPAddr|  Name |  Un2  |
     +-------+-------+-------+-------+-------+-------+-------+-------+
 ~~~~
 {: #ctypeFig title='C-Type for the Node Identification Object'}
 
 The following are bit-field definitions for C-Type:
 
-Unassigned (bits 0-4): These bits are reserved for future use
-and MUST be set to 0 on transmit and ignored on receipt.
+- Unassigned (bits 0-4): These bits are reserved for future use
+    and MUST be set to 0 on transmit and ignored on receipt.
 
-IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
-When clear, an IP Address Sub-Object is not present.  The IP Address
-Sub-Object is described in {{IPAddr}} of this memo.
+- IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+    When clear, an IP Address Sub-Object is not present.  The IP Address
+    Sub-Object is described in {{IPAddr}} of this memo.
 
-Node Name (bit 6): When set, a Name Sub-Object is
-included.  When clear, it is not included.  The Name Sub-Object is
-described in {{Name}} of this memo.
+- Name (bit 6): When set, a Name Sub-Object is
+    included.  When clear, it is not included.  The Name Sub-Object is
+    described in {{Name}} of this memo.
 
-Un2 (bit 7): This bit is reserved for future use
-and MUST be set to 0 on transmit and ignored on receipt.
+- Un2 (bit 7): This bit is reserved for future use
+    and MUST be set to 0 on transmit and ignored on receipt.
 
 The information included does not self-identify, so this
 specification defines a specific ordering for sending the information
@@ -183,7 +183,7 @@ present or absent, as indicated by the C-Type.  Any data that follows
 these optional pieces of information MUST be ignored.
 
 It is valid (though pointless until additional bits are assigned by
-IANA) to receive a Node Information Object where bits 5 and 6
+IANA) to receive a Node Identification Object where bits 5 and 6
 are both 0; this MUST NOT generate a warning or error.
 
 ### Behavior when additional bits are reserved {#fooblewomp}
