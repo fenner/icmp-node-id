@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fenner &amp; Thomas</td>
-<td class="center">Expires 26 September 2025</td>
+<td class="center">Expires 27 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-extended-icmp-nodeid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-25" class="published">25 March 2025</time>
+<time datetime="2025-03-26" class="published">26 March 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-26">26 September 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-27">27 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1139,7 +1139,7 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 26 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1311,7 +1311,7 @@ considerations do not supersede this requirement.  See <a href="#security" class
 suggested configuration regarding including these messages.<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">Similarly to the Interface Identification Object defined in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>,
 there are two different pieces of information that can appear in a
-Node Information Object:<a href="#section-3-6" class="pilcrow">¶</a></p>
+Node Identification Object:<a href="#section-3-6" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-7">
 <li id="section-3-7.1">
           <p id="section-3-7.1.1">An IP Address Sub-Object <span class="bcp14">MAY</span> be included, containing an address
@@ -1340,7 +1340,7 @@ that supports exactly these bits can reuse packet generation and parsing code.<a
 <pre>
 Bit     0       1       2       3       4       5       6       7
     +-------+-------+-------+-------+-------+-------+-------+-------+
-    |               Unassigned              | IPAddr|  name |  Un2  |
+    |               Unassigned              | IPAddr|  Name |  Un2  |
     +-------+-------+-------+-------+-------+-------+-------+-------+
 </pre>
 </div>
@@ -1349,28 +1349,38 @@ Bit     0       1       2       3       4       5       6       7
           </figcaption></figure>
 </div>
 <p id="section-3.1-3">The following are bit-field definitions for C-Type:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">Unassigned (bits 0-4): These bits are reserved for future use
-and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
-When clear, an IP Address Sub-Object is not present.  The IP Address
-Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">Node Name (bit 6): When set, a Name Sub-Object is
-included.  When clear, it is not included.  The Name Sub-Object is
-described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this memo.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">Un2 (bit 7): This bit is reserved for future use
-and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.1-8">The information included does not self-identify, so this
+<ul class="normal">
+<li class="normal" id="section-3.1-4.1">
+            <p id="section-3.1-4.1.1">Unassigned (bits 0-4): These bits are reserved for future use
+  and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.2">
+            <p id="section-3.1-4.2.1">IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+  When clear, an IP Address Sub-Object is not present.  The IP Address
+  Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.3">
+            <p id="section-3.1-4.3.1">Name (bit 6): When set, a Name Sub-Object is
+  included.  When clear, it is not included.  The Name Sub-Object is
+  described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this memo.<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.4">
+            <p id="section-3.1-4.4.1">Un2 (bit 7): This bit is reserved for future use
+  and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.1-5">The information included does not self-identify, so this
 specification defines a specific ordering for sending the information
-that must be followed.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<p id="section-3.1-9">If bit 5 (IP Address) is set, an IP Address Sub-Object <span class="bcp14">MUST</span>
+that must be followed.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-6">If bit 5 (IP Address) is set, an IP Address Sub-Object <span class="bcp14">MUST</span>
 be sent first.  If bit 6 (Name) is set, a Name Sub-Object
 <span class="bcp14">MUST</span> be sent next.  The information order is thus: IP Address Sub-Object,
 Name Sub-Object.  Any or all pieces of information may be
 present or absent, as indicated by the C-Type.  Any data that follows
-these optional pieces of information <span class="bcp14">MUST</span> be ignored.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
-<p id="section-3.1-10">It is valid (though pointless until additional bits are assigned by
-IANA) to receive a Node Information Object where bits 5 and 6
-are both 0; this <span class="bcp14">MUST NOT</span> generate a warning or error.<a href="#section-3.1-10" class="pilcrow">¶</a></p>
+these optional pieces of information <span class="bcp14">MUST</span> be ignored.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">It is valid (though pointless until additional bits are assigned by
+IANA) to receive a Node Identification Object where bits 5 and 6
+are both 0; this <span class="bcp14">MUST NOT</span> generate a warning or error.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
 <div id="fooblewomp">
 <section id="section-3.1.1">
           <h4 id="name-behavior-when-additional-bi">
