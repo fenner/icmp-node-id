@@ -147,7 +147,7 @@ bitmask are chosen so that the IPAddr and name bits overlap
 with the same bits as defined in {{RFC5837}}, so that an implementation
 that supports exactly these bits can reuse packet generation and parsing code.
 
-~~~~
+~~~~ aasvg
 Bit     0       1       2       3       4       5       6       7
     +-------+-------+-------+-------+-------+-------+-------+-------+
     |               Unassigned              | IPAddr|  Name |  Un2  |
@@ -210,7 +210,7 @@ or as otherwise configured - as depicted in {{addrFig}}.
 {::comment}
 protocol 'AFI:16,Reserved:16,Address...:32'
 {:/comment}
-~~~~
+~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -246,13 +246,13 @@ Payload fields are defined as follows:
 {{nodeFig}} depicts the Name Sub-Object:
 
 {::comment}
-protocol 'Length:8,Node Name...:24'
+protocol 'Length:8,Node Name . . .:24'
 {:/comment}
-~~~~
+~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Length    |                  Node Name...
+|     Length    |                Node Name . . .                |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
 {: #nodeFig title='Name Sub-Object' }
@@ -377,6 +377,8 @@ This section is to be removed before publishing as an RFC.
 ## Changes since draft-ietf-intarea-extended-icmp-nodeid-02
 
 - Added table to reflect Object Class assignment to IANA Considerations
+
+- Use SVG for packet figures
 
 # Acknowledgments
 {:numbered="false"}
