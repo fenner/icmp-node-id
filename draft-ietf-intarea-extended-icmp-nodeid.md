@@ -314,10 +314,15 @@ that ICMP messages and their contents are easily spoofed.
 # IANA Considerations {#sec-iana}
 
 This IANA has allocated the ICMP Extension
-Object Class value 5 to the extension described above.  The corresponding
+Object Class value 5 to the extension described above.
+
+| *Class Value* | *Class Name* | *Reference*
+| 5 | Node Identification Object | \[This document]
+
+The corresponding
 Class Sub-types Registry is as follows:
 
-| C-Type (Value) | Description | Reference
+| *C-Type (Value)* | *Description* | *Reference*
 | 0-4 | Unassigned - allocatable with Standards Action | \[This document]
 | 5 | IP Address Sub-object included | \[This document]
 | 6 | Name Sub-object included | \[This document]
@@ -368,6 +373,10 @@ This section is to be removed before publishing as an RFC.
 
 - Shortened sub-object names to "IP Address" and "Name", eliminating
   "Node".
+
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-02
+
+- Added table to reflect Object Class assignment to IANA Considerations
 
 # Acknowledgments
 {:numbered="false"}
