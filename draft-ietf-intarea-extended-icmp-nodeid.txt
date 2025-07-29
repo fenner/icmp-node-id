@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 27 September 2025                                 26 March 2025
+Expires: 30 January 2026                                    29 July 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 September 2025.
+   This Internet-Draft will expire on 30 January 2026.
 
 Copyright Notice
 
@@ -97,6 +97,7 @@ Table of Contents
      A.3.  Changes since draft-fenner-intarea-extended-icmp-hostid-02
      A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
      A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
+     A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
    Acknowledgments
    Authors' Addresses
 
@@ -276,7 +277,7 @@ Table of Contents
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Length    |                  Node Name...
+   |     Length    |                Node Name . . .                |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                          Figure 3: Name Sub-Object
@@ -337,8 +338,17 @@ Table of Contents
 6.  IANA Considerations
 
    This IANA has allocated the ICMP Extension Object Class value 5 to
-   the extension described above.  The corresponding Class Sub-types
-   Registry is as follows:
+   the extension described above.
+
+      +=============+============================+=================+
+      | Class Value | Class Name                 | Reference       |
+      +=============+============================+=================+
+      | 5           | Node Identification Object | [This document] |
+      +-------------+----------------------------+-----------------+
+
+                                 Table 1
+
+   The corresponding Class Sub-types Registry is as follows:
 
          +================+==========================+===========+
          | C-Type (Value) | Description              | Reference |
@@ -356,7 +366,7 @@ Table of Contents
          |                | with Standards Action    | document] |
          +----------------+--------------------------+-----------+
 
-                                  Table 1
+                                  Table 2
 
    As mentioned in Section 3.1.1, IANA is requested to assign additional
    bits starting at zero.
@@ -418,7 +428,7 @@ Table of Contents
 7.2.  Informative References
 
    [I-D.chroboczek-intarea-v4-via-v6]
-              Chroboczek, J., Kumari, W. A., and T. Høiland-Jørgensen,
+              Chroboczek, J., Kumari, W., and T. Høiland-Jørgensen,
               "IPv4 routes with an IPv6 next hop", Work in Progress,
               Internet-Draft, draft-chroboczek-intarea-v4-via-v6-03, 20
               January 2025, <https://datatracker.ietf.org/doc/html/
@@ -477,6 +487,11 @@ A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
 
    *  Shortened sub-object names to "IP Address" and "Name", eliminating
       "Node".
+
+A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
+
+   *  Added table to reflect Object Class assignment to IANA
+      Considerations
 
 Acknowledgments
 
