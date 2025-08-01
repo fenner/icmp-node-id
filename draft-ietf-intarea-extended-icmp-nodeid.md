@@ -185,6 +185,8 @@ these optional pieces of information MUST be ignored.
 It is valid (though pointless until additional bits are assigned by
 IANA) to receive a Node Identification Object where bits 5 and 6
 are both 0; this MUST NOT generate a warning or error.
+A packet with such a Node Identification Object SHOULD be treated
+as though it contains no Node Identification Object.
 
 ### Behavior when additional bits are reserved {#fooblewomp}
 
@@ -400,6 +402,8 @@ This section is to be removed before publishing as an RFC.
 - Use SVG for packet figures
 
 - Add example of an encoded, truncated node name
+
+- Be explicit on treatment of a packet with no bits set
 
 # Acknowledgments
 {:numbered="false"}
