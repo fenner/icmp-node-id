@@ -319,7 +319,7 @@ encodes semantic information.
 It may not be desirable to allow this information to be sent to
 an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in {{nodeid}} is configurable, and
-defaults to off, with the exception of IP/ICMP translators {{RFC7915}}.
+SHOULD be disabled by default, with the exception of IP/ICMP translators {{RFC7915}}.
 Those translators SHOULD add the Node Identification Extension Object
 with the IP Address Sub-Object, as described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}.
 An implementation
@@ -404,6 +404,8 @@ This section is to be removed before publishing as an RFC.
 - Add example of an encoded, truncated node name
 
 - Be explicit on treatment of a packet with no bits set
+
+- Clarified "defaults to off" in security considerations
 
 # Acknowledgments
 {:numbered="false"}
