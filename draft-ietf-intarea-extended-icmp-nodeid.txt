@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 30 January 2026                                    29 July 2025
+Expires: 2 February 2026                                   1 August 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 January 2026.
+   This Internet-Draft will expire on 2 February 2026.
 
 Copyright Notice
 
@@ -298,7 +298,21 @@ Table of Contents
    sys:hostname is longer.  The node name MAY be some other human-
    meaningful name of the node.  The node name MUST be padded with ASCII
    NUL characters if the object would not otherwise terminate on a
-   4-octet boundary.
+   4-octet boundary.  An example of truncation of a 64-octet node name,
+   beginning "HelpMyAscii" and ending "Homestar" would be encoded as
+   follows:
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |       63      |       H       |       e       |       l       |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |       p       |       M       |       y       |       A       |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                            . . . .                            |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |       e       |       s       |       t       |       a       |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The node name MUST be represented in the UTF-8 charset [RFC3629]
    using the Default Language [RFC2277].
