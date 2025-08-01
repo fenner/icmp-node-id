@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:14:34.525319+00:00",
+  "timestamp": "2025-08-01T13:44:15.119102+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -112,6 +112,169 @@
       "updatedAt": "2024-09-30T23:30:39Z",
       "closedAt": "2024-09-30T23:30:39Z",
       "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOLJPxrM7CGdtZ",
+      "title": "In security considerations, rephrase \"defaults to off\"",
+      "url": "https://github.com/fenner/icmp-node-id/issues/6",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "From @furry13 : \n\n> I've just spotted a text\n> which might need some clarification:\n> \n> Section 5 (Security considerations) says:\n> \n> \" The addition of this information to the ICMP responses listed in\n> Section 3 is configurable, and defaults to off, with the exception of\n> IP/ICMP translators [RFC7915].\"\n> \n> IMHO it would be desirable to rephrase \"defaults to off\" using\n> normative language.",
+      "createdAt": "2025-07-23T13:47:22Z",
+      "updatedAt": "2025-08-01T13:35:38Z",
+      "closedAt": "2025-08-01T13:35:38Z",
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOLJPxrM7CTP-k",
+      "title": "Shepherd review: definition of uniqueness",
+      "url": "https://github.com/fenner/icmp-node-id/issues/7",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@Iannone-Luigi writes:\n\n> I think the the definition of _unique_ Node ID is a bit hidden in the document and not clearly spelled out.\n> The second paragraph of the abstract is close but not perfect.\n> \n> My understanding is the following:\n> \n> The _combination_ of IP Address and Name sub-objects MUST be unique.\n> If the IP Address sub-object is NOT included, then the Name sub-object MUST be unique.\n> Vice versa, if the Name sub-object is NOT included, then the IP Address sub-object MUST be unique.\n> \n> Is my understanding correct? \n> Further, _uniqueness_ is relative to the local domain?  Or a different scope? \n> \n> Can text be added somewhere in the document to clearly define the above?\n> ",
+      "createdAt": "2025-07-24T13:01:49Z",
+      "updatedAt": "2025-07-24T13:01:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOLJPxrM7CTQuT",
+      "title": "Shepherd review: what to do if both bits 5 and 6 are zero",
+      "url": "https://github.com/fenner/icmp-node-id/issues/8",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@Iannone-Luigi writes:\n> Last paragraph of Section 3.1 states:\n> \n>  It is valid (though pointless until additional bits are assigned by\n>    IANA) to receive a Node Identification Object where bits 5 and 6 are\n>    both 0; this MUST NOT generate a warning or error.\n> \n> The paragraph does not say what to do with the object. MUST Ignore if all bits are 0? \n> ",
+      "createdAt": "2025-07-24T13:02:45Z",
+      "updatedAt": "2025-08-01T13:26:29Z",
+      "closedAt": "2025-08-01T13:26:29Z",
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "My proposal is to add\n\nA packet with such a Node Identification Object SHOULD be treated\nas though it contains no Node Identification Object.\n",
+          "createdAt": "2025-08-01T13:16:31Z",
+          "updatedAt": "2025-08-01T13:16:31Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOLJPxrM7CTRbT",
+      "title": "Shepherd review: name encoding",
+      "url": "https://github.com/fenner/icmp-node-id/issues/9",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@Iannone-Luigi writes:\n> In Section 3.3, the encoding of the name is unclear to me. \n> The field is max 64 octets  but can contain only the first 63 octets of the hostname, which means that the last octet is the NULL character, right?\n> However, the following sentence (in the same section) \n> \n> The node name MUST be padded with ASCII\n>    NUL characters if the object would not otherwise terminate on a\n>    4-octet boundary.\n> \n> Seems to suggest that if the name terminates at a 4-octet boundary the NULL character is not necessary.\n> I would suggest make the NULL character termination mandatory in any case. Having corner cases makes implementations more complex and less reliable.\n> ",
+      "createdAt": "2025-07-24T13:03:33Z",
+      "updatedAt": "2025-08-01T12:19:13Z",
+      "closedAt": "2025-08-01T12:19:13Z",
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "This encoding is copied directly from [RFC5837](https://datatracker.ietf.org/doc/html/rfc5837#section-4.3).  As mentioned in my document's [section 3.1,](https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-02#section-3.1) the encoding in this document is chosen so that an existing RFC5837 encoder/decoder can be used to encode and decode this message too.\n\nYour statement\n> The field is max 64 octets but can contain only the first 63 octets of the hostname, which means that the last octet is the NULL character, right?\n\nis not quite right - the first octet is the length.  So for a 63-octet hostname encoding, the layout would be\n```\n 0                   1                   2                   3  \n 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|       63      |       H       |       e       |       l       |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|       l       |       o       |       W       |       o       |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|                              ...                              |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|       60      |       61      |       62      |       63      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n```\nwhere the hostname starts \"HelloWo...\" and ends with the characters represented by 60, 61, 62, 63.",
+          "createdAt": "2025-07-24T13:17:30Z",
+          "updatedAt": "2025-07-24T13:17:30Z"
+        },
+        {
+          "author": "Iannone-Luigi",
+          "authorAssociation": "NONE",
+          "body": "Thanks for the explanation. It is me that misread.\r\n\r\nHaving said that the example below is very clear you may consider adding it to the document \ud83d\ude09\r\n\r\nL.\r\n\r\nFrom: Bill Fenner ***@***.***>\r\nSent: Thursday, July 24, 2025 3:18 PM\r\nTo: fenner/icmp-node-id ***@***.***>\r\nCc: Luigi IANNONE ***@***.***>; Mention ***@***.***>\r\nSubject: Re: [fenner/icmp-node-id] Shepherd review: name encoding (Issue #9)\r\n\r\n[Image removed by sender.]fenner left a comment (fenner/icmp-node-id#9)<https://github.com/fenner/icmp-node-id/issues/9#issuecomment-3113447846>\r\n\r\nThis encoding is copied directly from RFC5837<https://datatracker.ietf.org/doc/html/rfc5837#section-4.3>. As mentioned in my document's section 3.1,<https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-02#section-3.1> the encoding in this document is chosen so that an existing RFC5837 encoder/decoder can be used to encode and decode this message too.\r\n\r\nYour statement\r\n\r\nThe field is max 64 octets but can contain only the first 63 octets of the hostname, which means that the last octet is the NULL character, right?\r\n\r\nis not quite right - the first octet is the length. So for a 63-octet hostname encoding, the layout would be\r\n\r\n 0                   1                   2                   3\r\n\r\n 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\r\n\r\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n\r\n|       63      |       H       |       e       |       l       |\r\n\r\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n\r\n|       l       |       o       |       W       |       o       |\r\n\r\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n\r\n|                              ...                              |\r\n\r\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n\r\n|       60      |       61      |       62      |       63      |\r\n\r\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n\r\nwhere the hostname starts \"HelloWo...\" and ends with the characters represented by 60, 61, 62, 63.\r\n\r\n\u2014\r\nReply to this email directly, view it on GitHub<https://github.com/fenner/icmp-node-id/issues/9#issuecomment-3113447846>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/ARXKUG5H7BAWSBQRW7QNOAD3KDMH7AVCNFSM6AAAAACCIZBZC6VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTCMJTGQ2DOOBUGY>.\r\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\r\n",
+          "createdAt": "2025-07-28T08:42:18Z",
+          "updatedAt": "2025-07-28T08:42:18Z"
+        },
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "> Having said that the example below is very clear you may consider adding it to the document \ud83d\ude09\n\nYes, while I was writing it that occurred to me. I'll try to make a clear example that doesn't change from letters to character positions halfway through :-)\n",
+          "createdAt": "2025-07-28T20:48:28Z",
+          "updatedAt": "2025-07-28T20:48:28Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOLJPxrM7CTR-0",
+      "title": "Shepherd review: IANA section",
+      "url": "https://github.com/fenner/icmp-node-id/issues/10",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@Iannone-Luigi writes:\n> For the IANA Considerations Section: Officially this document is the one asking to allocate the type codepoint 5 for the object, hence would be good to have the table that reflects the entry in the IANA database, not just stating \u201cIANA gave us value 5\u2026.\u201d.\n> \n> BTW the start of the first paragraph is weird: \u201cThis IANA has allocated\u2026.\u201d   \n> ",
+      "createdAt": "2025-07-24T13:04:16Z",
+      "updatedAt": "2025-07-29T10:57:24Z",
+      "closedAt": "2025-07-29T10:57:24Z",
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "The IANA *has* allocated codepoint 5; I sat down at the IANA table in Brisbane and discussed with them what the procedure was for getting a codepoint, and we came to the conclusion that the codepoint could be allocated while the document was still in progress. I copied the text that is found in RFCs when the allocation has already occurred.\n\nIs this what you are thinking of regarding the table in your first paragraph?\n```\n6.  IANA Considerations \n   \n   This IANA has allocated the ICMP Extension Object Class value 5 to\n   the extension described above.\n\n      +=============+============================+=================+\n      | Class Value | Class Name                 | Reference       | \n      +=============+============================+=================+\n      | 5           | Node Identification Object | [This document] |\n      +-------------+----------------------------+-----------------+\n   \n                                 Table 1    \n    \n   The corresponding Class Sub-types Registry is as follows:\n   \n         +================+==========================+===========+\n         | C-Type (Value) | Description              | Reference |\n         +================+==========================+===========+\n         | 0-4            | Unassigned - allocatable | [This     |\n         |                | with Standards Action    | document] |\n         +----------------+--------------------------+-----------+\n         | 5              | IP Address Sub-object    | [This     |\n         |                | included                 | document] |\n         +----------------+--------------------------+-----------+\n         | 6              | Name Sub-object included | [This     |\n         |                |                          | document] |\n         +----------------+--------------------------+-----------+\n         | 7              | Unassigned - allocatable | [This     |\n         |                | with Standards Action    | document] |\n         +----------------+--------------------------+-----------+\n\n                                  Table 2\n\n   As mentioned in Section 3.1.1, IANA is requested to assign additional\n   bits starting at zero.\n```\n\n",
+          "createdAt": "2025-07-24T13:24:40Z",
+          "updatedAt": "2025-07-24T13:24:40Z"
+        },
+        {
+          "author": "Iannone-Luigi",
+          "authorAssociation": "NONE",
+          "body": "Yes, Table 1 is what was missing.\r\n\r\nCiao\r\n\r\nL.\r\n\r\n\r\nFrom: Bill Fenner ***@***.***>\r\nSent: Thursday, July 24, 2025 3:25 PM\r\nTo: fenner/icmp-node-id ***@***.***>\r\nCc: Luigi IANNONE ***@***.***>; Mention ***@***.***>\r\nSubject: Re: [fenner/icmp-node-id] Shepherd review: IANA section (Issue #10)\r\n\r\n[Image removed by sender.]fenner left a comment (fenner/icmp-node-id#10)<https://github.com/fenner/icmp-node-id/issues/10#issuecomment-3113471444>\r\n\r\nThe IANA has allocated codepoint 5; I sat down at the IANA table in Brisbane and discussed with them what the procedure was for getting a codepoint, and we came to the conclusion that the codepoint could be allocated while the document was still in progress. I copied the text that is found in RFCs when the allocation has already occurred.\r\n\r\nIs this what you are thinking of regarding the table in your first paragraph?\r\n\r\n6.  IANA Considerations\r\n\r\n\r\n\r\n   This IANA has allocated the ICMP Extension Object Class value 5 to\r\n\r\n   the extension described above.\r\n\r\n\r\n\r\n      +=============+============================+=================+\r\n\r\n      | Class Value | Class Name                 | Reference       |\r\n\r\n      +=============+============================+=================+\r\n\r\n      | 5           | Node Identification Object | [This document] |\r\n\r\n      +-------------+----------------------------+-----------------+\r\n\r\n\r\n\r\n                                 Table 1\r\n\r\n\r\n\r\n   The corresponding Class Sub-types Registry is as follows:\r\n\r\n\r\n\r\n         +================+==========================+===========+\r\n\r\n         | C-Type (Value) | Description              | Reference |\r\n\r\n         +================+==========================+===========+\r\n\r\n         | 0-4            | Unassigned - allocatable | [This     |\r\n\r\n         |                | with Standards Action    | document] |\r\n\r\n         +----------------+--------------------------+-----------+\r\n\r\n         | 5              | IP Address Sub-object    | [This     |\r\n\r\n         |                | included                 | document] |\r\n\r\n         +----------------+--------------------------+-----------+\r\n\r\n         | 6              | Name Sub-object included | [This     |\r\n\r\n         |                |                          | document] |\r\n\r\n         +----------------+--------------------------+-----------+\r\n\r\n         | 7              | Unassigned - allocatable | [This     |\r\n\r\n         |                | with Standards Action    | document] |\r\n\r\n         +----------------+--------------------------+-----------+\r\n\r\n\r\n\r\n                                  Table 2\r\n\r\n\r\n\r\n   As mentioned in Section 3.1.1, IANA is requested to assign additional\r\n\r\n   bits starting at zero.\r\n\r\n\u2014\r\nReply to this email directly, view it on GitHub<https://github.com/fenner/icmp-node-id/issues/10#issuecomment-3113471444>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/ARXKUG5GLPNXRTJG7V5IOKD3KDNC3AVCNFSM6AAAAACCIZDUA2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTCMJTGQ3TCNBUGQ>.\r\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\r\n",
+          "createdAt": "2025-07-28T08:37:52Z",
+          "updatedAt": "2025-07-28T08:37:52Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOLJPxrM7CTSsS",
+      "title": "Shepherd request: all tables in SVG",
+      "url": "https://github.com/fenner/icmp-node-id/issues/11",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@Iannone-Luigi writes:\n> As a final note, would be great to have all the tables and figures available in SVG.\n",
+      "createdAt": "2025-07-24T13:05:07Z",
+      "updatedAt": "2025-07-29T10:57:24Z",
+      "closedAt": "2025-07-29T10:57:24Z",
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "Using `goat` results in a packet diagram with some slight alignment issues -\n\n<img width=\"561\" height=\"163\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bf9a3f3e-fedd-493f-a530-a991c5a32e20\" />\n\n<img width=\"539\" height=\"138\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/197a897e-af49-4e87-9f6c-7537d53c4ed1\" />\n\nMaybe it's just me, but I find these unsettling to look at.\n\nIs there a better svg authoring tool you can suggest?\n",
+          "createdAt": "2025-07-24T13:37:35Z",
+          "updatedAt": "2025-07-24T13:37:35Z"
+        },
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "I see that `aasvg` does better, but gets confused by `Node Name...`. I'll play around a little more, at least `aasvg` aligns better and doesn't have such crazy font spacing.\n\n<img width=\"1064\" height=\"298\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/f429ed45-31a2-4610-bd0d-91e361d7d40e\" />",
+          "createdAt": "2025-07-24T21:13:50Z",
+          "updatedAt": "2025-07-24T21:13:50Z"
+        },
+        {
+          "author": "Iannone-Luigi",
+          "authorAssociation": "NONE",
+          "body": "HI Bill,\r\n\r\nMay be you can try to change a bit the figures.\r\n\r\nAttached an example of packet with a variable length field, may be using something similar?\r\n\r\n***@***.***\r\n\r\nCiao\r\n\r\nL.\r\n\r\n\r\n\r\n\r\nFrom: Bill Fenner ***@***.***>\r\nSent: Thursday, July 24, 2025 11:14 PM\r\nTo: fenner/icmp-node-id ***@***.***>\r\nCc: Luigi IANNONE ***@***.***>; Mention ***@***.***>\r\nSubject: Re: [fenner/icmp-node-id] Shepherd request: all tables in SVG (Issue #11)\r\n\r\n[Image removed by sender.]fenner left a comment (fenner/icmp-node-id#11)<https://github.com/fenner/icmp-node-id/issues/11#issuecomment-3114977911>\r\n\r\nI see that aasvg does better, but gets confused by Node Name.... I'll play around a little more, at least aasvg aligns better and doesn't have such crazy font spacing.\r\nScreenshot.2025-07-24.at.2.01.46.PM.png (view on web)<https://github.com/user-attachments/assets/f429ed45-31a2-4610-bd0d-91e361d7d40e>\r\n\r\n\u2014\r\nReply to this email directly, view it on GitHub<https://github.com/fenner/icmp-node-id/issues/11#issuecomment-3114977911>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/ARXKUG242IVJITVOJR5XDNL3KFECHAVCNFSM6AAAAACCIZF3LGVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTCMJUHE3TOOJRGE>.\r\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\r\n",
+          "createdAt": "2025-07-28T08:36:28Z",
+          "updatedAt": "2025-07-28T08:36:28Z"
+        }
+      ]
     }
   ],
   "pulls": [
