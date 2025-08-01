@@ -219,7 +219,9 @@ Table of Contents
 
    It is valid (though pointless until additional bits are assigned by
    IANA) to receive a Node Identification Object where bits 5 and 6 are
-   both 0; this MUST NOT generate a warning or error.
+   both 0; this MUST NOT generate a warning or error.  A packet with
+   such a Node Identification Object SHOULD be treated as though it
+   contains no Node Identification Object.
 
 3.1.1.  Behavior when additional bits are reserved
 
@@ -507,6 +509,12 @@ A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
    *  Added table to reflect Object Class assignment to IANA
       Considerations
 
+   *  Use SVG for packet figures
+
+   *  Add example of an encoded, truncated node name
+
+   *  Be explicit on treatment of a packet with no bits set
+
 Acknowledgments
 
    This document derives text heavily from [RFC5837], since the
@@ -516,8 +524,8 @@ Acknowledgments
    Shen, and JR.  Rivers.
 
    Further thanks are due to the following who have provided valuable
-   contributions to this document: Med Boucadair, Jen Linkova, and David
-   Lamparter.
+   contributions to this document: Med Boucadair, Jen Linkova, David
+   Lamparter, and Luigi Iannone.
 
 Authors' Addresses
 
