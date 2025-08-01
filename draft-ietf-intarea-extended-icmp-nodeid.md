@@ -273,6 +273,25 @@ or the first 63 octets of the sys:hostname, if the sys:hostname is
 longer.  The node name MAY be some other human-meaningful name of
 the node.  The node name MUST be padded with ASCII NUL characters
 if the object would not otherwise terminate on a 4-octet boundary.
+An example of truncation of a 64-octet node name, beginning
+"HelpMyAscii" and ending "Homestar" would be encoded as follows:
+
+{::comment}
+protocol '63:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,e:8,s:8,t:8,a:8'
+{:/comment}
+~~~~ aasvg
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       63      |       H       |       e       |       l       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       p       |       M       |       y       |       A       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            . . . .                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       e       |       s       |       t       |       a       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
 
 The node name MUST be represented in the UTF-8 charset {{RFC3629}}
 using the Default Language {{RFC2277}}.
@@ -379,6 +398,8 @@ This section is to be removed before publishing as an RFC.
 - Added table to reflect Object Class assignment to IANA Considerations
 
 - Use SVG for packet figures
+
+- Add example of an encoded, truncated node name
 
 # Acknowledgments
 {:numbered="false"}
