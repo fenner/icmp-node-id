@@ -337,10 +337,10 @@ Table of Contents
    encodes semantic information.  It may not be desirable to allow this
    information to be sent to an arbitrary receiver.  The addition of
    this information to the ICMP responses listed in Section 3 is
-   configurable, and defaults to off, with the exception of IP/ICMP
-   translators [RFC7915].  Those translators SHOULD add the Node
-   Identification Extension Object with the IP Address Sub-Object, as
-   described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
+   configurable, and SHOULD be disabled by default, with the exception
+   of IP/ICMP translators [RFC7915].  Those translators SHOULD add the
+   Node Identification Extension Object with the IP Address Sub-Object,
+   as described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
    implementation may determine what objects may be appended to a given
    message based on the destination IP address of the ICMP message that
    will contain the objects.  Access control lists (ACLs) may be used to
@@ -514,6 +514,8 @@ A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
    *  Add example of an encoded, truncated node name
 
    *  Be explicit on treatment of a packet with no bits set
+
+   *  Clarified "defaults to off" in security considerations
 
 Acknowledgments
 

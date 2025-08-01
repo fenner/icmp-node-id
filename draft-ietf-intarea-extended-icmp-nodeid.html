@@ -1714,7 +1714,7 @@ encodes semantic information.
 It may not be desirable to allow this information to be sent to
 an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in <a href="#nodeid" class="auto internal xref">Section 3</a> is configurable, and
-defaults to off, with the exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
+<span class="bcp14">SHOULD</span> be disabled by default, with the exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
 Those translators <span class="bcp14">SHOULD</span> add the Node Identification Extension Object
 with the IP Address Sub-Object, as described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>.
 An implementation
@@ -1974,6 +1974,9 @@ Considerations<a href="#appendix-A.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.6-1.4">
             <p id="appendix-A.6-1.4.1">Be explicit on treatment of a packet with no bits set<a href="#appendix-A.6-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.5">
+            <p id="appendix-A.6-1.5.1">Clarified "defaults to off" in security considerations<a href="#appendix-A.6-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
