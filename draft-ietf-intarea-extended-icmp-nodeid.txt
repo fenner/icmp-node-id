@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 2 February 2026                                   1 August 2025
+Expires: 7 February 2026                                   6 August 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 February 2026.
+   This Internet-Draft will expire on 7 February 2026.
 
 Copyright Notice
 
@@ -289,10 +289,10 @@ Table of Contents
    octets, the receiver MUST ignore the sub-object.
 
    The Length field represents the length of the Name Sub-Object,
-   including the length and the node name, in octets.  The maximum valid
-   length is 64 octets.  The length is constrained to ensure there is
-   space for the start of the original packet and additional
-   information.
+   including the length, the node name, and any padding, in octets.  The
+   maximum valid length is 64 octets.  The length is constrained to
+   ensure there is space for the start of the original packet and
+   additional information.
 
    The second field contains the human-readable node name.  The node
    name SHOULD be the YANG sys:hostname [RFC7317], if less than 64
@@ -300,20 +300,20 @@ Table of Contents
    sys:hostname is longer.  The node name MAY be some other human-
    meaningful name of the node.  The node name MUST be padded with ASCII
    NUL characters if the object would not otherwise terminate on a
-   4-octet boundary.  An example of truncation of a 64-octet node name,
+   4-octet boundary.  An example of truncation of a 66-octet node name,
    beginning "HelpMyAscii" and ending "Homestar" would be encoded as
    follows:
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |       63      |       H       |       e       |       l       |
+   |       64      |       H       |       e       |       l       |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |       p       |       M       |       y       |       A       |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                            . . . .                            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |       e       |       s       |       t       |       a       |
+   |       o       |       m       |       e       |       s       |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The node name MUST be represented in the UTF-8 charset [RFC3629]
