@@ -264,7 +264,7 @@ of 4 octets and MUST NOT exceed 64 octets. If the length field
 exceeds 64 octets, the receiver MUST ignore the sub-object.
 
 The Length field represents the length of the Name Sub-Object,
-including the length and the node name, in octets.  The
+including the length, the node name, and any padding, in octets.  The
 maximum valid length is 64 octets.  The length is constrained to
 ensure there is space for the start of the original packet and
 additional information.
@@ -275,23 +275,23 @@ or the first 63 octets of the sys:hostname, if the sys:hostname is
 longer.  The node name MAY be some other human-meaningful name of
 the node.  The node name MUST be padded with ASCII NUL characters
 if the object would not otherwise terminate on a 4-octet boundary.
-An example of truncation of a 64-octet node name, beginning
+An example of truncation of a 66-octet node name, beginning
 "HelpMyAscii" and ending "Homestar" would be encoded as follows:
 
 {::comment}
-protocol '63:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,e:8,s:8,t:8,a:8'
+protocol '64:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,o:8,m:8,e:8,s:8'
 {:/comment}
 ~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       63      |       H       |       e       |       l       |
+|       64      |       H       |       e       |       l       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |       p       |       M       |       y       |       A       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                            . . . .                            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       e       |       s       |       t       |       a       |
+|       o       |       m       |       e       |       s       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
 
