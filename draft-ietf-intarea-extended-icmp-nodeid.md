@@ -53,6 +53,7 @@ normative:
   IANA.address-family-numbers:
 
 informative:
+  RFC4193:
   RFC6877:
   I-D.chroboczek-intarea-v4-via-v6:
   I-D.equinox-v6ops-icmpext-xlat-v6only-source:
@@ -84,6 +85,18 @@ traceroute, so additional information is needed.
 Another scenario is described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}:
 when an IPv6-only node runs the customer-side translator (CLAT, {{RFC6877}}),
 traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.
+
+The goal of this specification is to have a mechanism to provide
+additional useful information about the identification of a node
+sending an ICMP error, which depends on the actual context and scope
+of the message being delivered.  To this end, it is RECOMMENDED to
+use a combination of IP Address and Name sub-objects (including
+combinations where one of the sub-objects is not used) that is
+unique and meaningful in the actual context and scope.  It is
+explicitly permitted to use an IP address that may have only local
+meaning (e.g., ULA {{RFC4193}}), since that information can then
+be provided to the operator of the domain who can then determine
+the local meaning.
 
 This document defines an ICMP extension that fills that void.
 
@@ -406,6 +419,8 @@ This section is to be removed before publishing as an RFC.
 - Be explicit on treatment of a packet with no bits set
 
 - Clarified "defaults to off" in security considerations
+
+- Clarified use of IP address and names
 
 # Acknowledgments
 {:numbered="false"}
