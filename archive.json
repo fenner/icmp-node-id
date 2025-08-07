@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-01T13:44:15.119102+00:00",
+  "timestamp": "2025-08-07T02:22:14.346377+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -134,15 +134,15 @@
       "id": "I_kwDOLJPxrM7CTP-k",
       "title": "Shepherd review: definition of uniqueness",
       "url": "https://github.com/fenner/icmp-node-id/issues/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "@Iannone-Luigi writes:\n\n> I think the the definition of _unique_ Node ID is a bit hidden in the document and not clearly spelled out.\n> The second paragraph of the abstract is close but not perfect.\n> \n> My understanding is the following:\n> \n> The _combination_ of IP Address and Name sub-objects MUST be unique.\n> If the IP Address sub-object is NOT included, then the Name sub-object MUST be unique.\n> Vice versa, if the Name sub-object is NOT included, then the IP Address sub-object MUST be unique.\n> \n> Is my understanding correct? \n> Further, _uniqueness_ is relative to the local domain?  Or a different scope? \n> \n> Can text be added somewhere in the document to clearly define the above?\n> ",
       "createdAt": "2025-07-24T13:01:49Z",
-      "updatedAt": "2025-07-24T13:01:49Z",
-      "closedAt": null,
+      "updatedAt": "2025-08-07T01:29:12Z",
+      "closedAt": "2025-08-07T01:29:12Z",
       "comments": []
     },
     {
@@ -275,6 +275,38 @@
           "updatedAt": "2025-07-28T08:36:28Z"
         }
       ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOLJPxrM7EQVdS",
+      "title": "Name example is incorrect",
+      "url": "https://github.com/fenner/icmp-node-id/issues/12",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The doc says\n> The Length field represents the length of the Name Sub-Object, including the length and the node name, in octets. \n\nThe example does not include the length field in the length, it uses 63 but the length + node name = 64.\n",
+      "createdAt": "2025-08-05T10:53:58Z",
+      "updatedAt": "2025-08-06T12:48:15Z",
+      "closedAt": "2025-08-06T12:48:15Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOLJPxrM7EQXpw",
+      "title": "Unclear if padding is included in name length",
+      "url": "https://github.com/fenner/icmp-node-id/issues/13",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "If the name object contains \"LENGTH foob\\0\\0\\0\", is LENGTH 5 or 8?",
+      "createdAt": "2025-08-05T10:57:19Z",
+      "updatedAt": "2025-08-06T12:48:16Z",
+      "closedAt": "2025-08-06T12:48:16Z",
+      "comments": []
     }
   ],
   "pulls": [
