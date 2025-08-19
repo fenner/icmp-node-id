@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Adding Extensions to ICMP Errors for Originating Node Identification</title>
+<meta content="Bill Fenner" name="author">
+<meta content="Reji Thomas" name="author">
+<meta content="
+       RFC5837 describes a mechanism for Extending ICMP for Interface and Next-Hop Identification,
+which allows providing additional information in an ICMP error that helps identify
+interfaces participating in the path.  This is especially useful in environments
+where a given interface may not have a unique IP address to respond to, e.g., a traceroute. 
+       This document introduces a similar ICMP extension for Node Identification.
+It allows providing a unique IP address and/or a textual name for the node, in
+the case where each node may not have a unique IP address (e.g., a deployment
+in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+even for IPv4 routes). 
+    " name="description">
+<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="ICMP" name="keyword">
+<meta content="IPv6 nexthops" name="keyword">
+<meta content="Node identification" name="keyword">
+<meta content="draft-ietf-intarea-extended-icmp-nodeid-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.30.0
+    Python 3.12.11
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.3.8
+    pycountry 24.6.1
+    PyYAML 6.0.2
+    requests 2.32.4
+    setuptools 80.9.0
+    wcwidth 0.2.13
+-->
+<link href="draft-ietf-intarea-extended-icmp-nodeid.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+  & li {
+    margin-top: 0.5em;
+  }
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+}
+dl:not(.dlNewline) > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+  caption-side: bottom;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
+}
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
+}
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
+}
+
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+/* Comments */
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:is(:link, :focus, :hover),
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin: 2px 0.5em 0;
+  }
+}
+
+/* TOC layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">ICMP Node ID</td>
+<td class="right">August 2025</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Fenner &amp; Thomas</td>
+<td class="center">Expires 20 February 2026</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Internet Area Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-intarea-extended-icmp-nodeid-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2025-08-19" class="published">19 August 2025</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Standards Track</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2026-02-20">20 February 2026</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">B. Fenner</div>
+<div class="org">Arista Networks</div>
+</div>
+<div class="author">
+      <div class="author-name">R. Thomas</div>
+<div class="org">Arista Networks</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Adding Extensions to ICMP Errors for Originating Node Identification</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">RFC5837 describes a mechanism for Extending ICMP for Interface and Next-Hop Identification,
+which allows providing additional information in an ICMP error that helps identify
+interfaces participating in the path.  This is especially useful in environments
+where a given interface may not have a unique IP address to respond to, e.g., a traceroute.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document introduces a similar ICMP extension for Node Identification.
+It allows providing a unique IP address and/or a textual name for the node, in
+the case where each node may not have a unique IP address (e.g., a deployment
+in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://fenner.github.io/icmp-node-id/draft-ietf-intarea-extended-icmp-nodeid.html">https://fenner.github.io/icmp-node-id/draft-ietf-intarea-extended-icmp-nodeid.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-intarea-extended-icmp-nodeid/">https://datatracker.ietf.org/doc/draft-ietf-intarea-extended-icmp-nodeid/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        Internet Area Working Group Working Group mailing list (<span><a href="mailto:int-area@ietf.org">mailto:int-area@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/int-area/">https://mailarchive.ietf.org/arch/browse/int-area/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/int-area/">https://www.ietf.org/mailman/listinfo/int-area/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/fenner/icmp-node-id">https://github.com/fenner/icmp-node-id</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 20 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2025 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-node-identification-object" class="internal xref">Node Identification Object</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-c-type-meaning-in-a-node-id" class="internal xref">C-Type Meaning in a Node Identification Object</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
+                    <p id="section-toc.1-1.3.2.1.2.1.1" class="keepWithNext"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-behavior-when-additional-bi" class="internal xref">Behavior when additional bits are reserved</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-ip-address-sub-object" class="internal xref">IP Address Sub-Object</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-name-sub-object" class="internal xref">Name Sub-Object</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-addition-of-node-identifica" class="internal xref">Addition of Node Identification Object by Intermediate Nodes</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-change-history" class="internal xref">Change history</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-changes-since-draft-fenner-" class="internal xref">Changes since draft-fenner-intarea-extended-icmp-hostid-00</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-changes-since-draft-fenner-i" class="internal xref">Changes since draft-fenner-intarea-extended-icmp-hostid-01</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-changes-since-draft-fenner-in" class="internal xref">Changes since draft-fenner-intarea-extended-icmp-hostid-02</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-changes-since-draft-ietf-in" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-00</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#appendix-A.5" class="auto internal xref">A.5</a>.  <a href="#name-changes-since-draft-ietf-int" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-01</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
+                <p id="section-toc.1-1.8.2.6.1"><a href="#appendix-A.6" class="auto internal xref">A.6</a>.  <a href="#name-changes-since-draft-ietf-inta" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-02</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7">
+                <p id="section-toc.1-1.8.2.7.1"><a href="#appendix-A.7" class="auto internal xref">A.7</a>.  <a href="#name-changes-since-draft-ietf-intar" class="internal xref">Changes since draft-ietf-intarea-extended-icmp-nodeid-03</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">In addition to adding incoming interface information to a traceroute
+using the mechanisms described in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, a network operator
+may be interested in adding information to unambiguously identify nodes themselves.
+For example, <span>[<a href="#I-D.chroboczek-intarea-v4-via-v6" class="cite xref">I-D.chroboczek-intarea-v4-via-v6</a>]</span> describes a scenario in which individual
+nodes do not have unique IPv4 addresses to use to reply to an IPv4
+traceroute, so additional information is needed.
+Another scenario is described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>:
+when an IPv6-only node runs the customer-side translator (CLAT, <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span>),
+traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The goal of this specification is to have a mechanism to provide
+additional useful information about the identification of a node
+sending an ICMP error, which depends on the actual context and scope
+of the message being delivered.  To this end, it is <span class="bcp14">RECOMMENDED</span> to
+use a combination of IP Address and Name sub-objects (including
+combinations where one of the sub-objects is not used) that is
+unique and meaningful in the actual context and scope.  It is
+explicitly permitted to use an IP address that may have only local
+meaning (e.g., ULA <span>[<a href="#RFC4193" class="cite xref">RFC4193</a>]</span>), since that information can then
+be provided to the operator of the domain who can then determine
+the local meaning.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document defines an ICMP extension that fills that void.<a href="#section-1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-2">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">ICMPv4 is used to refer to Internet Control Message Protocol (ICMP) specified in <span>[<a href="#RFC0792" class="cite xref">RFC0792</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">ICMPv6 is used to refer to Internet Control Message Protocol (ICMPv6)
+for the Internet Protocol Version 6 (IPv6) specified in <span>[<a href="#RFC4443" class="cite xref">RFC4443</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">ICMP is used to refer to both ICMPv4 and ICMPv6.<a href="#section-2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="nodeid">
+<section id="section-3">
+      <h2 id="name-node-identification-object">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-node-identification-object" class="section-name selfRef">Node Identification Object</a>
+      </h2>
+<p id="section-3-1">This section defines the Node Identification Object, an ICMP Extension
+Object with a Class-Num (Object Class Value) of 5 (see <a href="#sec-iana" class="auto internal xref">Section 6</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">Similar to <span><a href="https://rfc-editor.org/rfc/rfc5837#section-4" class="relref">Section 4</a> of [<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, this object can be appended
+to the following messages:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-3.1">
+          <p id="section-3-3.1.1">ICMPv4 Time Exceeded<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.2">
+          <p id="section-3-3.2.1">ICMPv4 Destination Unreachable<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.3">
+          <p id="section-3-3.3.1">ICMPv4 Parameter Problem<a href="#section-3-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.4">
+          <p id="section-3-3.4.1">ICMPv6 Time Exceeded<a href="#section-3-3.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.5">
+          <p id="section-3-3.5.1">ICMPv6 Destination Unreachable<a href="#section-3-3.5.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-4">For reasons described in <span>[<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>, this extension cannot be appended
+to any of the currently defined ICMPv4 or ICMPv6 messages other than
+those listed above.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">The extension defined herein <span class="bcp14">MAY</span> be appended to any of the above
+listed messages and <span class="bcp14">SHOULD</span> be appended whenever required to identify
+the node and when local policy or security
+considerations do not supersede this requirement.  See <a href="#security" class="auto internal xref">Section 5</a> for
+suggested configuration regarding including these messages.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">Similarly to the Interface Identification Object defined in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>,
+there are two different pieces of information that can appear in a
+Node Identification Object:<a href="#section-3-6" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-7">
+<li id="section-3-7.1">
+          <p id="section-3-7.1.1">An IP Address Sub-Object <span class="bcp14">MAY</span> be included, containing an address
+of sufficient scope to identify the node within the domain.
+The IP Address Sub-Object is defined in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-3-7.2">
+          <p id="section-3-7.2.1">A Name Sub-Object <span class="bcp14">MAY</span> be included, as specified in <a href="#Name" class="auto internal xref">Section 3.3</a>,
+containing up to 63 octets of the YANG sys:hostname (<span>[<a href="#RFC7317" class="cite xref">RFC7317</a>]</span>)
+or another appropriate name uniquely identifying the node.<a href="#section-3-7.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+<div id="c-type-meaning-in-a-node-identification-object">
+<section id="section-3.1">
+        <h3 id="name-c-type-meaning-in-a-node-id">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-c-type-meaning-in-a-node-id" class="section-name selfRef">C-Type Meaning in a Node Identification Object</a>
+        </h3>
+<p id="section-3.1-1">The C-Type contains a bitmask describing what information is included
+in this Node Identification Object (<a href="#ctypeFig" class="auto internal xref">Figure 1</a>).  The fields in this
+bitmask are chosen so that the IPAddr and name bits overlap
+with the same bits as defined in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, so that an implementation
+that supports exactly these bits can reuse packet generation and parsing code.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<span id="name-c-type-for-the-node-identif"></span><div id="ctypeFig">
+<figure id="figure-1">
+          <div id="section-3.1-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.1-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="96" width="560" viewBox="0 0 560 96" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 40,48 L 40,80" fill="none" stroke="black"></path>
+                <path d="M 360,48 L 360,80" fill="none" stroke="black"></path>
+                <path d="M 424,48 L 424,80" fill="none" stroke="black"></path>
+                <path d="M 488,48 L 488,80" fill="none" stroke="black"></path>
+                <path d="M 552,48 L 552,80" fill="none" stroke="black"></path>
+                <path d="M 40,48 L 552,48" fill="none" stroke="black"></path>
+                <path d="M 40,80 L 552,80" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">Bit</text>
+                  <text x="72" y="36">0</text>
+                  <text x="136" y="36">1</text>
+                  <text x="200" y="36">2</text>
+                  <text x="264" y="36">3</text>
+                  <text x="328" y="36">4</text>
+                  <text x="392" y="36">5</text>
+                  <text x="456" y="36">6</text>
+                  <text x="520" y="36">7</text>
+                  <text x="204" y="68">Unassigned</text>
+                  <text x="396" y="68">IPAddr</text>
+                  <text x="460" y="68">Name</text>
+                  <text x="520" y="68">Un2</text>
+                </g>
+              </svg><a href="#section-3.1-2.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-c-type-for-the-node-identif" class="selfRef">C-Type for the Node Identification Object</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.1-3">The following are bit-field definitions for C-Type:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-4.1">
+            <p id="section-3.1-4.1.1">Unassigned (bits 0-4): These bits are reserved for future use
+  and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.2">
+            <p id="section-3.1-4.2.1">IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
+  When clear, an IP Address Sub-Object is not present.  The IP Address
+  Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.3">
+            <p id="section-3.1-4.3.1">Name (bit 6): When set, a Name Sub-Object is
+  included.  When clear, it is not included.  The Name Sub-Object is
+  described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this memo.<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-4.4">
+            <p id="section-3.1-4.4.1">Un2 (bit 7): This bit is reserved for future use
+  and <span class="bcp14">MUST</span> be set to 0 on transmit and ignored on receipt.<a href="#section-3.1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.1-5">The information included does not self-identify, so this
+specification defines a specific ordering for sending the information
+that must be followed.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-6">If bit 5 (IP Address) is set, an IP Address Sub-Object <span class="bcp14">MUST</span>
+be sent first.  If bit 6 (Name) is set, a Name Sub-Object
+<span class="bcp14">MUST</span> be sent next.  The information order is thus: IP Address Sub-Object,
+Name Sub-Object.  Any or all pieces of information may be
+present or absent, as indicated by the C-Type.  Any data that follows
+these optional pieces of information <span class="bcp14">MUST</span> be ignored.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">It is valid (though pointless until additional bits are assigned by
+IANA) to receive a Node Identification Object where bits 5 and 6
+are both 0; this <span class="bcp14">MUST NOT</span> generate a warning or error.
+A packet with such a Node Identification Object <span class="bcp14">SHOULD</span> be treated
+as though it contains no Node Identification Object.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<div id="fooblewomp">
+<section id="section-3.1.1">
+          <h4 id="name-behavior-when-additional-bi">
+<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-behavior-when-additional-bi" class="section-name selfRef">Behavior when additional bits are reserved</a>
+          </h4>
+<p id="section-3.1.1-1">Bit values <span class="bcp14">SHOULD</span> be assigned from left to right in the diagram
+above, i.e., starting at zero.  The sub-objects associated with each
+new bit <span class="bcp14">MUST</span> be placed in the packet after the sub-objects defined
+in this memo.  For example, if bit 0 is assigned to the Fooblewomp,
+a packet with bits 0 and 5 set <span class="bcp14">MUST</span> contain the IP Address
+Sub-Object, followed by the Fooblewomp sub-object.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">If a bit is set that a receiver does not support, followed by
+a bit that the receiver does support, the receiver <span class="bcp14">MUST</span> ignore
+all of the additional data, since the length of the unsupported
+data is unknown.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="IPAddr">
+<section id="section-3.2">
+        <h3 id="name-ip-address-sub-object">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-ip-address-sub-object" class="section-name selfRef">IP Address Sub-Object</a>
+        </h3>
+<p id="section-3.2-1">If the Node Identification Object identifies the node by
+address, the Object Payload contains an address sufficient
+to identify the node within the appropriate scope - global
+or as otherwise configured - as depicted in <a href="#addrFig" class="auto internal xref">Figure 2</a>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<span id="name-ip-address-sub-object-2"></span><div id="addrFig">
+<figure id="figure-2">
+          <div id="section-3.2-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.2-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="128" width="528" viewBox="0 0 528 128" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,64 L 8,112" fill="none" stroke="black"></path>
+                <path d="M 264,64 L 264,96" fill="none" stroke="black"></path>
+                <path d="M 520,64 L 520,96" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">0</text>
+                  <text x="176" y="36">1</text>
+                  <text x="336" y="36">2</text>
+                  <text x="496" y="36">3</text>
+                  <text x="16" y="52">0</text>
+                  <text x="32" y="52">1</text>
+                  <text x="48" y="52">2</text>
+                  <text x="64" y="52">3</text>
+                  <text x="80" y="52">4</text>
+                  <text x="96" y="52">5</text>
+                  <text x="112" y="52">6</text>
+                  <text x="128" y="52">7</text>
+                  <text x="144" y="52">8</text>
+                  <text x="160" y="52">9</text>
+                  <text x="176" y="52">0</text>
+                  <text x="192" y="52">1</text>
+                  <text x="208" y="52">2</text>
+                  <text x="224" y="52">3</text>
+                  <text x="240" y="52">4</text>
+                  <text x="256" y="52">5</text>
+                  <text x="272" y="52">6</text>
+                  <text x="288" y="52">7</text>
+                  <text x="304" y="52">8</text>
+                  <text x="320" y="52">9</text>
+                  <text x="336" y="52">0</text>
+                  <text x="352" y="52">1</text>
+                  <text x="368" y="52">2</text>
+                  <text x="384" y="52">3</text>
+                  <text x="400" y="52">4</text>
+                  <text x="416" y="52">5</text>
+                  <text x="432" y="52">6</text>
+                  <text x="448" y="52">7</text>
+                  <text x="464" y="52">8</text>
+                  <text x="480" y="52">9</text>
+                  <text x="496" y="52">0</text>
+                  <text x="512" y="52">1</text>
+                  <text x="136" y="84">AFI</text>
+                  <text x="396" y="84">Reserved</text>
+                  <text x="268" y="116">Address...</text>
+                </g>
+              </svg><a href="#section-3.2-2.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-ip-address-sub-object-2" class="selfRef">IP Address Sub-Object</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.2-3">Payload fields are defined as follows:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-4.1">
+            <p id="section-3.2-4.1.1">Address Family Identifier (AFI): This 16-bit field identifies
+the type of address represented by the Address field.
+Values for this field represent a subset of values
+found in the IANA registry of Address Family Numbers (available
+from  <span>[<a href="#IANA.address-family-numbers" class="cite xref">IANA.address-family-numbers</a>]</span>).  Valid values are as
+follows:<a href="#section-3.2-4.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-4.1.2.1">
+                <p id="section-3.2-4.1.2.1.1">1: 32-bit IPv4 address<a href="#section-3.2-4.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.2-4.1.2.2">
+                <p id="section-3.2-4.1.2.2.1">2: 128-bit IPv6 address.<a href="#section-3.2-4.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-3.2-4.2">
+            <p id="section-3.2-4.2.1">Reserved: This field <span class="bcp14">MUST</span> be set to 0 and ignored upon
+receipt.<a href="#section-3.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-4.3">
+            <p id="section-3.2-4.3.1">Address: This variable-length field represents an address
+of appropriate scope (global, if none other defined) that
+can be used to identify the node.  The length of this field
+is derived from the AFI (i.e., 32 bits if the AFI field is set to 1,
+and 128 bits if the AFI is set to 2).<a href="#section-3.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="Name">
+<section id="section-3.3">
+        <h3 id="name-name-sub-object">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-name-sub-object" class="section-name selfRef">Name Sub-Object</a>
+        </h3>
+<p id="section-3.3-1"><a href="#nodeFig" class="auto internal xref">Figure 3</a> depicts the Name Sub-Object:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<span id="name-name-sub-object-2"></span><div id="nodeFig">
+<figure id="figure-3">
+          <div id="section-3.3-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.3-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,64 L 8,96" fill="none" stroke="black"></path>
+                <path d="M 136,64 L 136,96" fill="none" stroke="black"></path>
+                <path d="M 520,64 L 520,80" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 376,96" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">0</text>
+                  <text x="176" y="36">1</text>
+                  <text x="336" y="36">2</text>
+                  <text x="496" y="36">3</text>
+                  <text x="16" y="52">0</text>
+                  <text x="32" y="52">1</text>
+                  <text x="48" y="52">2</text>
+                  <text x="64" y="52">3</text>
+                  <text x="80" y="52">4</text>
+                  <text x="96" y="52">5</text>
+                  <text x="112" y="52">6</text>
+                  <text x="128" y="52">7</text>
+                  <text x="144" y="52">8</text>
+                  <text x="160" y="52">9</text>
+                  <text x="176" y="52">0</text>
+                  <text x="192" y="52">1</text>
+                  <text x="208" y="52">2</text>
+                  <text x="224" y="52">3</text>
+                  <text x="240" y="52">4</text>
+                  <text x="256" y="52">5</text>
+                  <text x="272" y="52">6</text>
+                  <text x="288" y="52">7</text>
+                  <text x="304" y="52">8</text>
+                  <text x="320" y="52">9</text>
+                  <text x="336" y="52">0</text>
+                  <text x="352" y="52">1</text>
+                  <text x="368" y="52">2</text>
+                  <text x="384" y="52">3</text>
+                  <text x="400" y="52">4</text>
+                  <text x="416" y="52">5</text>
+                  <text x="432" y="52">6</text>
+                  <text x="448" y="52">7</text>
+                  <text x="464" y="52">8</text>
+                  <text x="480" y="52">9</text>
+                  <text x="496" y="52">0</text>
+                  <text x="512" y="52">1</text>
+                  <text x="76" y="84">Length</text>
+                  <text x="284" y="84">Node</text>
+                  <text x="324" y="84">Name</text>
+                  <text x="352" y="84">.</text>
+                  <text x="368" y="84">.</text>
+                  <text x="384" y="84">.</text>
+                </g>
+              </svg><a href="#section-3.3-2.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-name-sub-object-2" class="selfRef">Name Sub-Object</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.3-3">The Name Sub-Object <span class="bcp14">MUST</span> have a length that is a multiple
+of 4 octets and <span class="bcp14">MUST NOT</span> exceed 64 octets. If the length field
+exceeds 64 octets, the receiver <span class="bcp14">MUST</span> ignore the sub-object.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">The Length field represents the length of the Name Sub-Object,
+including the length, the node name, and any padding, in octets.  The
+maximum valid length is 64 octets.  The length is constrained to
+ensure there is space for the start of the original packet and
+additional information.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">The second field contains the human-readable node name.  The node
+name <span class="bcp14">SHOULD</span> be the YANG sys:hostname <span>[<a href="#RFC7317" class="cite xref">RFC7317</a>]</span>, if less than 64 octets,
+or the first 63 octets of the sys:hostname, if the sys:hostname is
+longer.  The node name <span class="bcp14">MAY</span> be some other human-meaningful name of
+the node.  The node name <span class="bcp14">MUST</span> be padded with ASCII NUL characters
+if the object would not otherwise terminate on a 4-octet boundary.
+An example of truncation of a 66-octet node name, beginning
+"HelpMyAscii" and ending "Homestar" would be encoded as follows:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<div id="section-3.3-6">
+          <div class="alignLeft art-svg artwork" id="section-3.3-6.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="208" width="528" viewBox="0 0 528 208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,64 L 8,192" fill="none" stroke="black"></path>
+              <path d="M 72,160 L 72,192" fill="none" stroke="black"></path>
+              <path d="M 136,64 L 136,128" fill="none" stroke="black"></path>
+              <path d="M 136,160 L 136,192" fill="none" stroke="black"></path>
+              <path d="M 264,64 L 264,128" fill="none" stroke="black"></path>
+              <path d="M 264,160 L 264,192" fill="none" stroke="black"></path>
+              <path d="M 392,64 L 392,128" fill="none" stroke="black"></path>
+              <path d="M 392,160 L 392,192" fill="none" stroke="black"></path>
+              <path d="M 520,64 L 520,192" fill="none" stroke="black"></path>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+              <path d="M 8,128 L 520,128" fill="none" stroke="black"></path>
+              <path d="M 8,160 L 520,160" fill="none" stroke="black"></path>
+              <path d="M 8,192 L 520,192" fill="none" stroke="black"></path>
+              <circle cx="72" cy="176" r="6" class="opendot" fill="white" stroke="black"></circle>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="76" y="84">64</text>
+                <text x="200" y="84">H</text>
+                <text x="328" y="84">e</text>
+                <text x="456" y="84">l</text>
+                <text x="72" y="116">p</text>
+                <text x="200" y="116">M</text>
+                <text x="328" y="116">y</text>
+                <text x="456" y="116">A</text>
+                <text x="240" y="148">.</text>
+                <text x="256" y="148">.</text>
+                <text x="272" y="148">.</text>
+                <text x="288" y="148">.</text>
+                <text x="200" y="180">m</text>
+                <text x="328" y="180">e</text>
+                <text x="456" y="180">s</text>
+              </g>
+            </svg><a href="#section-3.3-6.1" class="pilcrow">¶</a>
+</div>
+</div>
+<p id="section-3.3-7">The node name <span class="bcp14">MUST</span> be represented in the UTF-8 charset <span>[<a href="#RFC3629" class="cite xref">RFC3629</a>]</span>
+using the Default Language <span>[<a href="#RFC2277" class="cite xref">RFC2277</a>]</span>.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="nat">
+<section id="section-4">
+      <h2 id="name-addition-of-node-identifica">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-addition-of-node-identifica" class="section-name selfRef">Addition of Node Identification Object by Intermediate Nodes</a>
+      </h2>
+<p id="section-4-1">An IP/ICMP translator <span class="bcp14">MAY</span> use this extension when translating
+an ICMP message listed above to include the
+pre-translation source address of a packet. When doing so, it <span class="bcp14">MUST</span>
+include the IP Address Sub-Object.
+If an ICMP Extension Structure is already present
+in the packet being translated, this Extension Object is appended to
+the existing ICMP Extension Structure and the checksum is updated.
+If an ICMP Extension Structure is not present in the packet being
+translated, one is added using the rules of <span>[<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>.
+Further details of this mode of operation are outside the
+scope of this memo.<a href="#section-4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security">
+<section id="section-5">
+      <h2 id="name-security-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-5-1">A node name may reveal sensitive information, especially when it
+encodes semantic information.
+It may not be desirable to allow this information to be sent to
+an arbitrary receiver.  The addition of this information to
+the ICMP responses listed in <a href="#nodeid" class="auto internal xref">Section 3</a> is configurable, and
+<span class="bcp14">SHOULD</span> be disabled by default, with the exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
+Those translators <span class="bcp14">SHOULD</span> add the Node Identification Extension Object
+with the IP Address Sub-Object, as described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>.
+An implementation
+may determine what objects may be appended to a given message
+based on the destination IP address of the ICMP message that will
+contain the objects.  Access control lists (ACLs) may be used to
+filter the destinations to which this information may be communicated.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">This document does not specify an authentication mechanism for the
+extension that it defines.  Application developers should be aware
+that ICMP messages and their contents are easily spoofed.<a href="#section-5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana">
+<section id="section-6">
+      <h2 id="name-iana-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-6-1">This IANA has allocated the ICMP Extension
+Object Class value 5 to the extension described above.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Class Value</th>
+            <th class="text-left" rowspan="1" colspan="1">Class Name</th>
+            <th class="text-left" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">5</td>
+            <td class="text-left" rowspan="1" colspan="1">Node Identification Object</td>
+            <td class="text-left" rowspan="1" colspan="1">[This document]</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="section-6-3">The corresponding
+Class Sub-types Registry is as follows:<a href="#section-6-3" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">C-Type (Value)</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+            <th class="text-left" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">0-4</td>
+            <td class="text-left" rowspan="1" colspan="1">Unassigned - allocatable with Standards Action</td>
+            <td class="text-left" rowspan="1" colspan="1">[This document]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">5</td>
+            <td class="text-left" rowspan="1" colspan="1">IP Address Sub-object included</td>
+            <td class="text-left" rowspan="1" colspan="1">[This document]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">6</td>
+            <td class="text-left" rowspan="1" colspan="1">Name Sub-object included</td>
+            <td class="text-left" rowspan="1" colspan="1">[This document]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">7</td>
+            <td class="text-left" rowspan="1" colspan="1">Unassigned - allocatable with Standards Action</td>
+            <td class="text-left" rowspan="1" colspan="1">[This document]</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="section-6-5">As indicated in the table above, the remaining bits in the C-Type value
+are to be allocated via Standards Action <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">As mentioned in <a href="#fooblewomp" class="auto internal xref">Section 3.1.1</a>, IANA is requested to assign additional
+bits starting at zero.<a href="#section-6-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-7.1">
+        <h3 id="name-normative-references">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="IANA.address-family-numbers">[IANA.address-family-numbers]</dt>
+        <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Address Family Numbers"</span>, <span>&lt;<a href="https://www.iana.org/assignments/address-family-numbers">https://www.iana.org/assignments/address-family-numbers</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC0792">[RFC0792]</dt>
+        <dd>
+<span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC0792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2277">[RFC2277]</dt>
+        <dd>
+<span class="refAuthor">Alvestrand, H.</span>, <span class="refTitle">"IETF Policy on Character Sets and Languages"</span>, <span class="seriesInfo">BCP 18</span>, <span class="seriesInfo">RFC 2277</span>, <span class="seriesInfo">DOI 10.17487/RFC2277</span>, <time datetime="1998-01" class="refDate">January 1998</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2277">https://www.rfc-editor.org/rfc/rfc2277</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3629">[RFC3629]</dt>
+        <dd>
+<span class="refAuthor">Yergeau, F.</span>, <span class="refTitle">"UTF-8, a transformation format of ISO 10646"</span>, <span class="seriesInfo">STD 63</span>, <span class="seriesInfo">RFC 3629</span>, <span class="seriesInfo">DOI 10.17487/RFC3629</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3629">https://www.rfc-editor.org/rfc/rfc3629</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4443">[RFC4443]</dt>
+        <dd>
+<span class="refAuthor">Conta, A.</span>, <span class="refAuthor">Deering, S.</span>, and <span class="refAuthor">M. Gupta, Ed.</span>, <span class="refTitle">"Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 89</span>, <span class="seriesInfo">RFC 4443</span>, <span class="seriesInfo">DOI 10.17487/RFC4443</span>, <time datetime="2006-03" class="refDate">March 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4443">https://www.rfc-editor.org/rfc/rfc4443</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4884">[RFC4884]</dt>
+        <dd>
+<span class="refAuthor">Bonica, R.</span>, <span class="refAuthor">Gan, D.</span>, <span class="refAuthor">Tappan, D.</span>, and <span class="refAuthor">C. Pignataro</span>, <span class="refTitle">"Extended ICMP to Support Multi-Part Messages"</span>, <span class="seriesInfo">RFC 4884</span>, <span class="seriesInfo">DOI 10.17487/RFC4884</span>, <time datetime="2007-04" class="refDate">April 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4884">https://www.rfc-editor.org/rfc/rfc4884</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5837">[RFC5837]</dt>
+        <dd>
+<span class="refAuthor">Atlas, A., Ed.</span>, <span class="refAuthor">Bonica, R., Ed.</span>, <span class="refAuthor">Pignataro, C., Ed.</span>, <span class="refAuthor">Shen, N.</span>, and <span class="refAuthor">JR. Rivers</span>, <span class="refTitle">"Extending ICMP for Interface and Next-Hop Identification"</span>, <span class="seriesInfo">RFC 5837</span>, <span class="seriesInfo">DOI 10.17487/RFC5837</span>, <time datetime="2010-04" class="refDate">April 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5837">https://www.rfc-editor.org/rfc/rfc5837</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7317">[RFC7317]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"A YANG Data Model for System Management"</span>, <span class="seriesInfo">RFC 7317</span>, <span class="seriesInfo">DOI 10.17487/RFC7317</span>, <time datetime="2014-08" class="refDate">August 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7317">https://www.rfc-editor.org/rfc/rfc7317</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7915">[RFC7915]</dt>
+        <dd>
+<span class="refAuthor">Bao, C.</span>, <span class="refAuthor">Li, X.</span>, <span class="refAuthor">Baker, F.</span>, <span class="refAuthor">Anderson, T.</span>, and <span class="refAuthor">F. Gont</span>, <span class="refTitle">"IP/ICMP Translation Algorithm"</span>, <span class="seriesInfo">RFC 7915</span>, <span class="seriesInfo">DOI 10.17487/RFC7915</span>, <time datetime="2016-06" class="refDate">June 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7915">https://www.rfc-editor.org/rfc/rfc7915</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+        <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+      <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-7.2">
+        <h3 id="name-informative-references">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.chroboczek-intarea-v4-via-v6">[I-D.chroboczek-intarea-v4-via-v6]</dt>
+        <dd>
+<span class="refAuthor">Chroboczek, J.</span>, <span class="refAuthor">Kumari, W.</span>, and <span class="refAuthor">T. Høiland-Jørgensen</span>, <span class="refTitle">"IPv4 routes with an IPv6 next hop"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-chroboczek-intarea-v4-via-v6-03</span>, <time datetime="2025-01-20" class="refDate">20 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-chroboczek-intarea-v4-via-v6-03">https://datatracker.ietf.org/doc/html/draft-chroboczek-intarea-v4-via-v6-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.equinox-v6ops-icmpext-xlat-v6only-source">[I-D.equinox-v6ops-icmpext-xlat-v6only-source]</dt>
+        <dd>
+<span class="refAuthor">Lamparter, D.</span> and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"Using Dummy IPv4 Address and Node Identification Extensions for IP/ICMP translators (XLATs)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-equinox-v6ops-icmpext-xlat-v6only-source-02</span>, <time datetime="2025-03-21" class="refDate">21 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02">https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4193">[RFC4193]</dt>
+        <dd>
+<span class="refAuthor">Hinden, R.</span> and <span class="refAuthor">B. Haberman</span>, <span class="refTitle">"Unique Local IPv6 Unicast Addresses"</span>, <span class="seriesInfo">RFC 4193</span>, <span class="seriesInfo">DOI 10.17487/RFC4193</span>, <time datetime="2005-10" class="refDate">October 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4193">https://www.rfc-editor.org/rfc/rfc4193</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6877">[RFC6877]</dt>
+      <dd>
+<span class="refAuthor">Mawatari, M.</span>, <span class="refAuthor">Kawashima, M.</span>, and <span class="refAuthor">C. Byrne</span>, <span class="refTitle">"464XLAT: Combination of Stateful and Stateless Translation"</span>, <span class="seriesInfo">RFC 6877</span>, <span class="seriesInfo">DOI 10.17487/RFC6877</span>, <time datetime="2013-04" class="refDate">April 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6877">https://www.rfc-editor.org/rfc/rfc6877</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="change-history">
+<section id="appendix-A">
+      <h2 id="name-change-history">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-change-history" class="section-name selfRef">Change history</a>
+      </h2>
+<p id="appendix-A-1">This section is to be removed before publishing as an RFC.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="changes-since-draft-fenner-intarea-extended-icmp-hostid-00">
+<section id="appendix-A.1">
+        <h3 id="name-changes-since-draft-fenner-">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-changes-since-draft-fenner-" class="section-name selfRef">Changes since draft-fenner-intarea-extended-icmp-hostid-00</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.1-1.1">
+            <p id="appendix-A.1-1.1.1">Instead of having two different messages with the same Class Value
+and different CType values, we copy the bitmap implementation
+from <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>.  The re-use of bit positions means that packet
+parsing and generation code can be largely reused from existing
+<span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span> code.<a href="#appendix-A.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-fenner-intarea-extended-icmp-hostid-01">
+<section id="appendix-A.2">
+        <h3 id="name-changes-since-draft-fenner-i">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-changes-since-draft-fenner-i" class="section-name selfRef">Changes since draft-fenner-intarea-extended-icmp-hostid-01</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.2-1.1">
+            <p id="appendix-A.2-1.1.1">Fixed several copy-pasta errors that still referred to
+interface names instead of node name.<a href="#appendix-A.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-fenner-intarea-extended-icmp-hostid-02">
+<section id="appendix-A.3">
+        <h3 id="name-changes-since-draft-fenner-in">
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-changes-since-draft-fenner-in" class="section-name selfRef">Changes since draft-fenner-intarea-extended-icmp-hostid-02</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.3-1.1">
+            <p id="appendix-A.3-1.1.1">Renamed to draft-ietf-intarea-extended-icmp-nodeid-00 to reflect
+adoption by WG<a href="#appendix-A.3-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-ietf-intarea-extended-icmp-nodeid-00">
+<section id="appendix-A.4">
+        <h3 id="name-changes-since-draft-ietf-in">
+<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-changes-since-draft-ietf-in" class="section-name selfRef">Changes since draft-ietf-intarea-extended-icmp-nodeid-00</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.4-1.1">
+            <p id="appendix-A.4-1.1.1">Several edits suggested by Med Boucadair<a href="#appendix-A.4-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.4-1.2">
+            <p id="appendix-A.4-1.2.1">Added <a href="#nat" class="auto internal xref">Section 4</a> to address the needs of XLAT<a href="#appendix-A.4-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.4-1.3">
+            <p id="appendix-A.4-1.3.1">Changed title to "Adding Extensions to ICMP Errors for
+Originating Node Identification"<a href="#appendix-A.4-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-ietf-intarea-extended-icmp-nodeid-01">
+<section id="appendix-A.5">
+        <h3 id="name-changes-since-draft-ietf-int">
+<a href="#appendix-A.5" class="section-number selfRef">A.5. </a><a href="#name-changes-since-draft-ietf-int" class="section-name selfRef">Changes since draft-ietf-intarea-extended-icmp-nodeid-01</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.5-1.1">
+            <p id="appendix-A.5-1.1.1">Added the request to assign bits starting at 0 to the IANA
+Considerations<a href="#appendix-A.5-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.5-1.2">
+            <p id="appendix-A.5-1.2.1">Updated IANA Considerations wording based on RFC8126<a href="#appendix-A.5-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.5-1.3">
+            <p id="appendix-A.5-1.3.1">Shortened sub-object names to "IP Address" and "Name", eliminating
+"Node".<a href="#appendix-A.5-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-ietf-intarea-extended-icmp-nodeid-02">
+<section id="appendix-A.6">
+        <h3 id="name-changes-since-draft-ietf-inta">
+<a href="#appendix-A.6" class="section-number selfRef">A.6. </a><a href="#name-changes-since-draft-ietf-inta" class="section-name selfRef">Changes since draft-ietf-intarea-extended-icmp-nodeid-02</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.6-1.1">
+            <p id="appendix-A.6-1.1.1">Added table to reflect Object Class assignment to IANA Considerations<a href="#appendix-A.6-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.2">
+            <p id="appendix-A.6-1.2.1">Use SVG for packet figures<a href="#appendix-A.6-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.3">
+            <p id="appendix-A.6-1.3.1">Add example of an encoded, truncated node name<a href="#appendix-A.6-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.4">
+            <p id="appendix-A.6-1.4.1">Be explicit on treatment of a packet with no bits set<a href="#appendix-A.6-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.5">
+            <p id="appendix-A.6-1.5.1">Clarified "defaults to off" in security considerations<a href="#appendix-A.6-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.6-1.6">
+            <p id="appendix-A.6-1.6.1">Clarified use of IP address and names<a href="#appendix-A.6-1.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="changes-since-draft-ietf-intarea-extended-icmp-nodeid-03">
+<section id="appendix-A.7">
+        <h3 id="name-changes-since-draft-ietf-intar">
+<a href="#appendix-A.7" class="section-number selfRef">A.7. </a><a href="#name-changes-since-draft-ietf-intar" class="section-name selfRef">Changes since draft-ietf-intarea-extended-icmp-nodeid-03</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.7-1.1">
+            <p id="appendix-A.7-1.1.1">Added Standards Action sentence to IANA Considerations<a href="#appendix-A.7-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-B">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-B-1">This document derives text heavily from <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, since the
+underlying mechanism is identical, and only the semantics of the
+message differs.  Thanks are therefore due to that document's
+authors: Alia K. Atlas, Ronald P. Bonica, Carlos Pignataro,
+Naiming Shen, and JR. Rivers.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">Further thanks are due to the following who have provided
+valuable contributions to this document: Med Boucadair,
+Jen Linkova, David Lamparter, and Luigi Iannone.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-C">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Bill Fenner</span></div>
+<div dir="auto" class="left"><span class="org">Arista Networks</span></div>
+<div dir="auto" class="left"><span class="street-address">5453 Great America Parkway</span></div>
+<div dir="auto" class="left">
+<span class="locality">Santa Clara</span>, <span class="region">California</span> <span class="postal-code">95054</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:fenner@fenron.com" class="email">fenner@fenron.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Reji Thomas</span></div>
+<div dir="auto" class="left"><span class="org">Arista Networks</span></div>
+<div dir="auto" class="left"><span class="street-address">Global Tech Park</span></div>
+<div dir="auto" class="left">
+<span class="locality">Bangalore</span> <span class="postal-code">560103</span>
+</div>
+<div dir="auto" class="left"><span class="region">Karnataka</span></div>
+<div dir="auto" class="left"><span class="country-name">India</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:reji.thomas@arista.com" class="email">reji.thomas@arista.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
