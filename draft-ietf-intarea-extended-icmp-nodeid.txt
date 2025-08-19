@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 8 February 2026                                   7 August 2025
+Expires: 20 February 2026                                 19 August 2025
 
 
   Adding Extensions to ICMP Errors for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 February 2026.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -98,6 +98,7 @@ Table of Contents
      A.4.  Changes since draft-ietf-intarea-extended-icmp-nodeid-00
      A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
      A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
+     A.7.  Changes since draft-ietf-intarea-extended-icmp-nodeid-03
    Acknowledgments
    Authors' Addresses
 
@@ -395,6 +396,9 @@ Table of Contents
 
                                   Table 2
 
+   As indicated in the table above, the remaining bits in the C-Type
+   value are to be allocated via Standards Action [RFC8126].
+
    As mentioned in Section 3.1.1, IANA is requested to assign additional
    bits starting at zero.
 
@@ -447,6 +451,11 @@ Table of Contents
               "IP/ICMP Translation Algorithm", RFC 7915,
               DOI 10.17487/RFC7915, June 2016,
               <https://www.rfc-editor.org/rfc/rfc7915>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/rfc/rfc8126>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -533,6 +542,10 @@ A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
    *  Clarified "defaults to off" in security considerations
 
    *  Clarified use of IP address and names
+
+A.7.  Changes since draft-ietf-intarea-extended-icmp-nodeid-03
+
+   *  Added Standards Action sentence to IANA Considerations
 
 Acknowledgments
 
