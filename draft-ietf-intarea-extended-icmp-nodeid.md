@@ -51,6 +51,7 @@ normative:
   RFC7317:
   RFC7915:
   IANA.address-family-numbers:
+  RFC8126:
 
 informative:
   RFC4193:
@@ -362,6 +363,9 @@ Class Sub-types Registry is as follows:
 | 6 | Name Sub-object included | \[This document]
 | 7 | Unassigned - allocatable with Standards Action | \[This document]
 
+As indicated in the table above, the remaining bits in the C-Type value
+are to be allocated via Standards Action {{RFC8126}}.
+
 As mentioned in {{fooblewomp}}, IANA is requested to assign additional
 bits starting at zero.
 
@@ -421,6 +425,10 @@ This section is to be removed before publishing as an RFC.
 - Clarified "defaults to off" in security considerations
 
 - Clarified use of IP address and names
+
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-03
+
+- Added Standards Action sentence to IANA Considerations
 
 # Acknowledgments
 {:numbered="false"}
