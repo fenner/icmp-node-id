@@ -290,10 +290,10 @@ longer.  The node name MAY be some other human-meaningful name of
 the node.  The node name MUST be padded with ASCII NUL characters
 if the object would not otherwise terminate on a 4-octet boundary.
 An example of truncation of a 66-octet node name, beginning
-"HelpMyAscii" and ending "Homestar" would be encoded as follows:
+"HelpMyAscii" and ending "xyzpdqha" would be encoded as follows:
 
 {::comment}
-protocol '64:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,o:8,m:8,e:8,s:8'
+protocol '64:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,y:8,z:8,p:8,d:8'
 {:/comment}
 ~~~~ aasvg
  0                   1                   2                   3
@@ -305,12 +305,16 @@ protocol '64:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,o:8,m:8,e:8,s:8'
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                            . . . .                            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       o       |       m       |       e       |       s       |
+|       y       |       z       |       p       |       d       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
 
 The node name MUST be represented in the UTF-8 charset {{RFC3629}}
-using the Default Language {{RFC2277}}.
+using the Default Language {{RFC2277}}.  When truncating a name
+to 63 octets, the truncation MUST occur on a character boundary
+(e.g., if the 63rd octet is the first octet of a 2-octet character,
+then the truncation will omit that octet altogether, and be padded
+with an ASCII NUL character to reach the 4-octet boundary.)
 
 # Addition of Node Identification Object by Intermediate Nodes {#nat}
 
