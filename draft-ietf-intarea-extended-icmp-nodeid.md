@@ -56,8 +56,8 @@ normative:
 informative:
   RFC4193:
   RFC6877:
-  I-D.chroboczek-intarea-v4-via-v6:
-  I-D.equinox-v6ops-icmpext-xlat-v6only-source:
+  I-D.ietf-intarea-v4-via-v6:
+  I-D.ietf-v6ops-icmpext-xlat-v6only-source:
 
 
 --- abstract
@@ -80,10 +80,10 @@ even for IPv4 routes).
 In addition to adding incoming interface information to a traceroute
 using the mechanisms described in {{RFC5837}}, a network operator
 may be interested in adding information to unambiguously identify nodes themselves.
-For example, {{I-D.chroboczek-intarea-v4-via-v6}} describes a scenario in which individual
+For example, {{I-D.ietf-intarea-v4-via-v6}} describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
-Another scenario is described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}:
+Another scenario is described in {{I-D.ietf-v6ops-icmpext-xlat-v6only-source}}:
 when an IPv6-only node runs the customer-side translator (CLAT, {{RFC6877}}),
 traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.
 
@@ -339,7 +339,7 @@ an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in {{nodeid}} is configurable, and
 SHOULD be disabled by default, with the exception of IP/ICMP translators {{RFC7915}}.
 Those translators SHOULD add the Node Identification Extension Object
-with the IP Address Sub-Object, as described in {{I-D.equinox-v6ops-icmpext-xlat-v6only-source}}.
+with the IP Address Sub-Object, as described in {{I-D.ietf-v6ops-icmpext-xlat-v6only-source}}.
 An implementation
 may determine what objects may be appended to a given message
 based on the destination IP address of the ICMP message that will
