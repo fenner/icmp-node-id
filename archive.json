@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-07T02:22:14.346377+00:00",
+  "timestamp": "2025-10-19T02:05:12.811421+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -47,6 +47,11 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "ad-review",
+      "description": "",
+      "color": "51f316"
     }
   ],
   "issues": [
@@ -306,6 +311,281 @@
       "createdAt": "2025-08-05T10:57:19Z",
       "updatedAt": "2025-08-06T12:48:16Z",
       "closedAt": "2025-08-06T12:48:16Z",
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOLJPxrM7SN0ol",
+      "title": "AD Review: Section 3 SHOULD",
+      "url": "https://github.com/fenner/icmp-node-id/issues/14",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "Per https://datatracker.ietf.org/doc/statement-iesg-statement-on-clarifying-the-use-of-bcp-14-key-words/, explanations about when the \"SHOULD\" can be bypassed (I note that there is a `whenever` but this does not seem to cover all cases).\n\n",
+      "createdAt": "2025-10-17T16:45:18Z",
+      "updatedAt": "2025-10-17T16:45:18Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOLJPxrM7SN02b",
+      "title": "AD Review: Section 3 Domain",
+      "url": "https://github.com/fenner/icmp-node-id/issues/15",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "What is \"domain\" in `identify the node within the domain` ?\n\n",
+      "createdAt": "2025-10-17T16:45:46Z",
+      "updatedAt": "2025-10-17T16:45:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOLJPxrM7SN1G5",
+      "title": "AD Review: C-Type",
+      "url": "https://github.com/fenner/icmp-node-id/issues/16",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "Add a reference to section 8 of RFC 4884 for C-type\n\n",
+      "createdAt": "2025-10-17T16:46:17Z",
+      "updatedAt": "2025-10-17T16:46:17Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOLJPxrM7SN1Uf",
+      "title": "AD Review: Section 3.1 SHOULD",
+      "url": "https://github.com/fenner/icmp-node-id/issues/17",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "Per https://datatracker.ietf.org/doc/statement-iesg-statement-on-clarifying-the-use-of-bcp-14-key-words/, explanations about when the \"SHOULD\" can be bypassed, i.e., why not a MUST ?\n\n",
+      "createdAt": "2025-10-17T16:46:43Z",
+      "updatedAt": "2025-10-17T16:46:43Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOLJPxrM7SN1hc",
+      "title": "AD Review: Section 3.1",
+      "url": "https://github.com/fenner/icmp-node-id/issues/18",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "When other extensions will be defined, will this statement be still valid ? `Any data that follows these optional pieces of information MUST be ignored.` Please add some text around \"unless other bits in C-flag are set\" or similar (and add a forward reference to 3.1.1 -- see also comment below)\n\n",
+      "createdAt": "2025-10-17T16:47:06Z",
+      "updatedAt": "2025-10-17T16:47:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOLJPxrM7SN1ur",
+      "title": "AD Review: Section 3.1.1",
+      "url": "https://github.com/fenner/icmp-node-id/issues/19",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "This text should rather be in the IANA consideration for the C-type for the allocated class, i.e., 5.\n\n",
+      "createdAt": "2025-10-17T16:47:30Z",
+      "updatedAt": "2025-10-17T16:47:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOLJPxrM7SN18H",
+      "title": "AD Review: Section 4",
+      "url": "https://github.com/fenner/icmp-node-id/issues/20",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "`Further details of this mode of operation are outside the scope of this memo.` s/memo/document/\n\n \n\nAnd I would assume that basic MTU & fragmentation consideration should be added.\n\n",
+      "createdAt": "2025-10-17T16:47:56Z",
+      "updatedAt": "2025-10-17T16:47:56Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOLJPxrM7SN2KQ",
+      "title": "AD Review: Section 6",
+      "url": "https://github.com/fenner/icmp-node-id/issues/21",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "Please request the creation of `The corresponding Class Sub-types Registry ` as it is not yet at https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-ext-classes\n\n \n\nAlso use a URI reference for `ICMP Extension Object Class`\n\n",
+      "createdAt": "2025-10-17T16:48:23Z",
+      "updatedAt": "2025-10-17T16:48:23Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOLJPxrM7SN2Wd",
+      "title": "AD Review: Title",
+      "url": "https://github.com/fenner/icmp-node-id/issues/22",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "Possibly a matter of taste, but s/Adding Extensions to ICMP Errors for Originating Node Identification/ICMP Message Extension for Originating Node Identification/ is probably clearer.\n\n",
+      "createdAt": "2025-10-17T16:48:46Z",
+      "updatedAt": "2025-10-17T16:48:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOLJPxrM7SN2id",
+      "title": "AD Review: Nexthop or Next-Hop",
+      "url": "https://github.com/fenner/icmp-node-id/issues/23",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "As the abstract use `next-hop`, let's be consistent and let's use 'next-hop' everywhere rather than 'next-hop'.\n\n",
+      "createdAt": "2025-10-17T16:49:09Z",
+      "updatedAt": "2025-10-17T16:51:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOLJPxrM7SN2w7",
+      "title": "AD Review: Section 1",
+      "url": "https://github.com/fenner/icmp-node-id/issues/24",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "s/traceroute to an IPv4 destination can not represent intermediate IPv6-only routers/traceroute to an IPv4 destination can not display an intermediate IPv6-only routers as it does not have an IPv4 address/ ?\n\n",
+      "createdAt": "2025-10-17T16:49:34Z",
+      "updatedAt": "2025-10-17T16:49:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOLJPxrM7SN29I",
+      "title": "AD Review: Section 3",
+      "url": "https://github.com/fenner/icmp-node-id/issues/25",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "s/The extension defined herein/The extension defined herein, Node Identification Object,/\n\n \n\nIt is also unclear why it is only \"appended\" rather than \"included\", must this extension be the last extension? If so, why.\n\n",
+      "createdAt": "2025-10-17T16:49:56Z",
+      "updatedAt": "2025-10-17T17:14:07Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "> It is also unclear why it is only \"appended\" rather than \"included\", must this extension be the last extension? If so, why.\n\nThis is simply the word that RFC4884 and RFC5837 use. If this is no longer appropriate, fine.  However, we have to be careful with word choice here since this is a slope towards overspecification - will the next comment from someone else be: well, the spec should say when you append it and when you insert it in the middle",
+          "createdAt": "2025-10-17T17:14:07Z",
+          "updatedAt": "2025-10-17T17:14:07Z"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOLJPxrM7SN3Ra",
+      "title": "AD Review: Section 3.3",
+      "url": "https://github.com/fenner/icmp-node-id/issues/26",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "The SVG tool seems to have an issue with the \"o\" of \"homestar\" in the graphic.\n\n \n\nUnsure how to handle a 2-byte UTF-8 character whose 2nd octet would be the 65th character of the name.\n\n",
+      "createdAt": "2025-10-17T16:50:26Z",
+      "updatedAt": "2025-10-17T17:24:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "> The SVG tool seems to have an issue with the \"o\" of \"homestar\" in the graphic.\n\nI struggled a lot with the SVG tool. I'll struggle some more.",
+          "createdAt": "2025-10-17T17:16:32Z",
+          "updatedAt": "2025-10-17T17:16:32Z"
+        },
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "> Unsure how to handle a 2-byte UTF-8 character whose 2nd octet would be the 65th character of the name.\n\nProposal:\nEXISTING TEXT:\n> The node name MUST be represented in the UTF-8 charset {{RFC3629}}\n> using the Default Language {{RFC2277}}.\n\nADDED TEXT:\n> When truncating a name\n> to 63 octets, the truncation MUST occur on a character boundary\n> (e.g., if the 63rd octet is the first octet of a 2-octet character,\n> then the truncation will omit that octet altogether, and be padded\n> with an ASCII NUL character to reach the 4-octet boundar.)",
+          "createdAt": "2025-10-17T17:24:30Z",
+          "updatedAt": "2025-10-17T17:24:30Z"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOLJPxrM7SN3lS",
+      "title": "AD Review: Reference",
+      "url": "https://github.com/fenner/icmp-node-id/issues/27",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "ad-review"
+      ],
+      "body": "The draft reference draft-equinox-v6ops-icmpext-xlat-v6only-source (version 02) is stale. It was replaced by draft-ietf-v6ops-icmpext-xlat-v6only-source (version 00).\n\n",
+      "createdAt": "2025-10-17T16:50:55Z",
+      "updatedAt": "2025-10-17T16:50:55Z",
+      "closedAt": null,
       "comments": []
     }
   ],
