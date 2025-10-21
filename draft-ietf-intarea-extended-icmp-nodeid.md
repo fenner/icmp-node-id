@@ -85,7 +85,8 @@ nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
 Another scenario is described in {{I-D.ietf-v6ops-icmpext-xlat-v6only-source}}:
 when an IPv6-only node runs the customer-side translator (CLAT, {{RFC6877}}),
-traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.
+traceroute to an IPv4 destination can not represent intermediate IPv6-only routers
+as they do not have IPv4 addresses.
 
 The goal of this specification is to have a mechanism to provide
 additional useful information about the identification of a node
