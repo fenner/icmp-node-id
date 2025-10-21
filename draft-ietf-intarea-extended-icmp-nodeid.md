@@ -148,7 +148,7 @@ Node Identification Object:
 
 1. An IP Address Sub-Object MAY be included, containing an address
    of sufficient scope to identify the node within the domain.
-   The IP Address Sub-Object is defined in {{IPAddr}} of this memo.
+   The IP Address Sub-Object is defined in {{IPAddr}} of this document.
 
 2. A Name Sub-Object MAY be included, as specified in {{Name}},
    containing up to 63 octets of the YANG sys:hostname ({{RFC7317}})
@@ -178,11 +178,11 @@ The following are bit-field definitions for C-Type:
 
 - IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
     When clear, an IP Address Sub-Object is not present.  The IP Address
-    Sub-Object is described in {{IPAddr}} of this memo.
+    Sub-Object is described in {{IPAddr}} of this document.
 
 - Name (bit 6): When set, a Name Sub-Object is
     included.  When clear, it is not included.  The Name Sub-Object is
-    described in {{Name}} of this memo.
+    described in {{Name}} of this document.
 
 - Un2 (bit 7): This bit is reserved for future use
     and MUST be set to 0 on transmit and ignored on receipt.
@@ -209,7 +209,7 @@ as though it contains no Node Identification Object.
 Bit values SHOULD be assigned from left to right in the diagram
 above, i.e., starting at zero.  The sub-objects associated with each
 new bit MUST be placed in the packet after the sub-objects defined
-in this memo.  For example, if bit 0 is assigned to the Fooblewomp,
+in this document.  For example, if bit 0 is assigned to the Fooblewomp,
 a packet with bits 0 and 5 set MUST contain the IP Address
 Sub-Object, followed by the Fooblewomp sub-object.
 
@@ -330,7 +330,7 @@ the existing ICMP Extension Structure and the checksum is updated.
 If an ICMP Extension Structure is not present in the packet being
 translated, one is added using the rules of {{RFC4884}}.
 Further details of this mode of operation are outside the
-scope of this memo.
+scope of this document.
 
 # Security Considerations {#security}
 
