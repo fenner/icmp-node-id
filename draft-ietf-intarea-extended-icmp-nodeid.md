@@ -360,8 +360,9 @@ Object Class value 5 to the extension described above.
 | *Class Value* | *Class Name* | *Reference*
 | 5 | Node Identification Object | \[This document]
 
-The corresponding
-Class Sub-types Registry is as follows:
+IANA is requested to create a corresponding
+[Class Sub-types Registry](https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-ext-classes)
+ as follows:
 
 | *C-Type (Value)* | *Description* | *Reference*
 | 0-4 | Unassigned - allocatable with Standards Action | \[This document]
