@@ -5,10 +5,10 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 20 February 2026                                 19 August 2025
+Expires: 24 April 2026                                   21 October 2025
 
 
-  Adding Extensions to ICMP Errors for Originating Node Identification
+       ICMP Message Extension for Originating Node Identification
              draft-ietf-intarea-extended-icmp-nodeid-latest
 
 Abstract
@@ -24,7 +24,7 @@ Abstract
    Identification.  It allows providing a unique IP address and/or a
    textual name for the node, in the case where each node may not have a
    unique IP address (e.g., a deployment in which all interfaces have
-   IPv6 addresses and all nexthops are IPv6 nexthops, even for IPv4
+   IPv6 addresses and all next-hops are IPv6 next-hops, even for IPv4
    routes).
 
 About This Document
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2026.
+   This Internet-Draft will expire on 24 April 2026.
 
 Copyright Notice
 
@@ -107,14 +107,13 @@ Table of Contents
    In addition to adding incoming interface information to a traceroute
    using the mechanisms described in [RFC5837], a network operator may
    be interested in adding information to unambiguously identify nodes
-   themselves.  For example, [I-D.chroboczek-intarea-v4-via-v6]
-   describes a scenario in which individual nodes do not have unique
-   IPv4 addresses to use to reply to an IPv4 traceroute, so additional
-   information is needed.  Another scenario is described in
-   [I-D.equinox-v6ops-icmpext-xlat-v6only-source]: when an IPv6-only
-   node runs the customer-side translator (CLAT, [RFC6877]), traceroute
-   to an IPv4 destination can not represent intermediate IPv6-only
-   routers.
+   themselves.  For example, [I-D.ietf-intarea-v4-via-v6] describes a
+   scenario in which individual nodes do not have unique IPv4 addresses
+   to use to reply to an IPv4 traceroute, so additional information is
+   needed.  Another scenario is described in
+   [I-D.ietf-v6ops-icmpext-xlat-v6only-source]: when an IPv6-only node
+   runs the customer-side translator (CLAT, [RFC6877]), traceroute to an
+   IPv4 destination can not represent intermediate IPv6-only routers.
 
    The goal of this specification is to have a mechanism to provide
    additional useful information about the identification of a node
@@ -151,7 +150,7 @@ Table of Contents
    Extension Object with a Class-Num (Object Class Value) of 5 (see
    Section 6).
 
-   Similar to Section 4 of [RFC5837], this object can be appended to the
+   Similar to Section 4 of [RFC5837], this object can be added to the
    following messages:
 
    *  ICMPv4 Time Exceeded
@@ -164,15 +163,16 @@ Table of Contents
 
    *  ICMPv6 Destination Unreachable
 
-   For reasons described in [RFC4884], this extension cannot be appended
-   to any of the currently defined ICMPv4 or ICMPv6 messages other than
+   For reasons described in [RFC4884], this extension cannot be added to
+   any of the currently defined ICMPv4 or ICMPv6 messages other than
    those listed above.
 
-   The extension defined herein MAY be appended to any of the above
-   listed messages and SHOULD be appended whenever required to identify
-   the node and when local policy or security considerations do not
-   supersede this requirement.  See Section 5 for suggested
-   configuration regarding including these messages.
+   The extension defined herein, Node Identification Object, MAY be
+   added to any of the above listed messages and SHOULD be added
+   whenever required to identify the node and when local policy or
+   security considerations do not supersede this requirement.  See
+   Section 5 for suggested configuration regarding including these
+   messages.
 
    Similarly to the Interface Identification Object defined in
    [RFC5837], there are two different pieces of information that can
@@ -180,7 +180,7 @@ Table of Contents
 
    1.  An IP Address Sub-Object MAY be included, containing an address
        of sufficient scope to identify the node within the domain.  The
-       IP Address Sub-Object is defined in Section 3.2 of this memo.
+       IP Address Sub-Object is defined in Section 3.2 of this document.
 
    2.  A Name Sub-Object MAY be included, as specified in Section 3.3,
        containing up to 63 octets of the YANG sys:hostname ([RFC7317])
@@ -188,12 +188,12 @@ Table of Contents
 
 3.1.  C-Type Meaning in a Node Identification Object
 
-   The C-Type contains a bitmask describing what information is included
-   in this Node Identification Object (Figure 1).  The fields in this
-   bitmask are chosen so that the IPAddr and name bits overlap with the
-   same bits as defined in [RFC5837], so that an implementation that
-   supports exactly these bits can reuse packet generation and parsing
-   code.
+   In this object, the C-Type, defined in Section 8 of [RFC4884],
+   contains a bitmask describing what information is included in this
+   Node Identification Object (Figure 1).  The fields in this bitmask
+   are chosen so that the IPAddr and name bits overlap with the same
+   bits as defined in [RFC5837], so that an implementation that supports
+   exactly these bits can reuse packet generation and parsing code.
 
    Bit     0       1       2       3       4       5       6       7
        +-------+-------+-------+-------+-------+-------+-------+-------+
@@ -209,11 +209,11 @@ Table of Contents
 
    *  IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
       When clear, an IP Address Sub-Object is not present.  The IP
-      Address Sub-Object is described in Section 3.2 of this memo.
+      Address Sub-Object is described in Section 3.2 of this document.
 
    *  Name (bit 6): When set, a Name Sub-Object is included.  When
       clear, it is not included.  The Name Sub-Object is described in
-      Section 3.3 of this memo.
+      Section 3.3 of this document.
 
    *  Un2 (bit 7): This bit is reserved for future use and MUST be set
       to 0 on transmit and ignored on receipt.
@@ -240,9 +240,9 @@ Table of Contents
    Bit values SHOULD be assigned from left to right in the diagram
    above, i.e., starting at zero.  The sub-objects associated with each
    new bit MUST be placed in the packet after the sub-objects defined in
-   this memo.  For example, if bit 0 is assigned to the Fooblewomp, a
-   packet with bits 0 and 5 set MUST contain the IP Address Sub-Object,
-   followed by the Fooblewomp sub-object.
+   this document.  For example, if bit 0 is assigned to the Fooblewomp,
+   a packet with bits 0 and 5 set MUST contain the IP Address Sub-
+   Object, followed by the Fooblewomp sub-object.
 
    If a bit is set that a receiver does not support, followed by a bit
    that the receiver does support, the receiver MUST ignore all of the
@@ -313,7 +313,7 @@ Table of Contents
    meaningful name of the node.  The node name MUST be padded with ASCII
    NUL characters if the object would not otherwise terminate on a
    4-octet boundary.  An example of truncation of a 66-octet node name,
-   beginning "HelpMyAscii" and ending "Homestar" would be encoded as
+   beginning "HelpMyAscii" and ending "xyzpdqha" would be encoded as
    follows:
 
     0                   1                   2                   3
@@ -325,11 +325,15 @@ Table of Contents
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                            . . . .                            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |       o       |       m       |       e       |       s       |
+   |       y       |       z       |       p       |       d       |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The node name MUST be represented in the UTF-8 charset [RFC3629]
-   using the Default Language [RFC2277].
+   using the Default Language [RFC2277].  When truncating a name to 63
+   octets, the truncation MUST occur on a character boundary (e.g., if
+   the 63rd octet is the first octet of a 2-octet character, then the
+   truncation will omit that octet altogether, and be padded with an
+   ASCII NUL character to reach the 4-octet boundary.)
 
 4.  Addition of Node Identification Object by Intermediate Nodes
 
@@ -337,11 +341,11 @@ Table of Contents
    message listed above to include the pre-translation source address of
    a packet.  When doing so, it MUST include the IP Address Sub-Object.
    If an ICMP Extension Structure is already present in the packet being
-   translated, this Extension Object is appended to the existing ICMP
+   translated, this Extension Object is added to the existing ICMP
    Extension Structure and the checksum is updated.  If an ICMP
    Extension Structure is not present in the packet being translated,
    one is added using the rules of [RFC4884].  Further details of this
-   mode of operation are outside the scope of this memo.
+   mode of operation are outside the scope of this document.
 
 5.  Security Considerations
 
@@ -352,8 +356,8 @@ Table of Contents
    configurable, and SHOULD be disabled by default, with the exception
    of IP/ICMP translators [RFC7915].  Those translators SHOULD add the
    Node Identification Extension Object with the IP Address Sub-Object,
-   as described in [I-D.equinox-v6ops-icmpext-xlat-v6only-source].  An
-   implementation may determine what objects may be appended to a given
+   as described in [I-D.ietf-v6ops-icmpext-xlat-v6only-source].  An
+   implementation may determine what objects may be added to a given
    message based on the destination IP address of the ICMP message that
    will contain the objects.  Access control lists (ACLs) may be used to
    filter the destinations to which this information may be
@@ -376,7 +380,9 @@ Table of Contents
 
                                  Table 1
 
-   The corresponding Class Sub-types Registry is as follows:
+   IANA is requested to create a corresponding Class Sub-types Registry
+   (https://www.iana.org/assignments/icmp-parameters/icmp-
+   parameters.xhtml#icmp-parameters-ext-classes) as follows:
 
          +================+==========================+===========+
          | C-Type (Value) | Description              | Reference |
@@ -463,20 +469,20 @@ Table of Contents
 
 7.2.  Informative References
 
-   [I-D.chroboczek-intarea-v4-via-v6]
+   [I-D.ietf-intarea-v4-via-v6]
               Chroboczek, J., Kumari, W., and T. Høiland-Jørgensen,
               "IPv4 routes with an IPv6 next hop", Work in Progress,
-              Internet-Draft, draft-chroboczek-intarea-v4-via-v6-03, 20
-              January 2025, <https://datatracker.ietf.org/doc/html/
-              draft-chroboczek-intarea-v4-via-v6-03>.
+              Internet-Draft, draft-ietf-intarea-v4-via-v6-03, 28 August
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              intarea-v4-via-v6-03>.
 
-   [I-D.equinox-v6ops-icmpext-xlat-v6only-source]
+   [I-D.ietf-v6ops-icmpext-xlat-v6only-source]
               Lamparter, D. and J. Linkova, "Using Dummy IPv4 Address
               and Node Identification Extensions for IP/ICMP translators
-              (XLATs)", Work in Progress, Internet-Draft, draft-equinox-
-              v6ops-icmpext-xlat-v6only-source-02, 21 March 2025,
-              <https://datatracker.ietf.org/doc/html/draft-equinox-
-              v6ops-icmpext-xlat-v6only-source-02>.
+              (XLATs)", Work in Progress, Internet-Draft, draft-ietf-
+              v6ops-icmpext-xlat-v6only-source-00, 4 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
+              icmpext-xlat-v6only-source-00>.
 
    [RFC4193]  Hinden, R. and B. Haberman, "Unique Local IPv6 Unicast
               Addresses", RFC 4193, DOI 10.17487/RFC4193, October 2005,

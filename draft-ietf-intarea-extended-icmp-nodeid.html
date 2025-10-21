@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Adding Extensions to ICMP Errors for Originating Node Identification</title>
+<title>ICMP Message Extension for Originating Node Identification</title>
 <meta content="Bill Fenner" name="author">
 <meta content="Reji Thomas" name="author">
 <meta content="
@@ -15,28 +15,27 @@ where a given interface may not have a unique IP address to respond to, e.g., a 
        This document introduces a similar ICMP extension for Node Identification.
 It allows providing a unique IP address and/or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., a deployment
-in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+in which all interfaces have IPv6 addresses and all next-hops are IPv6 next-hops,
 even for IPv4 routes). 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="ICMP" name="keyword">
-<meta content="IPv6 nexthops" name="keyword">
+<meta content="IPv6 next-hops" name="keyword">
 <meta content="Node identification" name="keyword">
 <meta content="draft-ietf-intarea-extended-icmp-nodeid-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
-    setuptools 80.9.0
-    wcwidth 0.2.13
+    requests 2.32.5
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-intarea-extended-icmp-nodeid.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1055,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ICMP Node ID</td>
-<td class="right">August 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fenner &amp; Thomas</td>
-<td class="center">Expires 20 February 2026</td>
+<td class="center">Expires 24 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-extended-icmp-nodeid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-19" class="published">19 August 2025</time>
+<time datetime="2025-10-21" class="published">21 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-20">20 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-24">24 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1091,7 +1090,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Adding Extensions to ICMP Errors for Originating Node Identification</h1>
+<h1 id="title">ICMP Message Extension for Originating Node Identification</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">RFC5837 describes a mechanism for Extending ICMP for Interface and Next-Hop Identification,
@@ -1101,7 +1100,7 @@ where a given interface may not have a unique IP address to respond to, e.g., a 
 <p id="section-abstract-2">This document introduces a similar ICMP extension for Node Identification.
 It allows providing a unique IP address and/or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., a deployment
-in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+in which all interfaces have IPv6 addresses and all next-hops are IPv6 next-hops,
 even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1139,7 +1138,7 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1257,10 +1256,10 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-1-1">In addition to adding incoming interface information to a traceroute
 using the mechanisms described in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, a network operator
 may be interested in adding information to unambiguously identify nodes themselves.
-For example, <span>[<a href="#I-D.chroboczek-intarea-v4-via-v6" class="cite xref">I-D.chroboczek-intarea-v4-via-v6</a>]</span> describes a scenario in which individual
+For example, <span>[<a href="#I-D.ietf-intarea-v4-via-v6" class="cite xref">I-D.ietf-intarea-v4-via-v6</a>]</span> describes a scenario in which individual
 nodes do not have unique IPv4 addresses to use to reply to an IPv4
 traceroute, so additional information is needed.
-Another scenario is described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>:
+Another scenario is described in <span>[<a href="#I-D.ietf-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.ietf-v6ops-icmpext-xlat-v6only-source</a>]</span>:
 when an IPv6-only node runs the customer-side translator (CLAT, <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span>),
 traceroute to an IPv4 destination can not represent intermediate IPv6-only routers.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The goal of this specification is to have a mechanism to provide
@@ -1299,7 +1298,7 @@ for the Internet Protocol Version 6 (IPv6) specified in <span>[<a href="#RFC4443
       </h2>
 <p id="section-3-1">This section defines the Node Identification Object, an ICMP Extension
 Object with a Class-Num (Object Class Value) of 5 (see <a href="#sec-iana" class="auto internal xref">Section 6</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Similar to <span><a href="https://rfc-editor.org/rfc/rfc5837#section-4" class="relref">Section 4</a> of [<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, this object can be appended
+<p id="section-3-2">Similar to <span><a href="https://rfc-editor.org/rfc/rfc5837#section-4" class="relref">Section 4</a> of [<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, this object can be added
 to the following messages:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-3.1">
@@ -1318,11 +1317,12 @@ to the following messages:<a href="#section-3-2" class="pilcrow">¶</a></p>
           <p id="section-3-3.5.1">ICMPv6 Destination Unreachable<a href="#section-3-3.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-3-4">For reasons described in <span>[<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>, this extension cannot be appended
+<p id="section-3-4">For reasons described in <span>[<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>, this extension cannot be added
 to any of the currently defined ICMPv4 or ICMPv6 messages other than
 those listed above.<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">The extension defined herein <span class="bcp14">MAY</span> be appended to any of the above
-listed messages and <span class="bcp14">SHOULD</span> be appended whenever required to identify
+<p id="section-3-5">The extension defined herein, Node Identification Object,
+<span class="bcp14">MAY</span> be added to any of the above
+listed messages and <span class="bcp14">SHOULD</span> be added whenever required to identify
 the node and when local policy or security
 considerations do not supersede this requirement.  See <a href="#security" class="auto internal xref">Section 5</a> for
 suggested configuration regarding including these messages.<a href="#section-3-5" class="pilcrow">¶</a></p>
@@ -1333,7 +1333,7 @@ Node Identification Object:<a href="#section-3-6" class="pilcrow">¶</a></p>
 <li id="section-3-7.1">
           <p id="section-3-7.1.1">An IP Address Sub-Object <span class="bcp14">MAY</span> be included, containing an address
 of sufficient scope to identify the node within the domain.
-The IP Address Sub-Object is defined in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
+The IP Address Sub-Object is defined in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this document.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-7.2">
           <p id="section-3-7.2.1">A Name Sub-Object <span class="bcp14">MAY</span> be included, as specified in <a href="#Name" class="auto internal xref">Section 3.3</a>,
@@ -1346,7 +1346,8 @@ or another appropriate name uniquely identifying the node.<a href="#section-3-7.
         <h3 id="name-c-type-meaning-in-a-node-id">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-c-type-meaning-in-a-node-id" class="section-name selfRef">C-Type Meaning in a Node Identification Object</a>
         </h3>
-<p id="section-3.1-1">The C-Type contains a bitmask describing what information is included
+<p id="section-3.1-1">In this object, the C-Type, defined in <span><a href="https://rfc-editor.org/rfc/rfc4884#section-8" class="relref">Section 8</a> of [<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>,
+contains a bitmask describing what information is included
 in this Node Identification Object (<a href="#ctypeFig" class="auto internal xref">Figure 1</a>).  The fields in this
 bitmask are chosen so that the IPAddr and name bits overlap
 with the same bits as defined in <span>[<a href="#RFC5837" class="cite xref">RFC5837</a>]</span>, so that an implementation
@@ -1394,12 +1395,12 @@ that supports exactly these bits can reuse packet generation and parsing code.<a
           <li class="normal" id="section-3.1-4.2">
             <p id="section-3.1-4.2.1">IP Addr (bit 5) : When set, an IP Address Sub-Object is present.
   When clear, an IP Address Sub-Object is not present.  The IP Address
-  Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this memo.<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
+  Sub-Object is described in <a href="#IPAddr" class="auto internal xref">Section 3.2</a> of this document.<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-4.3">
             <p id="section-3.1-4.3.1">Name (bit 6): When set, a Name Sub-Object is
   included.  When clear, it is not included.  The Name Sub-Object is
-  described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this memo.<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
+  described in <a href="#Name" class="auto internal xref">Section 3.3</a> of this document.<a href="#section-3.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-4.4">
             <p id="section-3.1-4.4.1">Un2 (bit 7): This bit is reserved for future use
@@ -1428,7 +1429,7 @@ as though it contains no Node Identification Object.<a href="#section-3.1-7" cla
 <p id="section-3.1.1-1">Bit values <span class="bcp14">SHOULD</span> be assigned from left to right in the diagram
 above, i.e., starting at zero.  The sub-objects associated with each
 new bit <span class="bcp14">MUST</span> be placed in the packet after the sub-objects defined
-in this memo.  For example, if bit 0 is assigned to the Fooblewomp,
+in this document.  For example, if bit 0 is assigned to the Fooblewomp,
 a packet with bits 0 and 5 set <span class="bcp14">MUST</span> contain the IP Address
 Sub-Object, followed by the Fooblewomp sub-object.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.1-2">If a bit is set that a receiver does not support, followed by
@@ -1620,12 +1621,11 @@ longer.  The node name <span class="bcp14">MAY</span> be some other human-meanin
 the node.  The node name <span class="bcp14">MUST</span> be padded with ASCII NUL characters
 if the object would not otherwise terminate on a 4-octet boundary.
 An example of truncation of a 66-octet node name, beginning
-"HelpMyAscii" and ending "Homestar" would be encoded as follows:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+"HelpMyAscii" and ending "xyzpdqha" would be encoded as follows:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 <div id="section-3.3-6">
           <div class="alignLeft art-svg artwork" id="section-3.3-6.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="208" width="528" viewBox="0 0 528 208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 8,64 L 8,192" fill="none" stroke="black"></path>
-              <path d="M 72,160 L 72,192" fill="none" stroke="black"></path>
               <path d="M 136,64 L 136,128" fill="none" stroke="black"></path>
               <path d="M 136,160 L 136,192" fill="none" stroke="black"></path>
               <path d="M 264,64 L 264,128" fill="none" stroke="black"></path>
@@ -1638,7 +1638,6 @@ An example of truncation of a 66-octet node name, beginning
               <path d="M 8,128 L 520,128" fill="none" stroke="black"></path>
               <path d="M 8,160 L 520,160" fill="none" stroke="black"></path>
               <path d="M 8,192 L 520,192" fill="none" stroke="black"></path>
-              <circle cx="72" cy="176" r="6" class="opendot" fill="white" stroke="black"></circle>
               <g class="text">
                 <text x="16" y="36">0</text>
                 <text x="176" y="36">1</text>
@@ -1688,15 +1687,20 @@ An example of truncation of a 66-octet node name, beginning
                 <text x="256" y="148">.</text>
                 <text x="272" y="148">.</text>
                 <text x="288" y="148">.</text>
-                <text x="200" y="180">m</text>
-                <text x="328" y="180">e</text>
-                <text x="456" y="180">s</text>
+                <text x="72" y="180">y</text>
+                <text x="200" y="180">z</text>
+                <text x="328" y="180">p</text>
+                <text x="456" y="180">d</text>
               </g>
             </svg><a href="#section-3.3-6.1" class="pilcrow">¶</a>
 </div>
 </div>
 <p id="section-3.3-7">The node name <span class="bcp14">MUST</span> be represented in the UTF-8 charset <span>[<a href="#RFC3629" class="cite xref">RFC3629</a>]</span>
-using the Default Language <span>[<a href="#RFC2277" class="cite xref">RFC2277</a>]</span>.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+using the Default Language <span>[<a href="#RFC2277" class="cite xref">RFC2277</a>]</span>.  When truncating a name
+to 63 octets, the truncation <span class="bcp14">MUST</span> occur on a character boundary
+(e.g., if the 63rd octet is the first octet of a 2-octet character,
+then the truncation will omit that octet altogether, and be padded
+with an ASCII NUL character to reach the 4-octet boundary.)<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1711,12 +1715,12 @@ an ICMP message listed above to include the
 pre-translation source address of a packet. When doing so, it <span class="bcp14">MUST</span>
 include the IP Address Sub-Object.
 If an ICMP Extension Structure is already present
-in the packet being translated, this Extension Object is appended to
+in the packet being translated, this Extension Object is added to
 the existing ICMP Extension Structure and the checksum is updated.
 If an ICMP Extension Structure is not present in the packet being
 translated, one is added using the rules of <span>[<a href="#RFC4884" class="cite xref">RFC4884</a>]</span>.
 Further details of this mode of operation are outside the
-scope of this memo.<a href="#section-4-1" class="pilcrow">¶</a></p>
+scope of this document.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security">
@@ -1731,9 +1735,9 @@ an arbitrary receiver.  The addition of this information to
 the ICMP responses listed in <a href="#nodeid" class="auto internal xref">Section 3</a> is configurable, and
 <span class="bcp14">SHOULD</span> be disabled by default, with the exception of IP/ICMP translators <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span>.
 Those translators <span class="bcp14">SHOULD</span> add the Node Identification Extension Object
-with the IP Address Sub-Object, as described in <span>[<a href="#I-D.equinox-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.equinox-v6ops-icmpext-xlat-v6only-source</a>]</span>.
+with the IP Address Sub-Object, as described in <span>[<a href="#I-D.ietf-v6ops-icmpext-xlat-v6only-source" class="cite xref">I-D.ietf-v6ops-icmpext-xlat-v6only-source</a>]</span>.
 An implementation
-may determine what objects may be appended to a given message
+may determine what objects may be added to a given message
 based on the destination IP address of the ICMP message that will
 contain the objects.  Access control lists (ACLs) may be used to
 filter the destinations to which this information may be communicated.<a href="#section-5-1" class="pilcrow">¶</a></p>
@@ -1766,8 +1770,9 @@ Object Class value 5 to the extension described above.<a href="#section-6-1" cla
           </tr>
         </tbody>
       </table>
-<p id="section-6-3">The corresponding
-Class Sub-types Registry is as follows:<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-3">IANA is requested to create a corresponding
+<a href="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-ext-classes">Class Sub-types Registry</a>
+ as follows:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <table class="center" id="table-2">
         <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
 <thead>
@@ -1874,13 +1879,13 @@ bits starting at zero.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.chroboczek-intarea-v4-via-v6">[I-D.chroboczek-intarea-v4-via-v6]</dt>
+<dt id="I-D.ietf-intarea-v4-via-v6">[I-D.ietf-intarea-v4-via-v6]</dt>
         <dd>
-<span class="refAuthor">Chroboczek, J.</span>, <span class="refAuthor">Kumari, W.</span>, and <span class="refAuthor">T. Høiland-Jørgensen</span>, <span class="refTitle">"IPv4 routes with an IPv6 next hop"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-chroboczek-intarea-v4-via-v6-03</span>, <time datetime="2025-01-20" class="refDate">20 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-chroboczek-intarea-v4-via-v6-03">https://datatracker.ietf.org/doc/html/draft-chroboczek-intarea-v4-via-v6-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Chroboczek, J.</span>, <span class="refAuthor">Kumari, W.</span>, and <span class="refAuthor">T. Høiland-Jørgensen</span>, <span class="refTitle">"IPv4 routes with an IPv6 next hop"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-v4-via-v6-03</span>, <time datetime="2025-08-28" class="refDate">28 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-v4-via-v6-03">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-v4-via-v6-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.equinox-v6ops-icmpext-xlat-v6only-source">[I-D.equinox-v6ops-icmpext-xlat-v6only-source]</dt>
+<dt id="I-D.ietf-v6ops-icmpext-xlat-v6only-source">[I-D.ietf-v6ops-icmpext-xlat-v6only-source]</dt>
         <dd>
-<span class="refAuthor">Lamparter, D.</span> and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"Using Dummy IPv4 Address and Node Identification Extensions for IP/ICMP translators (XLATs)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-equinox-v6ops-icmpext-xlat-v6only-source-02</span>, <time datetime="2025-03-21" class="refDate">21 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02">https://datatracker.ietf.org/doc/html/draft-equinox-v6ops-icmpext-xlat-v6only-source-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Lamparter, D.</span> and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"Using Dummy IPv4 Address and Node Identification Extensions for IP/ICMP translators (XLATs)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-icmpext-xlat-v6only-source-00</span>, <time datetime="2025-07-04" class="refDate">4 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-icmpext-xlat-v6only-source-00">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-icmpext-xlat-v6only-source-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4193">[RFC4193]</dt>
         <dd>
