@@ -1,5 +1,5 @@
 ---
-title: "Adding Extensions to ICMP Errors for Originating Node Identification"
+title: "ICMP Message Extension for Originating Node Identification"
 abbrev: "ICMP Node ID"
 category: std
 
@@ -118,7 +118,7 @@ ICMP is used to refer to both ICMPv4 and ICMPv6.
 This section defines the Node Identification Object, an ICMP Extension
 Object with a Class-Num (Object Class Value) of 5 (see {{sec-iana}}).
 
-Similar to {{Section 4 of RFC5837}}, this object can be appended
+Similar to {{Section 4 of RFC5837}}, this object can be added
 to the following messages:
 
 - ICMPv4 Time Exceeded
@@ -131,12 +131,13 @@ to the following messages:
 
 - ICMPv6 Destination Unreachable
 
-For reasons described in {{RFC4884}}, this extension cannot be appended
+For reasons described in {{RFC4884}}, this extension cannot be added
 to any of the currently defined ICMPv4 or ICMPv6 messages other than
 those listed above.
 
-The extension defined herein MAY be appended to any of the above
-listed messages and SHOULD be appended whenever required to identify
+The extension defined herein, Node Identification Object,
+MAY be added to any of the above
+listed messages and SHOULD be added whenever required to identify
 the node and when local policy or security
 considerations do not supersede this requirement.  See {{security}} for
 suggested configuration regarding including these messages.
@@ -323,7 +324,7 @@ an ICMP message listed above to include the
 pre-translation source address of a packet. When doing so, it MUST
 include the IP Address Sub-Object.
 If an ICMP Extension Structure is already present
-in the packet being translated, this Extension Object is appended to
+in the packet being translated, this Extension Object is added to
 the existing ICMP Extension Structure and the checksum is updated.
 If an ICMP Extension Structure is not present in the packet being
 translated, one is added using the rules of {{RFC4884}}.
@@ -341,7 +342,7 @@ SHOULD be disabled by default, with the exception of IP/ICMP translators {{RFC79
 Those translators SHOULD add the Node Identification Extension Object
 with the IP Address Sub-Object, as described in {{I-D.ietf-v6ops-icmpext-xlat-v6only-source}}.
 An implementation
-may determine what objects may be appended to a given message
+may determine what objects may be added to a given message
 based on the destination IP address of the ICMP message that will
 contain the objects.  Access control lists (ACLs) may be used to
 filter the destinations to which this information may be communicated.
