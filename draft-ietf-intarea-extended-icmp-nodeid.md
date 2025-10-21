@@ -13,7 +13,7 @@ area: "Internet"
 workgroup: "Internet Area Working Group"
 keyword:
  - ICMP
- - IPv6 nexthops
+ - IPv6 next-hops
  - Node identification
 venue:
   group: "Internet Area Working Group"
@@ -70,7 +70,7 @@ where a given interface may not have a unique IP address to respond to, e.g., a 
 This document introduces a similar ICMP extension for Node Identification.
 It allows providing a unique IP address and/or a textual name for the node, in
 the case where each node may not have a unique IP address (e.g., a deployment
-in which all interfaces have IPv6 addresses and all nexthops are IPv6 nexthops,
+in which all interfaces have IPv6 addresses and all next-hops are IPv6 next-hops,
 even for IPv4 routes).
 
 --- middle
