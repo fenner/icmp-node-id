@@ -156,7 +156,8 @@ Node Identification Object:
 
 ## C-Type Meaning in a Node Identification Object
 
-The C-Type contains a bitmask describing what information is included
+In this object, the C-Type, defined in {{Section 8 of RFC4884}},
+contains a bitmask describing what information is included
 in this Node Identification Object ({{ctypeFig}}).  The fields in this
 bitmask are chosen so that the IPAddr and name bits overlap
 with the same bits as defined in {{RFC5837}}, so that an implementation
