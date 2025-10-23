@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-19T02:05:12.811421+00:00",
+  "timestamp": "2025-10-23T01:54:26.193190+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -354,7 +354,7 @@
       "id": "I_kwDOLJPxrM7SN1G5",
       "title": "AD Review: C-Type",
       "url": "https://github.com/fenner/icmp-node-id/issues/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -363,8 +363,8 @@
       ],
       "body": "Add a reference to section 8 of RFC 4884 for C-type\n\n",
       "createdAt": "2025-10-17T16:46:17Z",
-      "updatedAt": "2025-10-17T16:46:17Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:02Z",
+      "closedAt": "2025-10-21T20:31:02Z",
       "comments": []
     },
     {
@@ -444,7 +444,7 @@
       "id": "I_kwDOLJPxrM7SN2KQ",
       "title": "AD Review: Section 6",
       "url": "https://github.com/fenner/icmp-node-id/issues/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -453,8 +453,8 @@
       ],
       "body": "Please request the creation of `The corresponding Class Sub-types Registry ` as it is not yet at https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-ext-classes\n\n \n\nAlso use a URI reference for `ICMP Extension Object Class`\n\n",
       "createdAt": "2025-10-17T16:48:23Z",
-      "updatedAt": "2025-10-17T16:48:23Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:02Z",
+      "closedAt": "2025-10-21T20:31:02Z",
       "comments": []
     },
     {
@@ -462,7 +462,7 @@
       "id": "I_kwDOLJPxrM7SN2Wd",
       "title": "AD Review: Title",
       "url": "https://github.com/fenner/icmp-node-id/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -471,8 +471,8 @@
       ],
       "body": "Possibly a matter of taste, but s/Adding Extensions to ICMP Errors for Originating Node Identification/ICMP Message Extension for Originating Node Identification/ is probably clearer.\n\n",
       "createdAt": "2025-10-17T16:48:46Z",
-      "updatedAt": "2025-10-17T16:48:46Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:01Z",
+      "closedAt": "2025-10-21T20:31:01Z",
       "comments": []
     },
     {
@@ -480,7 +480,7 @@
       "id": "I_kwDOLJPxrM7SN2id",
       "title": "AD Review: Nexthop or Next-Hop",
       "url": "https://github.com/fenner/icmp-node-id/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -489,8 +489,8 @@
       ],
       "body": "As the abstract use `next-hop`, let's be consistent and let's use 'next-hop' everywhere rather than 'next-hop'.\n\n",
       "createdAt": "2025-10-17T16:49:09Z",
-      "updatedAt": "2025-10-17T16:51:27Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:01Z",
+      "closedAt": "2025-10-21T20:31:01Z",
       "comments": []
     },
     {
@@ -498,7 +498,7 @@
       "id": "I_kwDOLJPxrM7SN2w7",
       "title": "AD Review: Section 1",
       "url": "https://github.com/fenner/icmp-node-id/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -507,8 +507,8 @@
       ],
       "body": "s/traceroute to an IPv4 destination can not represent intermediate IPv6-only routers/traceroute to an IPv4 destination can not display an intermediate IPv6-only routers as it does not have an IPv4 address/ ?\n\n",
       "createdAt": "2025-10-17T16:49:34Z",
-      "updatedAt": "2025-10-17T16:49:34Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:33:16Z",
+      "closedAt": "2025-10-21T20:33:16Z",
       "comments": []
     },
     {
@@ -516,7 +516,7 @@
       "id": "I_kwDOLJPxrM7SN29I",
       "title": "AD Review: Section 3",
       "url": "https://github.com/fenner/icmp-node-id/issues/25",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -525,8 +525,8 @@
       ],
       "body": "s/The extension defined herein/The extension defined herein, Node Identification Object,/\n\n \n\nIt is also unclear why it is only \"appended\" rather than \"included\", must this extension be the last extension? If so, why.\n\n",
       "createdAt": "2025-10-17T16:49:56Z",
-      "updatedAt": "2025-10-17T17:14:07Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:01Z",
+      "closedAt": "2025-10-21T20:31:01Z",
       "comments": [
         {
           "author": "fenner",
@@ -542,7 +542,7 @@
       "id": "I_kwDOLJPxrM7SN3Ra",
       "title": "AD Review: Section 3.3",
       "url": "https://github.com/fenner/icmp-node-id/issues/26",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -551,8 +551,8 @@
       ],
       "body": "The SVG tool seems to have an issue with the \"o\" of \"homestar\" in the graphic.\n\n \n\nUnsure how to handle a 2-byte UTF-8 character whose 2nd octet would be the 65th character of the name.\n\n",
       "createdAt": "2025-10-17T16:50:26Z",
-      "updatedAt": "2025-10-17T17:24:31Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:00Z",
+      "closedAt": "2025-10-21T20:31:00Z",
       "comments": [
         {
           "author": "fenner",
@@ -575,7 +575,7 @@
       "id": "I_kwDOLJPxrM7SN3lS",
       "title": "AD Review: Reference",
       "url": "https://github.com/fenner/icmp-node-id/issues/27",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -584,8 +584,8 @@
       ],
       "body": "The draft reference draft-equinox-v6ops-icmpext-xlat-v6only-source (version 02) is stale. It was replaced by draft-ietf-v6ops-icmpext-xlat-v6only-source (version 00).\n\n",
       "createdAt": "2025-10-17T16:50:55Z",
-      "updatedAt": "2025-10-17T16:50:55Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-21T20:31:00Z",
+      "closedAt": "2025-10-21T20:31:00Z",
       "comments": []
     }
   ],
