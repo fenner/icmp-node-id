@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 24 April 2026                                   21 October 2025
+Expires: 29 April 2026                                   26 October 2025
 
 
        ICMP Message Extension for Originating Node Identification
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2026.
+   This Internet-Draft will expire on 29 April 2026.
 
 Copyright Notice
 
@@ -227,23 +227,26 @@ Table of Contents
    first.  If bit 6 (Name) is set, a Name Sub-Object MUST be sent next.
    The information order is thus: IP Address Sub-Object, Name Sub-
    Object.  Any or all pieces of information may be present or absent,
-   as indicated by the C-Type.  Any data that follows these optional
-   pieces of information MUST be ignored.
+   as indicated by the C-Type.  As defined in Section 3.1.1, future
+   assignments of bits in the C-Type field will result in additional
+   Sub-Objects being sent after these objects.  If an implementation
+   does not support these future assignments, these optional pieces of
+   information MUST be ignored.
 
    It is valid (though pointless until additional bits are assigned by
    IANA) to receive a Node Identification Object where bits 5 and 6 are
    both 0; this MUST NOT generate a warning or error.  A packet with
-   such a Node Identification Object SHOULD be treated as though it
+   such a Node Identification Object MUST be treated as though it
    contains no Node Identification Object.
 
 3.1.1.  Behavior when additional bits are reserved
 
-   Bit values SHOULD be assigned from left to right in the diagram
-   above, i.e., starting at zero.  The sub-objects associated with each
-   new bit MUST be placed in the packet after the sub-objects defined in
-   this document.  For example, if bit 0 is assigned to the Fooblewomp,
-   a packet with bits 0 and 5 set MUST contain the IP Address Sub-
-   Object, followed by the Fooblewomp sub-object.
+   Bit values MUST be assigned from left to right in the diagram above,
+   i.e., starting at zero.  The sub-objects associated with each new bit
+   MUST be placed in the packet after the sub-objects defined in this
+   document.  For example, if bit 0 is assigned to the Fooblewomp, a
+   packet with bits 0 and 5 set MUST contain the IP Address Sub-Object,
+   followed by the Fooblewomp sub-object.
 
    If a bit is set that a receiver does not support, followed by a bit
    that the receiver does support, the receiver MUST ignore all of the
