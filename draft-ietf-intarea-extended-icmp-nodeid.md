@@ -206,12 +206,12 @@ these optional pieces of information MUST be ignored.
 It is valid (though pointless until additional bits are assigned by
 IANA) to receive a Node Identification Object where bits 5 and 6
 are both 0; this MUST NOT generate a warning or error.
-A packet with such a Node Identification Object SHOULD be treated
+A packet with such a Node Identification Object MUST be treated
 as though it contains no Node Identification Object.
 
 ### Behavior when additional bits are reserved {#fooblewomp}
 
-Bit values SHOULD be assigned from left to right in the diagram
+Bit values MUST be assigned from left to right in the diagram
 above, i.e., starting at zero.  The sub-objects associated with each
 new bit MUST be placed in the packet after the sub-objects defined
 in this document.  For example, if bit 0 is assigned to the Fooblewomp,
