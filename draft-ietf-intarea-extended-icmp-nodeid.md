@@ -196,7 +196,11 @@ If bit 5 (IP Address) is set, an IP Address Sub-Object MUST
 be sent first.  If bit 6 (Name) is set, a Name Sub-Object
 MUST be sent next.  The information order is thus: IP Address Sub-Object,
 Name Sub-Object.  Any or all pieces of information may be
-present or absent, as indicated by the C-Type.  Any data that follows
+present or absent, as indicated by the C-Type.  As defined in
+{{fooblewomp}}, future assignments of bits in the C-Type
+field will result in additional Sub-Objects being sent after
+these objects. If an implementation does not support these
+future assignments,
 these optional pieces of information MUST be ignored.
 
 It is valid (though pointless until additional bits are assigned by
