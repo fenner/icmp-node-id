@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-23T01:54:26.193190+00:00",
+  "timestamp": "2025-10-28T01:54:52.294180+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -372,7 +372,7 @@
       "id": "I_kwDOLJPxrM7SN1Uf",
       "title": "AD Review: Section 3.1 SHOULD",
       "url": "https://github.com/fenner/icmp-node-id/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -381,8 +381,8 @@
       ],
       "body": "Per https://datatracker.ietf.org/doc/statement-iesg-statement-on-clarifying-the-use-of-bcp-14-key-words/, explanations about when the \"SHOULD\" can be bypassed, i.e., why not a MUST ?\n\n",
       "createdAt": "2025-10-17T16:46:43Z",
-      "updatedAt": "2025-10-17T16:46:43Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-26T22:52:13Z",
+      "closedAt": "2025-10-26T22:52:13Z",
       "comments": []
     },
     {
@@ -390,7 +390,7 @@
       "id": "I_kwDOLJPxrM7SN1hc",
       "title": "AD Review: Section 3.1",
       "url": "https://github.com/fenner/icmp-node-id/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -399,8 +399,8 @@
       ],
       "body": "When other extensions will be defined, will this statement be still valid ? `Any data that follows these optional pieces of information MUST be ignored.` Please add some text around \"unless other bits in C-flag are set\" or similar (and add a forward reference to 3.1.1 -- see also comment below)\n\n",
       "createdAt": "2025-10-17T16:47:06Z",
-      "updatedAt": "2025-10-17T16:47:06Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-26T22:52:13Z",
+      "closedAt": "2025-10-26T22:52:13Z",
       "comments": []
     },
     {
@@ -417,9 +417,17 @@
       ],
       "body": "This text should rather be in the IANA consideration for the C-type for the allocated class, i.e., 5.\n\n",
       "createdAt": "2025-10-17T16:47:30Z",
-      "updatedAt": "2025-10-17T16:47:30Z",
+      "updatedAt": "2025-10-26T22:44:35Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "My response on the list:\n\n> The IANA considerations says\n> \n> As mentioned in Section 3.1.1, IANA is requested to assign additional bits starting at zero.\n> \n> I'm not inclined to move the text about how to process the packet to the IANA considerations section, and the reference to the assignment request is already there, so what exactly are you asking for?",
+          "createdAt": "2025-10-26T22:44:35Z",
+          "updatedAt": "2025-10-26T22:44:35Z"
+        }
+      ]
     },
     {
       "number": 20,
