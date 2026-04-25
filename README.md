@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# Adding Extensions to ICMP Errors for Originating Node Identification
+# ICMP Message Extension for Originating Node Identification
 
-This is the working area for the IETF [INTAREA Working Group](https://datatracker.ietf.org/group/intarea/documents/) Internet-Draft, "Adding Extensions to ICMP Errors for Originating Node Identification".
+This is the working area for the IETF [INTAREA Working Group](https://datatracker.ietf.org/group/intarea/documents/) Internet-Draft, "ICMP Message Extension for Originating Node Identification".
 
 * [Editor's Copy](https://fenner.github.io/icmp-node-id/#go.draft-ietf-intarea-extended-icmp-nodeid.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-intarea-extended-icmp-nodeid)
