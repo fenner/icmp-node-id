@@ -442,6 +442,12 @@ This section is to be removed before publishing as an RFC.
 
 - Added Standards Action sentence to IANA Considerations
 
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-04
+
+- Changes from AD Review
+  see https://mailarchive.ietf.org/arch/msg/int-area/jhtF0oqj3O0IoKBmb4Q_jwYEzA8/
+
+
 # Acknowledgments
 {:numbered="false"}
 
