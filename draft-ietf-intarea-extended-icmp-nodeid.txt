@@ -5,7 +5,7 @@
 Internet Area Working Group                                    B. Fenner
 Internet-Draft                                                 R. Thomas
 Intended status: Standards Track                         Arista Networks
-Expires: 29 April 2026                                   26 October 2025
+Expires: 27 October 2026                                   25 April 2026
 
 
        ICMP Message Extension for Originating Node Identification
@@ -60,11 +60,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2026.
+   This Internet-Draft will expire on 27 October 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -99,6 +99,7 @@ Table of Contents
      A.5.  Changes since draft-ietf-intarea-extended-icmp-nodeid-01
      A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
      A.7.  Changes since draft-ietf-intarea-extended-icmp-nodeid-03
+     A.8.  Changes since draft-ietf-intarea-extended-icmp-nodeid-04
    Acknowledgments
    Authors' Addresses
 
@@ -476,17 +477,17 @@ Table of Contents
    [I-D.ietf-intarea-v4-via-v6]
               Chroboczek, J., Kumari, W., and T. Høiland-Jørgensen,
               "IPv4 routes with an IPv6 next hop", Work in Progress,
-              Internet-Draft, draft-ietf-intarea-v4-via-v6-03, 28 August
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              intarea-v4-via-v6-03>.
+              Internet-Draft, draft-ietf-intarea-v4-via-v6-08, 17 April
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              intarea-v4-via-v6-08>.
 
    [I-D.ietf-v6ops-icmpext-xlat-v6only-source]
-              Lamparter, D. and J. Linkova, "Using Dummy IPv4 Address
+              Lamparter, D. E. and J. Linkova, "Using Dummy IPv4 Address
               and Node Identification Extensions for IP/ICMP translators
               (XLATs)", Work in Progress, Internet-Draft, draft-ietf-
-              v6ops-icmpext-xlat-v6only-source-00, 4 July 2025,
+              v6ops-icmpext-xlat-v6only-source-01, 6 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              icmpext-xlat-v6only-source-00>.
+              icmpext-xlat-v6only-source-01>.
 
    [RFC4193]  Hinden, R. and B. Haberman, "Unique Local IPv6 Unicast
               Addresses", RFC 4193, DOI 10.17487/RFC4193, October 2005,
@@ -556,6 +557,11 @@ A.6.  Changes since draft-ietf-intarea-extended-icmp-nodeid-02
 A.7.  Changes since draft-ietf-intarea-extended-icmp-nodeid-03
 
    *  Added Standards Action sentence to IANA Considerations
+
+A.8.  Changes since draft-ietf-intarea-extended-icmp-nodeid-04
+
+   *  Changes from AD Review see https://mailarchive.ietf.org/arch/msg/
+      int-area/jhtF0oqj3O0IoKBmb4Q_jwYEzA8/
 
 Acknowledgments
 
