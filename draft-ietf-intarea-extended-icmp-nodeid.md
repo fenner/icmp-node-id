@@ -340,6 +340,18 @@ translated, one is added using the rules of {{RFC4884}}.
 Further details of this mode of operation are outside the
 scope of this document.
 
+If adding this object results in the ICMP message exceeding the
+underlying MTU, the translator SHOULD calculate the number of bytes
+that need to be removed from the "original datagram" field to
+allow this object to fit, and reduce the length field in the ICMP
+header by that value, moving any existing ICMP Extension Structure
+back in the packet appropriately. If this operation is not possible
+(for example, because the "original datagram" field is already at
+a minimum size), then the translator MUST NOT add an additional
+object. (Note that this number of bytes MUST be rounded up to the
+nearest multiple of 4 for ICMPv4 and 8 for ICMPv6 due to the definition
+of the length field in the ICMP header; see {{RFC4884}})
+
 # Security Considerations {#security}
 
 A node name may reveal sensitive information, especially when it
