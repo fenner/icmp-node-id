@@ -138,9 +138,12 @@ those listed above.
 
 The extension defined herein, Node Identification Object,
 MAY be added to any of the above
-listed messages and SHOULD be added whenever required to identify
-the node and when local policy or security
-considerations do not supersede this requirement.  See {{security}} for
+listed messages and MUST be added whenever the responding IP
+address may not be sufficient to identify
+the node, unless local policy or security
+considerations supersede this requirement.  (It is permissible
+to unconditionally include this extension in all of the above messages.)
+See {{security}} for
 suggested configuration regarding including these messages.
 
 Similarly to the Interface Identification Object defined in {{RFC5837}},
@@ -148,7 +151,7 @@ there are two different pieces of information that can appear in a
 Node Identification Object:
 
 1. An IP Address Sub-Object MAY be included, containing an address
-   of sufficient scope to identify the node within the domain.
+   of sufficient scope to identify the node.
    The IP Address Sub-Object is defined in {{IPAddr}} of this document.
 
 2. A Name Sub-Object MAY be included, as specified in {{Name}},
