@@ -18,24 +18,25 @@ the case where each node may not have a unique IP address (e.g., a deployment
 in which all interfaces have IPv6 addresses and all next-hops are IPv6 next-hops,
 even for IPv4 routes). 
     " name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="ICMP" name="keyword">
 <meta content="IPv6 next-hops" name="keyword">
 <meta content="Node identification" name="keyword">
 <meta content="draft-ietf-intarea-extended-icmp-nodeid-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.7
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.11.7
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.8.3
 -->
 <link href="draft-ietf-intarea-extended-icmp-nodeid.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -71,7 +72,6 @@ even for IPv4 routes).
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -120,7 +120,6 @@ even for IPv4 routes).
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -185,7 +184,6 @@ even for IPv4 routes).
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -302,16 +300,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -331,10 +332,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -345,59 +346,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -435,26 +436,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -470,20 +470,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -519,9 +521,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -531,17 +533,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -591,25 +595,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -629,13 +625,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -646,18 +635,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -716,9 +703,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -808,23 +795,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -835,19 +826,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -868,54 +861,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -934,26 +927,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -969,12 +962,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1036,17 +1030,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1056,11 +1052,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ICMP Node ID</td>
-<td class="right">April 2026</td>
+<td class="right">September 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fenner &amp; Thomas</td>
-<td class="center">Expires 27 October 2026</td>
+<td class="center">Expires 11 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-extended-icmp-nodeid-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-25" class="published">25 April 2026</time>
+<time datetime="2026-09-07" class="published">7 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-27">27 October 2026</time></dd>
+<dd class="expires"><time datetime="2027-03-11">11 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1140,7 +1136,7 @@ even for IPv4 routes).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1360,13 +1356,33 @@ with the same bits as defined in <span>[<a href="#RFC5837" class="cite xref">RFC
 that supports exactly these bits can reuse packet generation and parsing code.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <span id="name-c-type-for-the-node-identif"></span><div id="ctypeFig">
 <figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-3.1-2.1">
-<pre>
-Bit     0       1       2       3       4       5       6       7
-    +-------+-------+-------+-------+-------+-------+-------+-------+
-    |               Unassigned              | IPAddr|  Name |  Un2  |
-    +-------+-------+-------+-------+-------+-------+-------+-------+
-</pre>
+          <div id="section-3.1-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.1-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="96" width="560" viewBox="0 0 560 96" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 40,48 L 40,80" fill="none" stroke="black"></path>
+                <path d="M 360,48 L 360,80" fill="none" stroke="black"></path>
+                <path d="M 424,48 L 424,80" fill="none" stroke="black"></path>
+                <path d="M 488,48 L 488,80" fill="none" stroke="black"></path>
+                <path d="M 552,48 L 552,80" fill="none" stroke="black"></path>
+                <path d="M 40,48 L 552,48" fill="none" stroke="black"></path>
+                <path d="M 40,80 L 552,80" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">Bit</text>
+                  <text x="72" y="36">0</text>
+                  <text x="136" y="36">1</text>
+                  <text x="200" y="36">2</text>
+                  <text x="264" y="36">3</text>
+                  <text x="328" y="36">4</text>
+                  <text x="392" y="36">5</text>
+                  <text x="456" y="36">6</text>
+                  <text x="520" y="36">7</text>
+                  <text x="204" y="68">Unassigned</text>
+                  <text x="396" y="68">IPAddr</text>
+                  <text x="460" y="68">Name</text>
+                  <text x="520" y="68">Un2</text>
+                </g>
+              </svg><a href="#section-3.1-2.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-c-type-for-the-node-identif" class="selfRef">C-Type for the Node Identification Object</a>
@@ -1441,15 +1457,57 @@ to identify the node within the appropriate scope - global
 or as otherwise configured - as depicted in <a href="#addrFig" class="auto internal xref">Figure 2</a>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <span id="name-ip-address-sub-object-2"></span><div id="addrFig">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-3.2-2.1">
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|              AFI              |            Reserved           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                           Address...
-</pre>
+          <div id="section-3.2-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.2-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="128" width="528" viewBox="0 0 528 128" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,64 L 8,112" fill="none" stroke="black"></path>
+                <path d="M 264,64 L 264,96" fill="none" stroke="black"></path>
+                <path d="M 520,64 L 520,96" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">0</text>
+                  <text x="176" y="36">1</text>
+                  <text x="336" y="36">2</text>
+                  <text x="496" y="36">3</text>
+                  <text x="16" y="52">0</text>
+                  <text x="32" y="52">1</text>
+                  <text x="48" y="52">2</text>
+                  <text x="64" y="52">3</text>
+                  <text x="80" y="52">4</text>
+                  <text x="96" y="52">5</text>
+                  <text x="112" y="52">6</text>
+                  <text x="128" y="52">7</text>
+                  <text x="144" y="52">8</text>
+                  <text x="160" y="52">9</text>
+                  <text x="176" y="52">0</text>
+                  <text x="192" y="52">1</text>
+                  <text x="208" y="52">2</text>
+                  <text x="224" y="52">3</text>
+                  <text x="240" y="52">4</text>
+                  <text x="256" y="52">5</text>
+                  <text x="272" y="52">6</text>
+                  <text x="288" y="52">7</text>
+                  <text x="304" y="52">8</text>
+                  <text x="320" y="52">9</text>
+                  <text x="336" y="52">0</text>
+                  <text x="352" y="52">1</text>
+                  <text x="368" y="52">2</text>
+                  <text x="384" y="52">3</text>
+                  <text x="400" y="52">4</text>
+                  <text x="416" y="52">5</text>
+                  <text x="432" y="52">6</text>
+                  <text x="448" y="52">7</text>
+                  <text x="464" y="52">8</text>
+                  <text x="480" y="52">9</text>
+                  <text x="496" y="52">0</text>
+                  <text x="512" y="52">1</text>
+                  <text x="136" y="84">AFI</text>
+                  <text x="396" y="84">Reserved</text>
+                  <text x="268" y="116">Address...</text>
+                </g>
+              </svg><a href="#section-3.2-2.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-ip-address-sub-object-2" class="selfRef">IP Address Sub-Object</a>
@@ -1495,14 +1553,60 @@ and 128 bits if the AFI is set to 2).<a href="#section-3.2-4.3.1" class="pilcrow
 <p id="section-3.3-1"><a href="#nodeFig" class="auto internal xref">Figure 3</a> depicts the Name Sub-Object:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <span id="name-name-sub-object-2"></span><div id="nodeFig">
 <figure id="figure-3">
-          <div class="alignLeft art-text artwork" id="section-3.3-2.1">
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Length    |                Node Name . . .                |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
+          <div id="section-3.3-2.1">
+            <div class="alignLeft art-svg artwork" id="section-3.3-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="112" width="528" viewBox="0 0 528 112" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,64 L 8,96" fill="none" stroke="black"></path>
+                <path d="M 136,64 L 136,96" fill="none" stroke="black"></path>
+                <path d="M 520,64 L 520,80" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 376,96" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="16" y="36">0</text>
+                  <text x="176" y="36">1</text>
+                  <text x="336" y="36">2</text>
+                  <text x="496" y="36">3</text>
+                  <text x="16" y="52">0</text>
+                  <text x="32" y="52">1</text>
+                  <text x="48" y="52">2</text>
+                  <text x="64" y="52">3</text>
+                  <text x="80" y="52">4</text>
+                  <text x="96" y="52">5</text>
+                  <text x="112" y="52">6</text>
+                  <text x="128" y="52">7</text>
+                  <text x="144" y="52">8</text>
+                  <text x="160" y="52">9</text>
+                  <text x="176" y="52">0</text>
+                  <text x="192" y="52">1</text>
+                  <text x="208" y="52">2</text>
+                  <text x="224" y="52">3</text>
+                  <text x="240" y="52">4</text>
+                  <text x="256" y="52">5</text>
+                  <text x="272" y="52">6</text>
+                  <text x="288" y="52">7</text>
+                  <text x="304" y="52">8</text>
+                  <text x="320" y="52">9</text>
+                  <text x="336" y="52">0</text>
+                  <text x="352" y="52">1</text>
+                  <text x="368" y="52">2</text>
+                  <text x="384" y="52">3</text>
+                  <text x="400" y="52">4</text>
+                  <text x="416" y="52">5</text>
+                  <text x="432" y="52">6</text>
+                  <text x="448" y="52">7</text>
+                  <text x="464" y="52">8</text>
+                  <text x="480" y="52">9</text>
+                  <text x="496" y="52">0</text>
+                  <text x="512" y="52">1</text>
+                  <text x="76" y="84">Length</text>
+                  <text x="284" y="84">Node</text>
+                  <text x="324" y="84">Name</text>
+                  <text x="352" y="84">.</text>
+                  <text x="368" y="84">.</text>
+                  <text x="384" y="84">.</text>
+                </g>
+              </svg><a href="#section-3.3-2.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-name-sub-object-2" class="selfRef">Name Sub-Object</a>
@@ -1524,20 +1628,78 @@ the node.  The node name <span class="bcp14">MUST</span> be padded with ASCII NU
 if the object would not otherwise terminate on a 4-octet boundary.
 An example of truncation of a 66-octet node name, beginning
 "HelpMyAscii" and ending "xyzpdqha" would be encoded as follows:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-6">
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       64      |       H       |       e       |       l       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       p       |       M       |       y       |       A       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                            . . . .                            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       y       |       z       |       p       |       d       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre><a href="#section-3.3-6" class="pilcrow">¶</a>
+<div id="section-3.3-6">
+          <div class="alignLeft art-svg artwork" id="section-3.3-6.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="208" width="528" viewBox="0 0 528 208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,64 L 8,192" fill="none" stroke="black"></path>
+              <path d="M 136,64 L 136,128" fill="none" stroke="black"></path>
+              <path d="M 136,160 L 136,192" fill="none" stroke="black"></path>
+              <path d="M 264,64 L 264,128" fill="none" stroke="black"></path>
+              <path d="M 264,160 L 264,192" fill="none" stroke="black"></path>
+              <path d="M 392,64 L 392,128" fill="none" stroke="black"></path>
+              <path d="M 392,160 L 392,192" fill="none" stroke="black"></path>
+              <path d="M 520,64 L 520,192" fill="none" stroke="black"></path>
+              <path d="M 8,64 L 520,64" fill="none" stroke="black"></path>
+              <path d="M 8,96 L 520,96" fill="none" stroke="black"></path>
+              <path d="M 8,128 L 520,128" fill="none" stroke="black"></path>
+              <path d="M 8,160 L 520,160" fill="none" stroke="black"></path>
+              <path d="M 8,192 L 520,192" fill="none" stroke="black"></path>
+              <g class="text">
+                <text x="16" y="36">0</text>
+                <text x="176" y="36">1</text>
+                <text x="336" y="36">2</text>
+                <text x="496" y="36">3</text>
+                <text x="16" y="52">0</text>
+                <text x="32" y="52">1</text>
+                <text x="48" y="52">2</text>
+                <text x="64" y="52">3</text>
+                <text x="80" y="52">4</text>
+                <text x="96" y="52">5</text>
+                <text x="112" y="52">6</text>
+                <text x="128" y="52">7</text>
+                <text x="144" y="52">8</text>
+                <text x="160" y="52">9</text>
+                <text x="176" y="52">0</text>
+                <text x="192" y="52">1</text>
+                <text x="208" y="52">2</text>
+                <text x="224" y="52">3</text>
+                <text x="240" y="52">4</text>
+                <text x="256" y="52">5</text>
+                <text x="272" y="52">6</text>
+                <text x="288" y="52">7</text>
+                <text x="304" y="52">8</text>
+                <text x="320" y="52">9</text>
+                <text x="336" y="52">0</text>
+                <text x="352" y="52">1</text>
+                <text x="368" y="52">2</text>
+                <text x="384" y="52">3</text>
+                <text x="400" y="52">4</text>
+                <text x="416" y="52">5</text>
+                <text x="432" y="52">6</text>
+                <text x="448" y="52">7</text>
+                <text x="464" y="52">8</text>
+                <text x="480" y="52">9</text>
+                <text x="496" y="52">0</text>
+                <text x="512" y="52">1</text>
+                <text x="76" y="84">64</text>
+                <text x="200" y="84">H</text>
+                <text x="328" y="84">e</text>
+                <text x="456" y="84">l</text>
+                <text x="72" y="116">p</text>
+                <text x="200" y="116">M</text>
+                <text x="328" y="116">y</text>
+                <text x="456" y="116">A</text>
+                <text x="240" y="148">.</text>
+                <text x="256" y="148">.</text>
+                <text x="272" y="148">.</text>
+                <text x="288" y="148">.</text>
+                <text x="72" y="180">y</text>
+                <text x="200" y="180">z</text>
+                <text x="328" y="180">p</text>
+                <text x="456" y="180">d</text>
+              </g>
+            </svg><a href="#section-3.3-6.1" class="pilcrow">¶</a>
+</div>
 </div>
 <p id="section-3.3-7">The node name <span class="bcp14">MUST</span> be represented in the UTF-8 charset <span>[<a href="#RFC3629" class="cite xref">RFC3629</a>]</span>
 using the Default Language <span>[<a href="#RFC2277" class="cite xref">RFC2277</a>]</span>.  When truncating a name
@@ -1672,7 +1834,7 @@ bits starting at zero.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="RFC0792">[RFC0792]</dt>
         <dd>
-<span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC0792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
+<span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
