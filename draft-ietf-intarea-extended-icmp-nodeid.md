@@ -164,7 +164,7 @@ bitmask are chosen so that the IPAddr and name bits overlap
 with the same bits as defined in {{RFC5837}}, so that an implementation
 that supports exactly these bits can reuse packet generation and parsing code.
 
-~~~~
+~~~~ aasvg
 Bit     0       1       2       3       4       5       6       7
     +-------+-------+-------+-------+-------+-------+-------+-------+
     |               Unassigned              | IPAddr|  Name |  Un2  |
@@ -233,7 +233,7 @@ or as otherwise configured - as depicted in {{addrFig}}.
 {::comment}
 protocol 'AFI:16,Reserved:16,Address...:32'
 {:/comment}
-~~~~
+~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -271,7 +271,7 @@ Payload fields are defined as follows:
 {::comment}
 protocol 'Length:8,Node Name . . .:24'
 {:/comment}
-~~~~
+~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -302,7 +302,7 @@ An example of truncation of a 66-octet node name, beginning
 {::comment}
 protocol '64:8,H:8,e:8,l:8,p:8,M:8,y:8,A:8,. . . .:32,y:8,z:8,p:8,d:8'
 {:/comment}
-~~~~
+~~~~ aasvg
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
