@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-26T02:04:48.159098+00:00",
+  "timestamp": "2026-09-08T03:15:22.607434+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -318,7 +318,7 @@
       "id": "I_kwDOLJPxrM7SN0ol",
       "title": "AD Review: Section 3 SHOULD",
       "url": "https://github.com/fenner/icmp-node-id/issues/14",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -327,8 +327,8 @@
       ],
       "body": "Per https://datatracker.ietf.org/doc/statement-iesg-statement-on-clarifying-the-use-of-bcp-14-key-words/, explanations about when the \"SHOULD\" can be bypassed (I note that there is a `whenever` but this does not seem to cover all cases).\n\n",
       "createdAt": "2025-10-17T16:45:18Z",
-      "updatedAt": "2025-10-17T16:45:18Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-07T16:36:43Z",
+      "closedAt": "2026-09-07T16:36:43Z",
       "comments": []
     },
     {
@@ -336,7 +336,7 @@
       "id": "I_kwDOLJPxrM7SN02b",
       "title": "AD Review: Section 3 Domain",
       "url": "https://github.com/fenner/icmp-node-id/issues/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -345,8 +345,8 @@
       ],
       "body": "What is \"domain\" in `identify the node within the domain` ?\n\n",
       "createdAt": "2025-10-17T16:45:46Z",
-      "updatedAt": "2026-04-25T20:03:49Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-07T16:36:43Z",
+      "closedAt": "2026-09-07T16:36:43Z",
       "comments": [
         {
           "author": "fenner",
@@ -449,7 +449,7 @@
       "id": "I_kwDOLJPxrM7SN18H",
       "title": "AD Review: Section 4",
       "url": "https://github.com/fenner/icmp-node-id/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fenner",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -458,8 +458,8 @@
       ],
       "body": "`Further details of this mode of operation are outside the scope of this memo.` s/memo/document/\n\n \n\nAnd I would assume that basic MTU & fragmentation consideration should be added.\n\n",
       "createdAt": "2025-10-17T16:47:56Z",
-      "updatedAt": "2025-10-17T16:47:56Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-07T16:36:44Z",
+      "closedAt": "2026-09-07T16:36:44Z",
       "comments": []
     },
     {
@@ -610,6 +610,30 @@
       "updatedAt": "2025-10-21T20:31:00Z",
       "closedAt": "2025-10-21T20:31:00Z",
       "comments": []
+    },
+    {
+      "number": 28,
+      "id": "I_kwDOLJPxrM8AAAABQHyTSg",
+      "title": "IANA Review: add language to instruct IANA to create the new sub-registry",
+      "url": "https://github.com/fenner/icmp-node-id/issues/28",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "On Fri, Jul 17, 2026 at 4:45\u202fPM David Dong via RT <iana-issues@iana.org> wrote:\n> Dear Authors,\n> \n> Before the IETF meeting, we check working group agendas for documents with IANA-related issues. We have notes about this document:\n> \n> https://datatracker.ietf.org/doc/draft-ietf-intarea-extended-icmp-nodeid/\n> \n> 6: Could the authors add language to instruct IANA to create the new sub-registry for Class Value 5? See section 5.2 of draft-jags-intarea-icmp-ext-underlay-info for example language/format.\n",
+      "createdAt": "2026-09-07T16:02:13Z",
+      "updatedAt": "2026-09-07T16:25:03Z",
+      "closedAt": "2026-09-07T16:25:03Z",
+      "comments": [
+        {
+          "author": "fenner",
+          "authorAssociation": "OWNER",
+          "body": "I had addressed this, just hadn't published it",
+          "createdAt": "2026-09-07T16:25:03Z",
+          "updatedAt": "2026-09-07T16:25:03Z"
+        }
+      ]
     }
   ],
   "pulls": [
