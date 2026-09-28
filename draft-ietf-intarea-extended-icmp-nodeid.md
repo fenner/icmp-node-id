@@ -258,6 +258,17 @@ Payload fields are defined as follows:
   + 1: 32-bit IPv4 address
   + 2: 128-bit IPv6 address.
 
+  If this field contains any other value not listed above, it
+  is not possible to determine the size of this variable-length
+  sub-object, so processing of the Node Identification Object MUST be
+  stopped, and the packet handled as though this object was not present.
+  This does not prevent an implementation from handling further
+  ICMP Extension messages, as the length field defined in {{RFC4884}}
+  allows skipping over the partly-handled message.
+
+  Updates to AFI values and semantics defined in {{Section 4.2 of RFC5837}}
+  are considered to be updates to this section as well.
+
 * Reserved: This field MUST be set to 0 and ignored upon
   receipt.
 
@@ -462,6 +473,13 @@ This section is to be removed before publishing as an RFC.
 - Changes from AD Review
   see https://mailarchive.ietf.org/arch/msg/int-area/jhtF0oqj3O0IoKBmb4Q_jwYEzA8/
 
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-05
+
+- To address Richard Scheffenegger's TSVdir review and Mohit Sethi's
+  Secdir review, make it explicit that the extension MUST not be
+  processed if the AFI is unknown, but also add that additions to
+  AFI handling in RFC5837 should be considered to be additions to this
+  document.
 
 # Acknowledgments
 {:numbered="false"}
