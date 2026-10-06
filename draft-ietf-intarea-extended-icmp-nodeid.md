@@ -343,6 +343,8 @@ An IP/ICMP translator MAY use this extension when translating
 an ICMP message listed above to include the
 pre-translation source address of a packet. When doing so, it MUST
 include the IP Address Sub-Object.
+An IP/ICMP translator MUST NOT add this extension if one is already
+present in the packet.
 If an ICMP Extension Structure is already present
 in the packet being translated, this Extension Object is added to
 the existing ICMP Extension Structure and the checksum is updated.
@@ -480,6 +482,10 @@ This section is to be removed before publishing as an RFC.
   processed if the AFI is unknown, but also add that additions to
   AFI handling in RFC5837 should be considered to be additions to this
   document.
+
+## Changes since draft-ietf-intarea-extended-icmp-nodeid-06
+
+- Clarify that a node ID object is not inserted if one is already present.
 
 # Acknowledgments
 {:numbered="false"}
