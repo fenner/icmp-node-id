@@ -480,7 +480,7 @@ This section is to be removed before publishing as an RFC.
 ## Changes since draft-ietf-intarea-extended-icmp-nodeid-05
 
 - To address Richard Scheffenegger's TSVdir review and Mohit Sethi's
-  Secdir review, make it explicit that the extension MUST not be
+  Secdir review, make it explicit that the extension MUST NOT be
   processed if the AFI is unknown, but also add that additions to
   AFI handling in RFC5837 should be considered to be additions to this
   document.
