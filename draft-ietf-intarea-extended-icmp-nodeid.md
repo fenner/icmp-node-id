@@ -347,7 +347,9 @@ An IP/ICMP translator MUST NOT add this extension if one is already
 present in the packet.
 If an ICMP Extension Structure is already present
 in the packet being translated, this Extension Object is added to
-the existing ICMP Extension Structure and the checksum is updated.
+the existing ICMP Extension Structure and the checksums are updated.
+Note that both the ICMP checksum ({{RFC0792}} or {{RFC4443}}) and
+the ICMP Extension checksum {{RFC4884}} are updated.
 If an ICMP Extension Structure is not present in the packet being
 translated, one is added using the rules of {{RFC4884}}.
 Further details of this mode of operation are outside the
@@ -486,6 +488,8 @@ This section is to be removed before publishing as an RFC.
 ## Changes since draft-ietf-intarea-extended-icmp-nodeid-06
 
 - Clarify that a node ID object is not inserted if one is already present.
+
+- State that both ICMP and Extension checksums are updated.
 
 # Acknowledgments
 {:numbered="false"}
