@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-08T03:15:22.607434+00:00",
+  "timestamp": "2026-10-08T04:42:41.997742+00:00",
   "repo": "fenner/icmp-node-id",
   "labels": [
     {
@@ -52,6 +52,11 @@
       "name": "ad-review",
       "description": "",
       "color": "51f316"
+    },
+    {
+      "name": "last-call",
+      "description": null,
+      "color": "aaaaaa"
     }
   ],
   "issues": [
@@ -634,6 +639,60 @@
           "updatedAt": "2026-09-07T16:25:03Z"
         }
       ]
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOLJPxrM8AAAABVW9Eiw",
+      "title": "INT Review: Multiple Node Identification Objects",
+      "url": "https://github.com/fenner/icmp-node-id/issues/29",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "last-call"
+      ],
+      "body": "From Suresh Krishnan -\n\n* Multiple Node Identification Objects (allowed or not?)\n\nThe draft does not specify whether multiple Node Identification Objects are\nallowed in a packet. Given that a source node can add a Node Identification\nObject and a translator can also potentially add one based on text in this\nsection, this needs to be explicitly stated along with ordering and potential\nreceiver behaviors.\n",
+      "createdAt": "2026-10-06T12:25:31Z",
+      "updatedAt": "2026-10-06T13:37:32Z",
+      "closedAt": "2026-10-06T13:37:32Z",
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOLJPxrM8AAAABVW9rMA",
+      "title": "INT Review: Checksum update on translators",
+      "url": "https://github.com/fenner/icmp-node-id/issues/30",
+      "state": "CLOSED",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "last-call"
+      ],
+      "body": "From Suresh Krishnan\n\n* Checksum update on translators\n\nSection 4 states that \"If an ICMP Extension Structure is already present in the\npacket being translated, this Extension Object is added to the existing ICMP\nExtension Structure and the checksum is updated.\". The phrase \"the checksum\" is\nambiguous because there are two checksum fields in the packet, the ICMP\nchecksum and the RFC4884 ICMP Extension checksum. I think both of these need to\nbe updated. If you agree, please update the text to clarify this.\n",
+      "createdAt": "2026-10-06T12:26:11Z",
+      "updatedAt": "2026-10-06T13:37:33Z",
+      "closedAt": "2026-10-06T13:37:33Z",
+      "comments": []
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOLJPxrM8AAAABVW-W_A",
+      "title": "INT Review: Section 3",
+      "url": "https://github.com/fenner/icmp-node-id/issues/31",
+      "state": "OPEN",
+      "author": "fenner",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "last-call"
+      ],
+      "body": "From Suresh Krishnan\n\n* Section 3\n\nI have a hard time seeing this text as representing a MUST. Isn't this simply a\nrestatement of the conditions for a SHOULD?\n\n\"MUST be added whenever the responding IP address may not be sufficient to\nidentify the node, unless local policy or security considerations supersede\nthis requirement.\"\n",
+      "createdAt": "2026-10-06T12:26:57Z",
+      "updatedAt": "2026-10-06T12:27:08Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
